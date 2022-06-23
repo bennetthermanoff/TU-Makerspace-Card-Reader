@@ -24,7 +24,7 @@ function ConditionalButton(props) {
 
 function RenderEditPassword(props) {
     console.log('test: ' + props.hasPassword);
-    if (props.userIsFabTech && !props.hasPassword) {
+    if (props.isAdmin && !props.hasPassword && props.userIsFabTech) {
         console.log('should return the box');
         return (
             <div>
@@ -38,7 +38,7 @@ function RenderEditPassword(props) {
                 <button className="BetterButton" onClick={() => props.handleCreatePassword()}>Submit</button>
             </div>
         )
-    } else if (props.userIsFabTech) {
+    } else if (props.isAdmin && props.userIsFabTech) {
         return (
             <button className="BetterButton" id="biggerButton" onClick={() => props.handleCreatePassword()}>Edit Password</button>
         )
@@ -201,7 +201,7 @@ export default class EditUser2 extends React.Component {
                     }
                     else {
                         authID = response.data.id;
-                        axios(editUser(this.state.idINT, { [training[0]]: !training[1] }, authID, this.state.authPassword))
+                        axios(editUser(this.state.idINT, { [training[0]]: training[1] }, authID, this.state.authPassword))
                             .then((response, error) => {
                                 if (error) {
                                     console.log('Error editing user !');
@@ -220,7 +220,7 @@ export default class EditUser2 extends React.Component {
                 })
         }
         else { //authid is a number
-            axios(editUser(this.state.idINT, { [training[0]]: !training[1] }, parseInt(this.state.authID), this.state.authPassword))
+            axios(editUser(this.state.idINT, { [training[0]]: training[1] }, parseInt(this.state.authID), this.state.authPassword))
                 .then((response, error) => {
                     if (error) {
                         console.log('Error editing user !');
@@ -233,6 +233,7 @@ export default class EditUser2 extends React.Component {
                     }
                 })
                 .catch((err) => {
+                    console.log(err);
                     this.handleFindUser();
                 })
         }
@@ -344,35 +345,6 @@ export default class EditUser2 extends React.Component {
         if (this.state.isFabTech) {
             return (
                 <div>
-                    <div className="editUserContainer">
-                        <h1 id="text3" align="left"> </h1>
-                        <Inputs
-                            className="BoxInput"
-                            placeholder="Enter ID"
-                            value={this.state.id}
-                            variable="id"
-                            parentCallBack={this.handleCallBack}
-                        />
-                        <button className="BetterButton" onClick={() => this.handleFindUser()}>Search</button>
-                        <h1 id="text3" align="left">Name: {this.state.user.name}</h1>
-                        <DisplayChecks
-                            trainings={this.state.userTrainings}
-                            handleChange={this.handleChange}
-                            userIsFabTech={this.state.userIsFabTech}
-                            isAdmin={this.state.isAdmin}
-                            toggleFabTech={this.toggleFabTech}
-                        />
-                        <RenderEditPassword
-                            userIsFabTech={this.state.userIsFabTech}
-                            hasPassword={this.state.hasPassword}
-                            createdPassword={this.state.createdPassword}
-                            handleCreatePassword={this.handleCreatePassword}
-                            handleCallBack={this.handleCallBack}
-                        />
-                        <ConditionalButton
-                            trainings={this.state.userTrainings}
-                        />
-                    </div>
                     <div className="container">
                         <div>
                             <Inputs
@@ -396,6 +368,37 @@ export default class EditUser2 extends React.Component {
                             />
                         </div>
                     </div>
+                    <div className="editUserContainer">
+                        <h1 id="text3" align="left"> </h1>
+                        <Inputs
+                            className="BoxInput"
+                            placeholder="Enter ID"
+                            value={this.state.id}
+                            variable="id"
+                            parentCallBack={this.handleCallBack}
+                        />
+                        <button className="BetterButton" onClick={() => this.handleFindUser()}>Search</button>
+                        <h1 id="text3" align="left">Name: {this.state.user.name}</h1>
+                        <DisplayChecks
+                            trainings={this.state.userTrainings}
+                            handleChange={this.handleChange}
+                            userIsFabTech={this.state.userIsFabTech}
+                            isAdmin={this.state.isAdmin}
+                            toggleFabTech={this.toggleFabTech}
+                        />
+                        <RenderEditPassword
+                            userIsFabTech={this.state.userIsFabTech}
+                            isAdmin={this.state.isAdmin}
+                            hasPassword={this.state.hasPassword}
+                            createdPassword={this.state.createdPassword}
+                            handleCreatePassword={this.handleCreatePassword}
+                            handleCallBack={this.handleCallBack}
+                        />
+                        <ConditionalButton
+                            trainings={this.state.userTrainings}
+                        />
+                    </div>
+                    
                 </div>
             )
         } else {

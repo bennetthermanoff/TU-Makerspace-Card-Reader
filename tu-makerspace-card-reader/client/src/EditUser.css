@@ -1,13 +1,14 @@
 .editUserContainer { /* container that holds the checkboxes, user ID input, and t*/
     position: relative;
     width: 400px;
-    height: 750px;
+    height: 720px;
     background-color: rgb(225, 251, 235);
     border: 1.5px solid #288F65;
     border-radius: 10px;
     opacity: 0.83;
     margin: auto;
-    display:block;
+    top: -10px;
+    display: block;
     align-items: center;
     justify-content: center;
 }
@@ -38,6 +39,7 @@
     height:30px;
     font-size: 14px;
     margin-bottom: 10px;
+    margin-right: 8px;
 }
 #small-input:hover {
     background-color: rgb(185, 214, 196);
@@ -53,14 +55,14 @@
     background-color: rgb(185, 214, 196);
 }
 .container {
-    position:absolute;
-    right: 73%;
-    top: 150px;
-    grid-template-columns: 1fr;
-}
-#check {
-    margin-bottom: 0px;
-    margin-top: 0px;
+    position: relative;
+    top: -10px;
+    width: 400px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
 }
 
 .BetterButton {
@@ -106,12 +108,10 @@
     font-size: 24px;
     padding-left: 15px;
 }
-.container {
-    position: absolute;
-    grid-template-columns: 1fr;
-}
+
 .containerChecks {
     position: relative;
+    display: contents;
     grid-template-columns: 1fr;
 }
 ::placeholder {
@@ -125,6 +125,15 @@
     font-family: "sans-serif", consolas, monaco;
     color: rgb(25,31,61);
     font-weight: bold;
+    font-size: 12px;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+}
+.checks {
+    padding: 0px;
+    margin: 0px;
+    height: 10px;
 }
 @media (prefers-color-scheme: dark) {
     #text3 {
@@ -132,5 +141,21 @@
     }
     .editUserContainer {
         background-color:#8cc8af;
+    }
+}
+@media (min-width: 850px) {
+    .container {
+        position:relative;
+        display: block;
+        top: 50px;
+        right: 34%;
+        margin-left: 1fr;
+        grid-template-columns: 1fr;
+    }
+    #small-input {
+        margin-right: 0px;
+    }
+    .editUserContainer { /* container that holds the checkboxes, user ID input, and t*/
+        top: -100px;
     }
 }

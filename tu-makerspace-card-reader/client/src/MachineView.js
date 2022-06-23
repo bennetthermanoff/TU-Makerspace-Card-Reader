@@ -5,14 +5,24 @@ import tempimage from './tempimage.png';
 import axios from 'axios';
 import SwitchUnstyled from '@mui/base/SwitchUnstyled';
 import React from 'react';
-import { getUser, disableMachine, toggleMachine, getAllMachines } from './APIRoutes';
+import { getUser, disableMachine, toggleMachine, getAllMachines, editMachine } from './APIRoutes';
 import Root from './switchtheme.js'
 import './DarkMode.css'
-
+function AdminButton(props) {
+  if (props.isFabTech) {
+    return (
+      <button className="BetterBox" onClick={() => props.toggleFabTechView()}>Tag Out</button>
+    )
+  } else {
+    return null;
+  }
+}
 export default class MachineView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isFabTech: false,
+      fabTechView: false,
       value: '',
       $error: false,// added $ before boolean
       currentUser: {
@@ -27,6 +37,8 @@ export default class MachineView extends React.Component {
         "requiredTraining": "nullTraining",
       }], //temporary "loading" machine that gets overirdden in componentdidmount()
     };
+    
+    this.toggleFabTechView = this.toggleFabTechView.bind(this);
   }
   componentDidMount() { //gets called when component starts, gets machines for specific machinegroup from api
     axios(getAllMachines(this.state.machineGroup)).then((response, error) => {
@@ -63,6 +75,8 @@ export default class MachineView extends React.Component {
           this.setState({
             currentUser: response.data,
             $error: false,
+            isFabTech: response.data.fabTech,
+            fabTechView: false,
           });
           //currentUser is set in state of search, need to build function to check user perms and apply to machines as they are mapped
         }
@@ -70,7 +84,10 @@ export default class MachineView extends React.Component {
           console.log("error fetching name: " + err);
           this.setState({
             $error: true,
-            currentUser: { "name": "Enter ID", "nullTraining": false },
+            currentUser: { 
+              "name": "Enter ID", 
+            "nullTraining": false 
+          },
           });
 
         }
@@ -78,7 +95,10 @@ export default class MachineView extends React.Component {
         console.log("error fetching name: " + err);
         this.setState({
           $error: true,
-          currentUser: { "name": "Enter ID", "nullTraining": false },
+          currentUser: {
+            "name": "Enter ID", 
+            "nullTraining": false 
+          },
         });
       });
     } else { // unsets error when empty
@@ -95,6 +115,8 @@ export default class MachineView extends React.Component {
 
   handleLogOut() {
     this.setState({
+      isFabTech: false,
+      fabTechView: false,
       value: '',
       $error: false,
       currentUser: {
@@ -103,12 +125,26 @@ export default class MachineView extends React.Component {
       },
     })
   }
+  toggleFabTechView() {
+    this.setState((currentState) => {
+      return {
+        fabTechView: !currentState.fabTechView,
+      }
+    })
+    
+  }
 
   render() {
     let err = this.state.$error;
     return (
 
       <div>
+        <div id="adminToggle">
+          <AdminButton 
+            isFabTech={this.state.isFabTech}
+            toggleFabTechView={this.toggleFabTechView}
+            />
+        </div>
         <div className='login-container' align="left">
           {/* Create textfield for user input, highlights red if error! Blue if valid name! */}
           <h3 id="otherh3">Name: {this.state.currentUser.name !== "Enter ID" ? this.state.currentUser.name : ' '}</h3>
@@ -117,7 +153,7 @@ export default class MachineView extends React.Component {
             id={err === true ? "input2true" : "input2false"}
             className='BetterTextField'
             placeholder={this.state.currentUser.name}
-            $error={this.state.error}
+            $error={this.state.$error}
             value={this.state.value}
             onChange={this.handlenewSearch}
             autoComplete="off"
@@ -139,10 +175,13 @@ export default class MachineView extends React.Component {
               currentUser={this.state.currentUser}
               activated={machine.status}
               trained={this.state.currentUser[machine.requiredTraining]}
+              taggedOut={machine.taggedOut}
+              isFabTech={this.state.isFabTech}
+              fabTechView={this.state.fabTechView}
+              userID={this.state.currentUser.id}
             />
           ))}
-          {this.state.machines.map((machine) => {
-          })}
+        
         </div>
 
 
@@ -164,12 +203,14 @@ class Machine extends React.Component {
       currentUser: props.currentUser,
       image: this.getImage(props.machineName, props.machineID),
       trained: props.trained,
-
+      fabTechView: props.fabTechView,
+      taggedOut: props.taggedOut,
+      userID: props.userID,
     };
   }
 
   //used to determine which image to grab for machine diplay. may move this to its own file later to clean up code.
-  getImage(machineName, machineID) {
+  getImage(machineName) {
     //console.log(machineName + " " + machineID);
     if (machineName === "CNC Mill") {
       return mill;
@@ -188,12 +229,14 @@ class Machine extends React.Component {
     state = {
       currentUser: props.currentUser,
       currentUser: props.currentUser,
-      trained: props.trained
+      trained: props.trained,
+      fabTechView: props.fabTechView,
+      userID: props.userID,
     };
     return state
   }
   //called when button is clicked, changes state and calls api to database
-  onButtonChange = () => {
+  onButtonChange() {
     if (this.state.activated) {
       this.setState({ activated: false });
       axios(disableMachine(this.state.machineID));
@@ -218,14 +261,38 @@ class Machine extends React.Component {
       //console.log('key: ' + this.state.machineID);
     }
   }
+  handleToggleTagOut() {
+    if (this.state.fabTechView) {
+    axios(editMachine(this.state.machineID, {"taggedOut":!this.state.taggedOut}, this.state.userID))
+      .then((response, error) => {
+        if (error) {
+          console.log('Error tagging in/out');
+        } else {
+          console.log('Success tagging in/out');
+          this.setState((currentState) => {
+            return {
+              taggedOut: !currentState.taggedOut,
+              activated: false,
+            }
+          })
+
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+    
+  }
 
   render() {
     return (
 
       <div className="MachineBoxContainer" align="center">
-
-        <div className={this.state.activated ? "MachineBoxBorder" : ''}>
-          <img src={this.state.image} className={this.state.activated ? "MachineBoxTrue" : "MachineBox"} />
+        
+        <div className={this.state.activated ? "MachineBoxBorder" : 'MachineBoxBorder-false'}>
+            
+            <img src={this.state.image} className={this.state.activated ? "MachineBoxTrue" : "MachineBox"} />
+            <button className={this.state.fabTechView ? "AdminToggle": "AdminToggleFalse"} id={this.state.taggedOut ? "tagged-out-true" : "tagged-out-false"} onClick={() => this.handleToggleTagOut()} ></button>
         </div>
         <span>
           <span id="otherh3-2">{this.state.machineName}
@@ -237,9 +304,9 @@ class Machine extends React.Component {
               checked={this.state.activated}
               size="medium"
               color="success"
-              disabled={!this.state.trained && !this.state.activated}
+              disabled={(!this.state.trained && !this.state.activated) || this.state.taggedOut}
               inputprops={{ 'aria-label': 'Checkbox demo' }}
-              onChange={(event) => this.onButtonChange(event)}
+              onChange={() => this.onButtonChange()}
             />
           </span>
         </span>

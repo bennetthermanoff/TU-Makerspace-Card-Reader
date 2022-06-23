@@ -16,6 +16,7 @@
   padding-left: 10px;
 }
 .BetterBox {
+  z-index: 1;
   position: relative;
   width: 80px;
   height: 40x;
@@ -43,6 +44,10 @@
   top: 1px;
   background-color: #bfebd1;
   border-color: #288F65;
+}
+#adminToggle {
+  position: absolute;
+  right: 35px;
 }
 #otherh3 {
   color: rgb(25, 61, 29);
@@ -89,7 +94,6 @@
   border: 7px solid rgb(25, 61, 29);
   margin-top: 11px;
   margin-bottom: 7.25px;
-  
 }
 .MachineBoxTrue {
   position:relative;
@@ -98,6 +102,14 @@
   border: 18px solid transparent;
   margin-top:0px;
   margin-bottom: 0px;
+}
+.MachineBoxBorder-false {
+  position: relative;
+  width: 136px;
+  height: 136px;
+  background-color: transparent;
+  align-items: center;
+  justify-items: center;
 }
 .MachineBoxBorder {
   position: relative;
@@ -166,6 +178,40 @@
   margin-left: 10px;
   
 }
+.AdminToggle {
+  position: absolute;
+  z-index: 2;
+  margin: auto;
+  left: 11px;
+  top: 11px;
+  width: 114px;
+  height: 114px;
+  background-color: transparent;
+  border: 7px solid red;
+  outline: none;
+}
+.AdminToggle:hover {
+  cursor:pointer;
+}
+.AdminToggleFalse {
+  position: absolute;
+  z-index:-1;
+  left: 11px;
+  top: 11px;
+  width: 114px;
+  height: 114px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor:not-allowed;
+}
+#tagged-out-false {
+  background-color: transparent;
+}
+#tagged-out-true {
+  z-index: 2;
+  background-color: rgba(233, 95, 95, 0.7);
+}
 @media (min-width: 600px) {
   .container2 {
     position: relative;
@@ -188,5 +234,7 @@
     position: relative;
     width: 1000px;
     grid-template-columns: 250px 250px 250px 250px;
+    margin-right: 80px;
   }
+  
 }
