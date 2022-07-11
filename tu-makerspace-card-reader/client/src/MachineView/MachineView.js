@@ -1,22 +1,11 @@
 import './machineView.css';
-import mill from './mill.png';
-import bandsaw from './bandsaw.jpeg';
-import tempimage from './tempimage.png';
 import axios from 'axios';
-import SwitchUnstyled from '@mui/base/SwitchUnstyled';
 import React from 'react';
-import { getUser, disableMachine, toggleMachine, getAllMachines, editMachine } from './APIRoutes';
-import Root from './switchtheme.js'
-import './DarkMode.css'
-function AdminButton(props) {
-  if (props.isFabTech) {
-    return (
-      <button className="BetterBox" onClick={() => props.toggleFabTechView()}>Tag Out</button>
-    )
-  } else {
-    return null;
-  }
-}
+import { getUser, disableMachine, toggleMachine, getAllMachines, editMachine } from '../APIRoutes';
+import { TagOutButton, TagOutInformation } from './TagOut.js';
+import getImage from './GetImage.js';
+
+
 export default class MachineView extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +13,7 @@ export default class MachineView extends React.Component {
       isFabTech: false,
       fabTechView: false,
       value: '',
-      $error: false,// added $ before boolean
+      error: false,// added $ before boolean
       currentUser: {
         "name": "Enter ID",
         "nullTraining": false,
@@ -41,12 +30,12 @@ export default class MachineView extends React.Component {
     this.toggleFabTechView = this.toggleFabTechView.bind(this);
   }
   componentDidMount() { //gets called when component starts, gets machines for specific machinegroup from api
-    axios(getAllMachines(this.state.machineGroup)).then((response, error) => {
-      if (error) {
+    axios(getAllMachines(this.state.machineGroup)).then((response, err) => {
+      if (err) {
         console.log("error getting machines");
       }
       else {
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({
           machines: []
         })
@@ -68,13 +57,13 @@ export default class MachineView extends React.Component {
       value: value,
     })
     if (value !== '') { // added this to unset error
-      axios(getUser(event.target.value)).then((response, err) => {
-        console.log(response.data);
+      axios(getUser(parseInt(event.target.value,16))).then((response, err) => {
+        // console.log(response.data);
         if (response.data.name) {
           console.log("name set: " + response.data.name);
           this.setState({
             currentUser: response.data,
-            $error: false,
+            error: false,
             isFabTech: response.data.fabTech,
             fabTechView: false,
           });
@@ -83,10 +72,10 @@ export default class MachineView extends React.Component {
         else {
           console.log("error fetching name: " + err);
           this.setState({
-            $error: true,
+            error: true,
             currentUser: { 
               "name": "Enter ID", 
-            "nullTraining": false 
+            "nullTraining": false, 
           },
           });
 
@@ -94,7 +83,7 @@ export default class MachineView extends React.Component {
       }).catch((err) => {
         console.log("error fetching name: " + err);
         this.setState({
-          $error: true,
+          error: true,
           currentUser: {
             "name": "Enter ID", 
             "nullTraining": false 
@@ -108,6 +97,8 @@ export default class MachineView extends React.Component {
           "name": "Enter ID",
           "nullTraining": false,
         },
+        isFabTech: false,
+        fabTechView: false,
       })
     }
 
@@ -118,7 +109,7 @@ export default class MachineView extends React.Component {
       isFabTech: false,
       fabTechView: false,
       value: '',
-      $error: false,
+      error: false,
       currentUser: {
         "name": "Enter ID",
         "nullTraining": false,
@@ -134,14 +125,16 @@ export default class MachineView extends React.Component {
     
   }
 
+
   render() {
-    let err = this.state.$error;
+    let err = this.state.error;
     return (
 
       <div>
         <div id="adminToggle">
-          <AdminButton 
+          <TagOutButton 
             isFabTech={this.state.isFabTech}
+            fabTechView = {this.state.fabTechView}
             toggleFabTechView={this.toggleFabTechView}
             />
         </div>
@@ -153,7 +146,7 @@ export default class MachineView extends React.Component {
             id={err === true ? "input2true" : "input2false"}
             className='BetterTextField'
             placeholder={this.state.currentUser.name}
-            $error={this.state.$error}
+            error={this.state.error.toString()}
             value={this.state.value}
             onChange={this.handlenewSearch}
             autoComplete="off"
@@ -179,6 +172,7 @@ export default class MachineView extends React.Component {
               isFabTech={this.state.isFabTech}
               fabTechView={this.state.fabTechView}
               userID={this.state.currentUser.id}
+              description={machine.description}
             />
           ))}
         
@@ -201,30 +195,21 @@ class Machine extends React.Component {
       machineName: props.machineName,
       activated: props.activated,
       currentUser: props.currentUser,
-      image: this.getImage(props.machineName, props.machineID),
+      image: getImage(props.machineName, props.machineID),
       trained: props.trained,
       fabTechView: props.fabTechView,
       taggedOut: props.taggedOut,
       userID: props.userID,
+      tagOutMessageValue: '',
+      tagOutMessage: props.description || '',
     };
+
+    this.handleCallBack = this.handleCallBack.bind(this);
+    this.submitMessage = this.submitMessage.bind(this);
+    this.onButtonChange = this.onButtonChange.bind(this);
   }
 
-  //used to determine which image to grab for machine diplay. may move this to its own file later to clean up code.
-  getImage(machineName) {
-    //console.log(machineName + " " + machineID);
-    if (machineName === "CNC Mill") {
-      return mill;
-    }
-    else if (machineName === 'Bandsaw') {
-      return bandsaw;
-    }
-    else {
-      return tempimage;
-    }
-
-  }
-
-  //used to update buttons with perms on user change. does not change activated state on machine, so remote disable is not supported atm. to be supported if deemed needed.
+  // used to update buttons with perms on user change. does not change activated state on machine, so remote disable is not supported atm. to be supported if deemed needed.
   static getDerivedStateFromProps(props, state) {
     state = {
       currentUser: props.currentUser,
@@ -235,7 +220,7 @@ class Machine extends React.Component {
     };
     return state
   }
-  //called when button is clicked, changes state and calls api to database
+  // called when button is clicked, changes state and calls api to database
   onButtonChange() {
     if (this.state.activated) {
       this.setState({ activated: false });
@@ -263,7 +248,7 @@ class Machine extends React.Component {
   }
   handleToggleTagOut() {
     if (this.state.fabTechView) {
-    axios(editMachine(this.state.machineID, {"taggedOut":!this.state.taggedOut}, this.state.userID))
+    axios(editMachine(this.state.machineID, {"taggedOut":!this.state.taggedOut, "description":''}, this.state.userID))
       .then((response, error) => {
         if (error) {
           console.log('Error tagging in/out');
@@ -273,6 +258,7 @@ class Machine extends React.Component {
             return {
               taggedOut: !currentState.taggedOut,
               activated: false,
+              tagOutMessage: '',
             }
           })
 
@@ -281,35 +267,55 @@ class Machine extends React.Component {
         console.log(err);
       })
     }
-    
+  }
+
+  // Receives input from the <Inputs />
+  handleCallBack(variable, value) {
+    this.setState({
+        [variable]: value,
+    })
+  }
+
+  submitMessage() {
+    if (this.state.tagOutMessageValue) {
+      axios(editMachine(this.state.machineID, {"description":this.state.tagOutMessageValue}, this.state.userID))
+        .then((response, error) => {
+          if (error) {
+            console.log('Error editing machine description');
+          } else {
+            console.log('Successfully edited machine description');
+            this.setState((currentState) => {
+              return {
+                tagOutMessage: currentState.tagOutMessageValue,
+                tagOutMessageValue: '',
+              }
+            })
+            console.log(this.state.tagOutMessageValue);
+          }
+          })
+      }
   }
 
   render() {
     return (
-
       <div className="MachineBoxContainer" align="center">
-        
+        <span id="otherh3-2">{this.state.machineName}</span>
         <div className={this.state.activated ? "MachineBoxBorder" : 'MachineBoxBorder-false'}>
-            
             <img src={this.state.image} className={this.state.activated ? "MachineBoxTrue" : "MachineBox"} />
             <button className={this.state.fabTechView ? "AdminToggle": "AdminToggleFalse"} id={this.state.taggedOut ? "tagged-out-true" : "tagged-out-false"} onClick={() => this.handleToggleTagOut()} ></button>
         </div>
-        <span>
-          <span id="otherh3-2">{this.state.machineName}
-
-            <SwitchUnstyled
-              component={Root}
-              id="switch"
-              className="toggle"
-              checked={this.state.activated}
-              size="medium"
-              color="success"
-              disabled={(!this.state.trained && !this.state.activated) || this.state.taggedOut}
-              inputprops={{ 'aria-label': 'Checkbox demo' }}
-              onChange={() => this.onButtonChange()}
-            />
-          </span>
-        </span>
+        <TagOutInformation
+          fabTechView={this.state.fabTechView}
+          taggedOut={this.state.taggedOut}
+          tagOutMessageValue={this.state.tagOutMessageValue}
+          tagOutMessage={this.state.tagOutMessage}
+          machineName={this.state.machineName}
+          activated={this.state.activated}
+          trained={this.state.trained}
+          submitMessage={this.submitMessage}
+          handleCallBack={this.handleCallBack}
+          onButtonChange={this.onButtonChange}
+          />
 
       </div>
 

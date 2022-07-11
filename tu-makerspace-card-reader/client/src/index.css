@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #9dcab2;
-  background-image: url('bigmakerspacelogo.png');
+  background-image: url('images/lightmodelogo.png');
   background-repeat: no-repeat;
   background-position: 50% 80px;
   
@@ -20,7 +20,7 @@ code {
   body {
     
     background: #002219;
-    background-image: url('darkbigmakerspacelogo.png');
+    background-image: url('images/darkmodelogo.png');
     background-repeat: no-repeat;
     background-position: 50% 80px;
   }

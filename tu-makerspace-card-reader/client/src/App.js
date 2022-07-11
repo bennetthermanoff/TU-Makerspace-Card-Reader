@@ -1,10 +1,12 @@
 import './App.css';
-import MachineView from './MachineView.js';
-import AddUser from './AddUser.js';
+import { MachineView } from './MachineView';
+import { AddUser } from './AddUser';
 import { Routes, Route, Link } from 'react-router-dom';
-import EditUser from './EditUser.js';
-import logo from './makerspacelogo.png';
-
+import { EditUser } from './EditUser';
+import { logo } from './images';
+import { Hamburger } from  './UsedComponents';
+import { useLocation } from 'react-router-dom';
+import React from 'react';
 
 function Home(){
   return(
@@ -14,37 +16,70 @@ function Home(){
         <p className="text">You can do this, I believe in you.</p>
       </main>
       <nav className="List">
-        <form action="/metalShop1">
-        <button className = "Box">metalShop1</button>
+        <form action="/metal-shop-1">
+        <button className = "Box">Metal Shop 1</button>
         </form>
-        <form action="/addUser">
+        <form action="/metal-shop-2">
+          <button className="Box">Metal Shop 2</button>
+        </form>
+        <form action="/wood-shop">
+          <button className="Box">Wood Shop</button>
+        </form>
+        <form action="/printers-and-lasers">
+          <button className="Box">Printers and Lasers</button>
+        </form>
+        <form action="/add-user">
           <button className = "Box">Add a User</button>
         </form>
-        <form action="/editUser">
+        <form action="/edit-user">
           <button className="Box">Edit User</button>
         </form>
       </nav>
     </>
   )
 }
+function GetMachineGroup(loc) {
+  console.log(loc);
+  let location = loc;
+  if (location) {
+    switch(location) {
+      case "/metal-shop-1":
+        return ": Metal Shop 1";
+      case "/metal-shop-2":
+        return ": Metal Shop 2";
+      case "/wood-shop":
+        return ": Wood Shop";
+      case "/printers-and-lasers":
+        return ": 3D Printers and Lasers Status";
+      default:
+        return "";
+    }
+  }
+};
 
 function App() {
+  let location = useLocation().pathname;
   return (
     <div className="App">
     
     <h1 className="header">
+    <Hamburger />
     <form action="/" className = "form2">
       <button className="logo-button"></button>
       </form>
     <img src={logo} id="logo"/>
     
-      Tulane Makerspace</h1>
+    
+      Tulane Makerspace{GetMachineGroup(location)}</h1>
     <Routes>
-      <Route path= "/" element = {<Home />} />
-      <Route path= "metalShop1" element = {<MachineView machineGroup="metalShop1" />} />
+      <Route path="/" element = {<Home />} />
+      <Route path="metal-shop-1" element = {<MachineView machineGroup="metalShop1" />} />
+      <Route path="metal-shop-2" element = {<MachineView machineGroup="metalShop2" />} />
+      <Route path="wood-shop" element = {<MachineView machineGroup="woodShop"/>} />
     {/* Maddie add a path for add user when u wanna start working on that and you now have a new page for that function! */}
-      <Route path= "addUser" element = {<AddUser />} />
-      <Route path="editUser" element = {<EditUser />}/>
+      <Route path="add-user" element = {<AddUser />} />
+      <Route path="edit-user" element = {<EditUser />}/>
+      <Route path="printers-and-lasers" element={<MachineView machineGroup="PL"/>}/>
     </Routes>
     </div>
   );

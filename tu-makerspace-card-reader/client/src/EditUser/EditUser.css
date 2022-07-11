@@ -1,13 +1,38 @@
+:root {
+    --eu-text-color: #193D2F;
+    --eu-container-background: rgb(196, 238, 217);
+    --eu-container-border: #288F65;
+    --eu-input-background: rgb(233, 254, 241);
+    --eu-input-text: rgb(25, 61, 29);
+    --eu-button-background: #006747;
+    --eu-placeholder: #006747;
+
+    --eu-input-background-hover: rgb(198, 230, 211);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --eu-text-color: rgb(25, 61, 51);
+        --eu-container-background: #123f31;
+        --eu-container-border: #0d4233;
+        --eu-input-background: rgb(56, 122, 93);
+        --eu-input-text: white;
+        --eu-button-background: #1b5845;
+
+        --eu-input-background-hover: #34896a;
+        --eu-placeholder: white;
+    }
+}
 .editUserContainer { /* container that holds the checkboxes, user ID input, and t*/
     position: relative;
     width: 400px;
     height: 720px;
-    background-color: rgb(225, 251, 235);
-    border: 1.5px solid #288F65;
+    background-color: var(--eu-container-background);
+    border: 1.5px solid transparent;
+    /*border: 1.5px solid var(--eu-container-border);*/
     border-radius: 10px;
-    opacity: 0.83;
+    box-shadow: 0px 0px 6px 0px rgb(84, 128, 106);
+    opacity: 0.92;
     margin: auto;
-    top: -10px;
     display: block;
     align-items: center;
     justify-content: center;
@@ -17,23 +42,24 @@
     position: relative;
     width: 200px;
     height: 50px;
-    background-color:rgb(238, 251, 243);
-    border: 2px solid #006747;
+    background-color:var(--eu-input-background);
+    border: none;
+    /*border: 2px solid #006747;*/
     border-radius:8px;
-    color: rgb(25, 61, 29);
+    box-shadow: 0 0 4px 0 rgb(124, 173, 150);
+    color: var(--eu-input-text);
     font-family: "sans-serif", consolas, monaco; 
     font-size: 18px;
     padding-left: 8px;
 }
 .BoxInput:hover {
-    background-color: rgb(198, 230, 211); 
+    background-color: var(--eu-input-background-hover); 
 }
 .BoxInput:focus {
     outline: none;
-    background-color: rgb(201, 235, 215);
-    border-color: #288F65;
 }
 #small-input {
+    color: rgb(25, 61, 29);
     position: relative;
     width: 150px;
     height:30px;
@@ -42,7 +68,7 @@
     margin-right: 8px;
 }
 #small-input:hover {
-    background-color: rgb(185, 214, 196);
+    background-color: var(--eu-input-background-hover);
 }
 #small-input2 {
     position: relative;
@@ -52,7 +78,11 @@
     margin-bottom: 10px;
 }
 #small-input2:hover {
-    background-color: rgb(185, 214, 196);
+    background-color: var(--eu-input-background-hover);
+}
+#small-input::placeholder, #small-input2::placeholder, .BoxInput::placeholder {
+    color: var(--eu-placeholder);
+    font-weight: bold;
 }
 .container {
     position: relative;
@@ -69,7 +99,7 @@
     position: relative;
     width: 70px;
     height: 30px;
-    background-color: #006747;
+    background-color: var(--eu-button-background);
     border: 2px solid rgb(25, 61, 29);
     border-radius: 5px;
     color: rgb(240,240,240);
@@ -97,13 +127,13 @@
 }
 .BetterButton:active {
     background-color: #047652;
-    top: 1px;
+    transform: translateY(1px);
 }
 .BetterButton:focus {
     outline: none;
 }
 #text3 {
-    color: #193D2F;
+    color: var(--mv-text-color);
     font-family: "sans-serif", consolas, monaco;
     font-size: 24px;
     padding-left: 15px;
@@ -114,18 +144,15 @@
     display: contents;
     grid-template-columns: 1fr;
 }
-::placeholder {
-    color: rgb(25,61,29);
-    font-weight: bold;
-}
+
 .topper {
     position: absolute;
 }
 #text2 {
     font-family: "sans-serif", consolas, monaco;
-    color: rgb(25,31,61);
+    color: var(--mv-text-color);
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     margin: 0px;
     padding: 0px;
     display: block;
@@ -134,14 +161,6 @@
     padding: 0px;
     margin: 0px;
     height: 10px;
-}
-@media (prefers-color-scheme: dark) {
-    #text3 {
-        color: rgb(25,31,61);
-    }
-    .editUserContainer {
-        background-color:#8cc8af;
-    }
 }
 @media (min-width: 850px) {
     .container {
@@ -156,6 +175,6 @@
         margin-right: 0px;
     }
     .editUserContainer { /* container that holds the checkboxes, user ID input, and t*/
-        top: -100px;
+        top: -70px;
     }
 }

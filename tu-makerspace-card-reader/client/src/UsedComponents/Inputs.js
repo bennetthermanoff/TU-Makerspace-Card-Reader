@@ -1,6 +1,7 @@
 import React from 'react';
 
 // just an input to easily use and customize
+// by default autoComplete is off
 export default class Inputs extends React.Component {
     constructor(props) {
         super(props);
@@ -12,6 +13,7 @@ export default class Inputs extends React.Component {
             id: props.id || '',
             type: props.type || '',
             variable: props.variable,
+            autoComplete: props.autoComplete || "off",
         })
     }
 
@@ -21,6 +23,13 @@ export default class Inputs extends React.Component {
             value: value,
         })
         this.props.parentCallBack(this.state.variable, value);
+    }
+    // lets it update the value from parent function
+    static getDerivedStateFromProps(props, state) {
+        state = {
+            value: props.value,
+        };
+        return state;
     }
 
     render() {
@@ -32,12 +41,15 @@ export default class Inputs extends React.Component {
                 placeholder={this.state.placeholder}
                 type={this.state.type}
                 onChange={(e) => this.handleUpdate(e)}
-                autoComplete="off"
+                autoComplete={this.state.autoComplete}
             />
         )
     }
 }
+
+
 /*
+LAYOUT: 
 <Inputs
     className=
     type=
@@ -47,4 +59,11 @@ export default class Inputs extends React.Component {
     variable=
     parentCallBack=
     />
+
+// ADD THIS FUNCTION: 
+  handleCallBack(variable, value) {
+    this.setState({
+        [variable]: value,
+    })
+  }
 */                          

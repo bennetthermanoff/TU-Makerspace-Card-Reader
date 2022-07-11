@@ -1,0 +1,339 @@
+:root {
+  --mv-default-font: "sans-serif", consolas, monaco;
+  --mv-text-color: #193D2F;
+  --mv-border-color: rgb(25, 61, 29);
+  --mv-button-background: #DEEFE5;
+  --mv-button-background-hover: #cceeda;
+  --mv-button-text-color-hover: rgb(32, 94, 40);
+  --mv-button-background-active: #bfebd1;
+  --mv-button-border-color-active: #288F65;
+  --mv-fab-tech-view-on: #ff6c84;
+  --mv-input-false-background: #DEEFE5;
+  --mv-input-false-background-hover: #cbecd9;
+  --mv-input-false-border-focus: #006747;
+  --mv-input-true-background: rgb(255, 230, 230);
+  --mv-input-true-border: rgb(255, 132, 132);
+  --mv-machine-box-border: var(--mv-border-color);
+  --mv-input-background: var(--mv-input-false-background);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mv-text-color: rgb(233, 230, 230);
+    --mv-button-background: rgb(48, 96, 75);
+    --mv-button-background-hover: rgb(61, 117, 92);
+    --mv-button-text-color-hover: rgb(244, 242, 242);
+    --mv-button-background-active: var(--mv-button-background-hover);
+    --mv-button-border-color-active: rgb(30, 77, 56);
+    --mv-fab-tech-view-on: #cf3e56;
+    --mv-input-false-background: rgb(198, 240, 215);
+    --mv-input-false-background-hover: rgb(169, 223, 191);
+    --mv-machine-box-border: rgb(22, 45, 36);
+  }
+}
+.BetterTextField {
+  width: 200px;
+  height: 50px;
+  min-width: 200px;
+  min-height: 50px;
+  /* no border color ??? */
+  border-radius: 10px;
+  color: var(--mv-text-color);
+  font-family: var(--mv-default-font);
+  font-size: 20px;
+  font-style: bold;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+.BetterTextField::placeholder {
+  color: #006747;
+  opacity:0.75;
+}
+#input2false {
+  background-color: var(--mv-input-false-background); 
+  border: none;
+  /*border: 2px solid var(--mv-border-color);*/
+  color: var(--mv-border-color);
+    
+}
+#input2false:hover {
+  background-color: var(--mv-input-false-background-hover);
+  /*border: 2px solid var(--mv-border-color);*/
+}
+  /* this is just testing */
+  
+#input2false:focus {
+  background-color: var(--mv-input-false-background-hover);
+  /*border: 2px solid var(--mv-input-false-border-focus);*/
+  outline: none;
+}
+#input2true {
+  background-color: var(--mv-input-true-background);
+  /*border: 2px solid var(--mv-input-true-border);*/
+  color: var(--mv-border-color);
+  border: none; 
+  outline: none;
+}
+#input2true:hover {
+  /*border: 2px solid rgb(255, 132, 132);*/
+  background-color: rgb(255, 230, 230);
+} 
+.SmallerTextField {
+  width: 120px;
+  height: 30px;
+  background-color: var(--mv-input-background);
+  border-radius: 6px;
+  color: #193D2F;
+  font-family: var(--mv-default-font);
+  font-size: 14px;
+  font-style: bold;
+  overflow: scroll;
+  padding-left: 10px;
+  margin-bottom: 8px;
+}
+.SmallerTextField:focus {
+  outline: none;
+}
+.BetterBox {
+  z-index: 1;
+  position: relative;
+  width: 80px;
+  height: 40x;
+  min-width: 80px;
+  min-height: 40px;
+  background-color: var(--mv-button-background);
+  border: 1px solid var(--mv-border-color);
+  border-radius: 8px;
+  color: var(--mv-text-color);
+  font-family: var(--mv-default-font);
+  font-size: 18px;
+  font-weight: bold;
+  text-align:center;
+  vertical-align: middle;
+  outline: none;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+.BetterBox:hover {
+  background-color: var(--mv-button-background-hover);
+  color: var(--mv-button-text-color-hover);
+  cursor: pointer;
+}
+.BetterBox:active {
+  transform: translateY(1px);
+  background-color: var(--mv-button-background-active);
+  border-color: var(--mv-button-border-color-active);
+}
+#smaller-box {
+  width: 58px;
+  height: 30px;
+  min-width: 0;
+  min-height: 0;
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+}
+#adminToggle {
+  position: absolute;
+  right: 35px;
+}
+#fabViewOn {
+  background-color: var(--mv-fab-tech-view-on);
+  color: #193D2F;
+}
+#otherh3 {
+  color: var(--mv-text-color);
+  font-family: var(--mv-default-font);
+  font-size: 25px;
+  font-weight: bold;
+  white-space: pre;
+  margin-left: 20px;
+  margin-bottom: 0px;
+  margin-top:5px;
+}
+
+.MachineBox { /* encases the machine image */
+  position:relative;
+  width: 100px;
+  height: 100px;
+  border: 7px solid var(--mv-machine-box-border);
+  margin-top: 11px;
+  margin-bottom: 7.25px;
+}
+.MachineBoxTrue {
+  position:relative;
+  width: 100px;
+  height: 100px;
+  border: 18px solid transparent;
+  margin-top:0px;
+  margin-bottom: 0px;
+}
+.MachineBoxBorder-false {
+  position: relative;
+  width: 136px;
+  height: 136px;
+  background-color: transparent;
+  align-items: center;
+  justify-items: center;
+}
+.MachineBoxBorder {
+  position: relative;
+  width: 136px;
+  height: 136px;
+  background: repeating-linear-gradient(
+    45deg,
+  #fff41e,
+  #fff41e 6px,
+  #0d1910 12px,
+  #0d1910 24px,
+  #fff41e 30px,
+  #fff41e 36px
+);
+  background-size: 400% 400%;
+  animation: enabledMachine 5s linear infinite;
+  align-items: center;
+  justify-items: center;
+}
+@keyframes enabledMachine {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+#otherh3-2 { /* Machine Name Label next to switch*/
+  position: relative;
+  color: var(--mv-text-color);
+  font-family: var(--mv-default-font);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  overflow: visible;
+  top: 0px;
+
+}       
+.container2 { /* container for the machines to be in a grid layout */
+  position:relative;
+  width: max-width;
+  height: fit-content;
+  margin: auto;
+  display:grid;
+  justify-content: center;
+  grid-template-columns: 250px 250px;
+  grid-area: machines;
+}
+.MachineBoxContainer {
+  position: relative;
+  width: 220px;
+  height: fit-content;
+  min-height: 200px;
+  margin: auto;
+  display:block;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+.login-container {
+  position: relative;
+  width: 350px;
+  height: 125px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  
+}
+.AdminToggle {
+  position: absolute;
+  z-index: 2;
+  margin: auto;
+  left: 11px;
+  top: 11px;
+  width: 114px;
+  height: 114px;
+  background-color: transparent;
+  border: 7px solid red;
+  outline: none;
+}
+.AdminToggle:hover {
+  cursor:pointer;
+}
+.AdminToggleFalse {
+  position: absolute;
+  z-index:-1;
+  left: 11px;
+  top: 11px;
+  width: 114px;
+  height: 114px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor:not-allowed;
+}
+#tagged-out-false {
+  background-color: transparent;
+}
+#tagged-out-true {
+  z-index: 2;
+  background-color: rgba(233, 95, 95, 0.7);
+}
+.tagOutText {
+  width: 195px;
+  height: fit-content;
+  position: relative;
+  color: rgb(248, 80, 77);
+  font-family: var(--mv-default-font);
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  word-break:break-word;
+  font-style: italic;
+  margin-top:0px;
+  top: -5px;
+}
+#tagOutHeader {
+  text-decoration:underline;
+  font-size: 13px;
+}
+@media (min-width: 600px) {
+  .container2 {
+    position: relative;
+    width: fit-content;
+    grid-template-columns: 220px 220px 220px;
+    margin: auto;
+  }
+}
+@media (min-width: 1000px) { /* ipad pro portrait width is 730px */
+  .container2 {
+    position: relative;
+    width: 700px;
+    margin-right: 50px;
+    grid-template-columns: 220px 220px 220px;
+    top: -120px;
+  }
+}
+@media (min-width: 1165px) {
+  .container2 {
+    position: relative;
+    width: 700px;
+    margin-right: 120px;
+    grid-template-columns: 220px 220px 220px 220px;
+    top: -120px;
+  }
+  #adminToggle {
+    position: absolute;
+    right: 17px;
+  }
+}
+@media (min-width: 1380px) { /* ipad pro landscape is 1194px */
+  .container2 {
+    position: relative;
+    width: 1000px;
+    grid-template-columns: 250px 250px 250px 250px;
+    margin-right: 80px;
+  }
+  
+}

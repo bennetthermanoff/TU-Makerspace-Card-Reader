@@ -1,28 +1,65 @@
-
+:root {
+  --button-background: linear-gradient(90deg, #60d1a3 0%, rgb(119, 204, 167) 50%, #6fd5a0 100%);
+  --button-background-hover: linear-gradient(90deg, #4ac594 0%, rgb(80, 190, 143) 50%, #4cc184 100%);
+  --button-background-active: linear-gradient(90deg, #4ac594 0%, rgb(80, 190, 143) 50%, #4cc184 100%);
+  --button-text-color: black;
+  --button-text-color-hover: black;
+  --border-color: #193D2F;
+  --background-color: #006747;
+  --text-color: white;
+  --header-shadow: rgb(25, 61, 29);
+  --header-background: var(--background-color);
+  --list-background: rgb(177, 222, 194);
+  --list-border-color: #288F65;
+  --list-opacity: 1;
+  --page-text: black;
+  --box-shadow-color: #01674f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --button-background: linear-gradient(90deg, #19624b 0%, #136c51 50%, #0a6d4e 100%);
+    --button-background-hover: linear-gradient(90deg, #1b8966 0%, #199872 50%, #0a8d63 100%);
+    --button-background-active: linear-gradient(90deg, #146048 0%, #10654b 50%, #04563c 100%);
+    --button-text-color: rgb(199, 239, 219);
+    --button-text-color-hover: rgb(248, 255, 251);
+    --text-color: rgb(243, 255, 242);
+    --background-color:#006747;
+    --border-color: rgb(9, 20, 11);
+    --header-shadow: rgb(2, 51, 40);
+    --header-background: rgb(9, 20, 11);
+    --list-background: rgba(24, 75, 59, 0.9);
+    --list-border-color: rgb(9, 20, 11);
+    --list-opacity: 1;
+    --page-text: var(--text-color);
+    --box-shadow-color: #00110d;
+  }
+}
 .App {
   text-align: center;
 }
-
 .Box {
   position: relative;
   width: 150px;
   height: 50px;
-  background: linear-gradient(90deg, #60d1a3 0%, rgb(119, 204, 167) 50%, #6fd5a0 100%);
-  border: 1.5px solid #193D2F;
+  background: var(--button-background);
+  border: none;
+  /*border: 1.5px solid var(--border-color);*/
   border-radius: 8px;
-  box-shadow: 1px 2px 2px #193D2F;
+  box-shadow: 0 0 5px 0 var(--border-color);
   opacity: 1;
   font-family: "sans-serif", consolas, monaco;
   font-size: 15px;
   font-weight: bold;
+  color: var(--button-text-color);
 }
 .Box:hover {
-  background: linear-gradient(90deg, #4ac594 0%, rgb(80, 190, 143) 50%, #4cc184 100%);
+  background: var(--button-background-hover);
   cursor:pointer;
+  color: var(--button-text-color-hover);
 }
 .Box:active {
-  top: 1px;
-  background: linear-gradient(90deg, #4ac594 0%, rgb(80, 190, 143) 50%, #4cc184 100%);
+  transform: translateY(2px);
+  background: var(--button-background-active);
   outline: none;
 }
 .Box:focus {
@@ -44,24 +81,23 @@
   top: 15px;
   border: none;
   z-index:1;
+  touch-action: none;
 }
 .logo-button:hover {
   cursor: pointer
 }
 .form2 {
   position: absolute;
-  
 }
-
 .text {
   font-family: "sans-serif", consolas, monaco;
+  color: var(--page-text)
 }
-
 .header {
   height: 75px;
-  background-color: #006747;
-  box-shadow: 3px 4px 2px rgb(25, 61, 29);
-  color: rgb(241, 241, 241);
+  background-color: var(--header-background);
+  box-shadow: 3px 4px 2px var(--header-shadow);
+  color: var(--text-color);
   font-family: "sans-serif", consolas, monaco;
   font-size: 33px;
   font-weight: bold;
@@ -70,51 +106,22 @@
 }
 .List {
   position: relative;
-  width: 240px;
+  width: 540px;
   height: 270px;
-  background-color: rgb(225, 251, 235);
-  opacity: 0.8;
-  border: 1.5px solid #288F65;
+  background-color: var(--list-background);
+  opacity: var(--list-opacity);
+  border: none;
+  box-shadow: 0 0 5px 0 var(--box-shadow-color);
+  /*border: 1.5px solid var(--list-border-color);*/
   border-radius: 7px;
   display: grid;
   align-items: center;
   justify-content: center;
   margin: auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
 }
 /* DARK MODE */
-@media (prefers-color-scheme: dark) {
-  .List {
-    opacity: 1;
-    background-color: rgba(24, 75, 59, 0.9);
-    border-color: rgb(9, 20, 11);
-    border-width: 3px;
-    box-shadow: 1px 2px 2px rgb(9, 20, 11);
-  }
-  .text {
-    color: rgb(240, 254, 241);
-  }
-  .Box {
-    background: linear-gradient(90deg, #19624b 0%, #136c51 50%, #0a6d4e 100%);
-    border-color: rgb(8, 34, 23);
-    border-width: 1.5px;
-    box-shadow: 1px 1px 1px rgb(8, 34, 23);
-    color: rgb(199, 239, 219);
 
-  }
-  .Box:hover {
-    background: linear-gradient(90deg, #1b8966 0%, #199872 50%, #0a8d63 100%);
-    color: rgb(248, 255, 251);
-    cursor: pointer;
-  }
-  .Box:active {
-    background: linear-gradient(90deg, #146048 0%, #10654b 50%, #04563c 100%);
-    color: rgb(248, 255, 251);
-  }
-  .header {
-    background-color: rgb(9, 20, 11);
-    color: rgb(243, 255, 242);
-    border-bottom:2px solid rgb(121, 121, 121);
-    box-shadow: 2px 0px 2px rgb(121, 121, 121);
-  }
-}
 

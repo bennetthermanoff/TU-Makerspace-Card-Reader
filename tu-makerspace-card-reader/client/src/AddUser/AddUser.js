@@ -1,9 +1,9 @@
 import axios from "axios";
 import React from "react";
-import { addUser } from './APIRoutes.js';
+import { addUser } from '../APIRoutes.js';
 import './addUser.css';
-import Inputs from './Inputs.js';
-import './DarkMode.css';
+import Inputs from '../UsedComponents/Inputs.js';
+//import './DarkMode.css';
 
 
 export default class AddUser extends React.Component {
@@ -149,7 +149,7 @@ export default class AddUser extends React.Component {
                         <Inputs
                             className="nameInputBox"
                             id="input2"
-                            placeholder="authID"
+                            placeholder="Authorized FabTech ID"
                             value={this.state.authID}
                             variable="authID"
                             parentCallBack={this.handleCallBack}

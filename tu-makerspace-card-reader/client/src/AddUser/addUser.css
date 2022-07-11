@@ -1,0 +1,183 @@
+:root {
+  --au-submit-border: #0a462f;
+  --au-container-background: rgb(177, 222, 194);
+  --au-input-background: rgb(233, 254, 241);
+  --au-submit-background: #006747;
+  --au-submit-text: rgb(240, 240, 240);
+  --au-submit-text-hover: var(--au-submit-text);
+  --au-submit-background-hover: #027d56;
+  --au-dark-color: #193D2F;
+  --au-input2-background: rgb(233, 254, 241);
+  --au-input2-background-hover: rgb(209, 238, 220);
+  --au-input2-border: #006747;
+  --au-error-color: red;
+
+  --au-done-background: rgb(222, 239, 229);
+  --au-done-background-hover: rgb(202, 233, 215);
+  --au-done-background-active: rgb(190, 224, 204);
+
+  --au-text-color: #193D2F;
+
+  --box-shadow-color: #01674f;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --au-container-background: #004434;
+    --au-container-border-color: #063422;
+    --au-submit-background: rgb(0, 43, 36);
+    --au-submit-background-hover: rgb(24, 147, 108);
+    --au-submit-text: #e8e8e8;
+    --au-submit-text-hover: #ffffff;
+    --au-dark-color: #193D2F;
+    
+    --au-input2-background: #01674f;
+    --au-input2-background-hover: #028163;
+    --au-input2-border: #193D2F;
+    --au-input2-text: white;
+    --au-error-color: rgb(220, 61, 61);
+
+    --au-done-background: rgb(112, 201, 150);
+    --au-done-background-hover: rgb(142, 224, 177);
+    --au-done-background-active: rgb(142, 224, 177);
+
+    --au-text-color: #f2fffa;
+
+    --box-shadow-color: #00110d;
+  }
+  .nameInputBox::placeholder {
+    color: #ffffff;
+    opacity: 0.6;
+  }
+}
+
+#input2, .submitButton2, .doneButton, #text, #error {
+  position: relative;
+  font-family: 'sans-serif', consolas, monaco;
+}
+
+::placeholder {
+  color: #006747;
+  font-weight: bold;
+  opacity: 0.6;
+}
+
+
+.container-center {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 300px;
+  height: 345px;
+  background-color: var(--au-container-background);
+  border-radius: 10px;
+  border: 1.5px solid var(--au-container-border-color);
+  box-shadow: 0px 0px 7px 0px var(--box-shadow-color);
+}
+
+#container {
+  position: absolute;
+  grid-template-columns: 1fr;
+}
+
+#error-container {
+  position: relative;
+  top: -16px;
+  left: -320px;
+  text-align: right;
+  grid-template-columns: 1fr;
+}
+
+.nameInputBox {
+  width: 200px;
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 11px;
+  border-radius: 5px;
+  outline: none;
+  color: var(--au-dark-color);
+  padding-left: 5px;
+  font-size: 14px;
+}
+
+#input2 {
+  background-color: var(--au-input2-background);
+  color: var(--au-input2-text);
+  border: none;
+}
+
+#input2:hover {
+  background-color: var(--au-input2-background-hover);
+}
+
+#input2:focus {
+  outline: none;
+}
+#error {
+  z-index: 1;
+  white-space: pre;
+  margin-top: 29px;
+  margin-bottom: 25px;
+  color: var(--au-error-color);
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.submitButton2 {
+  width: 90px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--au-submit-background);
+  color: var(--au-submit-text);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.submitButton2:hover {
+  background-color: var(--au-submit-background-hover);
+  color: var(--au-submit-text-hover);
+  cursor: pointer;
+}
+
+.submitButton2:active {
+  background-color: var(--au-submit-background-hover);
+  color: var(--au-submit-text-hover);
+  transform: translateY(1px);
+}
+
+.submitButton2:focus {
+  outline: none;
+}
+
+.doneButton {
+  top: 300px;
+  width: 90px;
+  height: 35px;
+  font-weight: bold;
+  border: 2px solid #193D2F;
+  border-radius: 8px;
+  background-color: var(--au-done-background);
+}
+
+.doneButton:hover {
+  background-color: var(--au-done-background-hover);
+  cursor: pointer;
+}
+
+.doneButton:active {
+  transform: translateY(1px);
+  background-color: var(--au-done-background-active);
+}
+
+.doneButton:focus {
+  background-color: var(--au-done-background-active);
+  outline: none;
+}
+
+#text {
+  color: var(--au-text-color);
+}
