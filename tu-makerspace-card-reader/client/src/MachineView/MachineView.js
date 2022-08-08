@@ -4,6 +4,8 @@ import React from 'react';
 import { getUser, disableMachine, toggleMachine, getAllMachines, editMachine } from '../APIRoutes';
 import { TagOutButton, TagOutInformation } from './TagOut.js';
 import getImage from './GetImage.js';
+import { useState } from 'react';
+import { ConnectButton } from './ConnectButton';
 
 
 export default class MachineView extends React.Component {
@@ -26,8 +28,9 @@ export default class MachineView extends React.Component {
         "requiredTraining": "nullTraining",
       }], //temporary "loading" machine that gets overirdden in componentdidmount()
     };
-    
-    this.toggleFabTechView = this.toggleFabTechView.bind(this);
+  }
+  _editMachines = (machines)=>{
+    this.setState({machines:machines})
   }
   componentDidMount() { //gets called when component starts, gets machines for specific machinegroup from api
     axios(getAllMachines(this.state.machineGroup)).then((response, err) => {
@@ -50,6 +53,7 @@ export default class MachineView extends React.Component {
     });
 
   }
+  
   handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
 
     const value = event.target.value;
@@ -137,6 +141,7 @@ export default class MachineView extends React.Component {
             fabTechView = {this.state.fabTechView}
             toggleFabTechView={this.toggleFabTechView}
             />
+            <ConnectButton machines={this.state.machines} machineGroup={this.state.machineGroup} editMachines={this._editMachines} />
         </div>
         <div className='login-container' align="left">
           {/* Create textfield for user input, highlights red if error! Blue if valid name! */}
@@ -156,7 +161,6 @@ export default class MachineView extends React.Component {
             onClick={() => this.handleLogOut()}
           > Log Out </button>
         </div>
-
         {/* Creates multiple machines from the machine[] state! Machine state is filled on component load and is called via api GET machines/group/groupname */}
         {/* Change the machinegroup prop when you render the search component to set which tablet this is run on  */}
         <div className='container2'>
@@ -315,7 +319,7 @@ class Machine extends React.Component {
           submitMessage={this.submitMessage}
           handleCallBack={this.handleCallBack}
           onButtonChange={this.onButtonChange}
-          />
+          /> 
 
       </div>
 

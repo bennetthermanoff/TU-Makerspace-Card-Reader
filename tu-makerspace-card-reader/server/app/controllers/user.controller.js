@@ -136,7 +136,7 @@ exports.update = (req, res) => {
         .then(usera => {
             bcrypt.compare(authUser.password, usera.password, function (err, result) {
                 if (result == true && !(req.body.admin && !usera.admin) && !(req.body.fabTech && !usera.admin) && (usera.fabTech || usera.admin)) {
-                    user = req.body.updatedUser;
+                    let user = req.body.updatedUser;
                     if (req.body.updatedUser.password) {
                         user.password = bcrypt.hashSync(req.body.updatedUser.password, 10);
                     }
@@ -147,7 +147,7 @@ exports.update = (req, res) => {
                     })
                         .then(num => {
                             if (num == 1) {
-                                res.send({
+                                res.send({ 
                                     message: "User was updated successfully."
                                 });
                             } else {
