@@ -1,5 +1,5 @@
-int machinePinFromId[99];
-bool machineStatus[99];
+int machinePinFromId[100];
+bool machineStatus[100];
 void writeString(String stringData) { // Used to serially push out a String with Serial.write()
 
   for (int i = 0; i < stringData.length(); i++)

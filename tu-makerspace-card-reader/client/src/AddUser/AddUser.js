@@ -3,6 +3,7 @@ import React from "react";
 import { addUser } from '../APIRoutes.js';
 import './addUser.css';
 import Inputs from '../UsedComponents/Inputs.js';
+import { RFIDConnectButton } from "../UsedComponents/RFIDConnectButton.js";
 //import './DarkMode.css';
 
 
@@ -105,6 +106,7 @@ export default class AddUser extends React.Component {
                     
                 </div>
                 <div id="container">
+                    <RFIDConnectButton handleCallBack={this.handleCallBack}></RFIDConnectButton>
                     <div>
                         <Inputs
                             className="nameInputBox"
