@@ -52,3 +52,10 @@ create new keys in a .cert directory (should be done in the tu-makerspace-card-r
 mkdir -p .cert
 mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "localhost"
 ```
+
+### Mysql instructions
+Server is configured to connect to a mysql server 'root@localhost' with password given via a .env file. Create a .env file in /tu-makerspace-card-reader/server/ with the following inside of it.
+```
+ DATABASEROOTUSERPASSWORD=YOUR_PASSWORD 
+``` 
+You can set the password to whatever you like. 
