@@ -41,11 +41,11 @@ export default class AddUser extends React.Component {
             this.handleErrors();
         } else {
             axios(addUser({
-                id: parseInt(this.state.id),
+                id: this.state.id,
                 name: this.state.name,
                 email: this.state.email,
                 splash: parseInt(this.state.splashID),
-                authID: parseInt(this.state.authID),
+                authID: this.state.authID,
             }))
             .then((response, error) => {
                 if (error) {

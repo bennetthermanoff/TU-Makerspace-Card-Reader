@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-export const RFIDConnectButton = ({ handleCallBack }) => {
+export const RFIDMachineViewConnectButton = ({ handleCallBack }) => {
     const [isConnected, editIsConnected] = useState(false);
     const [usbReader, setUsbReader] = useState();
     const [isReading, setIsReading] = useState(false);
@@ -30,23 +30,14 @@ export const RFIDConnectButton = ({ handleCallBack }) => {
                         else {
                             if (currentId != '' ) {
                                 console.log('return', currentId);
-                                if (toggleIdBox) {
-                                    handleCallBack('id', currentId);
-                                } else {
-                                    handleCallBack('authID', currentId);
-                                }
-                                toggleIdBox = !toggleIdBox;
+                                const event ={target:{value:currentId}};
                                 currentId = '';
-
+                                handleCallBack(event);
                             }
-                            
-
-                        }
-                   
+                          }       
                 }
             } catch (error) {
             }
-
         }
     }
     const _connectDevices = async () => {
@@ -79,7 +70,7 @@ export const RFIDConnectButton = ({ handleCallBack }) => {
 
 
 
-    return (!isConnected ? <button onClick={_connectDevices}>connect</button> : isReading ? <>SCAN NEW CARD FIRST</> : <button onClick={() => { setIsReading(true); _readValue() }} >{`Start Card Read (SCAN NEW CARD FIRST)`}</button>)
+    return (!isConnected ? <button className="connect-button" id="first-connect-button" onClick={_connectDevices}>connect</button> : isReading ? null : <button onClick={() => { setIsReading(true); _readValue() }} >{`Start Card Read (SCAN NEW CARD FIRST)`}</button>)
 }
 
 

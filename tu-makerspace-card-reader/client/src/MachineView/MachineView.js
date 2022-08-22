@@ -6,6 +6,7 @@ import { TagOutButton, TagOutInformation } from './TagOut.js';
 import getImage from './GetImage.js';
 import { useState } from 'react';
 import { ConnectButton } from './ConnectButton';
+import { RFIDMachineViewConnectButton } from './RFIDMachineViewConnectButton';
 
 
 export default class MachineView extends React.Component {
@@ -55,13 +56,13 @@ export default class MachineView extends React.Component {
   }
   
   handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
-
+    console.log('newsearch',event);
     const value = event.target.value;
     this.setState({
       value: value,
     })
     if (value !== '') { // added this to unset error
-      axios(getUser(parseInt(event.target.value,16))).then((response, err) => {
+      axios(getUser(event.target.value)).then((response, err) => {
         // console.log(response.data);
         if (response.data.name) {
           console.log("name set: " + response.data.name);
@@ -128,7 +129,7 @@ export default class MachineView extends React.Component {
     })
     
   }
-
+  
 
   render() {
     let err = this.state.error;
@@ -156,6 +157,7 @@ export default class MachineView extends React.Component {
             onChange={this.handlenewSearch}
             autoComplete="off"
           />
+          <RFIDMachineViewConnectButton handleCallBack={this.handlenewSearch}></RFIDMachineViewConnectButton>
           <button
             className="BetterBox"
             onClick={() => this.handleLogOut()}
@@ -320,6 +322,7 @@ class Machine extends React.Component {
           handleCallBack={this.handleCallBack}
           onButtonChange={this.onButtonChange}
           /> 
+          
 
       </div>
 

@@ -69,7 +69,7 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
         console.log(_readValue());
     }
 
-    return (!isConnected ? <button onClick={_connectDevices}>connect</button> : <button onClick={_getMachineStatusFromArduino}> readMachines </button>)
+    return (!isConnected ? <button className="connect-button" id="second-connect-button" onClick={_connectDevices}>connect</button> : <button onClick={_getMachineStatusFromArduino}> readMachines </button>)
 }
 
 
