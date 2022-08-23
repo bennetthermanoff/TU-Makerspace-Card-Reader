@@ -27,6 +27,7 @@ function RenderEditPassword(props) {
         return (
             <div>
                 <Inputs
+                    type="password"
                     className="BoxInput"
                     id="small-input"
                     placeholder="Create Password"
@@ -131,7 +132,7 @@ export default class EditUser2 extends React.Component {
             const id = ID;
             var trainings;
     
-            if (id.charAt(0)=='0') { // if id is an id (opposed to an email)
+            if (id.charAt(0)=='0' || id.charAt(0) == '1') { // if id is an id (opposed to an email)
                 axios(getUser(id)).then((response, error) => {
                     if (error) {
                         console.log('Error finding User');
@@ -166,9 +167,12 @@ export default class EditUser2 extends React.Component {
                             console.log('Error finding User');
                         } else {
                             console.log(response.data);
+                            console.log("has password: " + response.data.password);
                             this.setState({
                                 user: response.data,
                                 idINT: response.data.id,
+                                userIsFabTech: response.data.fabTech,
+                                hasPassword: response.data.password,
                             })
                             trainings = [
                                 ["lathe", response.data.lathe],
@@ -202,7 +206,7 @@ export default class EditUser2 extends React.Component {
         var trainings = this.state.userTrainings;
         trainings[trainings.indexOf(training)][1] = !training[1];
         let authID = this.state.authID;
-        if (authID.charAt(0)!='0') {//convert email to id if its not an id
+        if (authID.charAt(0)!=='0' || authID.charAt(0)!=='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
                 .then((response, error) => {
                     if (error) {
@@ -252,7 +256,7 @@ export default class EditUser2 extends React.Component {
         if (!this.state.hasPassword) {
             let authID = this.state.authID;
             if (this.state.createdPassword) {
-                if (authID.charAt(0)!='0') {
+                if (authID.charAt(0)!=='0' || authID.charAt(0)!=='1') {
                     axios(getUserEmail(this.state.authID))
                         .then((response, error) => {
                             if (error) {
@@ -305,7 +309,7 @@ export default class EditUser2 extends React.Component {
     toggleFabTech() {
         console.log(this.state.authID);
         let authID =this.state.authID
-        if (authID.charAt(0)=='0') {//convert email to id if its not an id
+        if (authID.charAt(0)==='0' || authID.charAt(0)==='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
                 .then((response, error) => {
                     if (error) {

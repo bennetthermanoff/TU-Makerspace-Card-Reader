@@ -103,9 +103,10 @@ exports.findOne = (req, res) => {
 };
 exports.findEmail = (req,res)=>{
     const email = req.params.email;
-    Users.findOne({where:{email : email}, attributes: { exclude: ['password'] } })
+    Users.findOne({where:{email : email}})
         .then(data =>{
             if(data){
+                data.password = data.password !== '';
                 res.send(data);
             }
             else{
