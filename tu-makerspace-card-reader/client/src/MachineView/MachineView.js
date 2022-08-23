@@ -121,7 +121,7 @@ handlenewSearch = (event) => { //called when search box is changed. updates user
       fabTechView: false,
     })
   }
-<<<<<<< HEAD
+
 
 }
 
@@ -199,12 +199,8 @@ render() {
 
       </div>
 
->>>>>>> main
-
       </div>
 
-
-    </div>
 
   )
 }
