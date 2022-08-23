@@ -3,6 +3,7 @@ import React from "react";
 import { addUser } from '../APIRoutes.js';
 import './addUser.css';
 import Inputs from '../UsedComponents/Inputs.js';
+import { RFIDConnectButton } from "../UsedComponents/RFIDConnectButton.js";
 //import './DarkMode.css';
 
 
@@ -40,11 +41,11 @@ export default class AddUser extends React.Component {
             this.handleErrors();
         } else {
             axios(addUser({
-                id: parseInt(this.state.id),
+                id: this.state.id,
                 name: this.state.name,
                 email: this.state.email,
                 splash: parseInt(this.state.splashID),
-                authID: parseInt(this.state.authID),
+                authID: this.state.authID,
             }))
             .then((response, error) => {
                 if (error) {
@@ -105,6 +106,7 @@ export default class AddUser extends React.Component {
                     
                 </div>
                 <div id="container">
+                    <RFIDConnectButton handleCallBack={this.handleCallBack}></RFIDConnectButton>
                     <div>
                         <Inputs
                             className="nameInputBox"
