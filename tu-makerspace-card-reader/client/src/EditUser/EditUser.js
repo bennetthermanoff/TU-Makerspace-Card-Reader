@@ -126,7 +126,7 @@ export default class EditUser2 extends React.Component {
     }
     // finds the user to display
     handleFindUser(ID) {
-        console.log(this.state.id);
+        console.log(this.state.hasPassword)
         if (ID) {
             const id = parseInt(ID,16);
             var trainings;
@@ -169,6 +169,8 @@ export default class EditUser2 extends React.Component {
                             this.setState({
                                 user: response.data,
                                 idINT: response.data.id,
+                                userIsFabTech: response.data.fabTech,
+                                hasPassword: response.data.password,
                             })
                             trainings = [
                                 ["lathe", response.data.lathe],
