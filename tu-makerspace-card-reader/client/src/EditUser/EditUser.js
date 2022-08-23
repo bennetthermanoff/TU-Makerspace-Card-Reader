@@ -27,6 +27,7 @@ function RenderEditPassword(props) {
         return (
             <div>
                 <Inputs
+                    type="password"
                     className="BoxInput"
                     id="small-input"
                     placeholder="Create Password"
@@ -80,10 +81,10 @@ export default class EditUser2 extends React.Component {
     // only allows a valid FabTech ID to access the editing page
     // may later remove the input of a fabtech ID on the editing page and only require password (Note from bennett: instead of removing it we should just autofill)
     handleFabTechCheck(ID) {
-        const id = parseInt(ID,16);
+        const id = ID;
         console.log(ID);
         var users = [];
-        if (id.toString(16) !== ID) { //if id is a tulane login instead:
+        if (id.charAt(0)!='0') { //if id is a tulane login instead:
             axios(getUserEmail(ID))
                 .then((response, error) => {
                     if (error) {
@@ -128,10 +129,10 @@ export default class EditUser2 extends React.Component {
     handleFindUser(ID) {
         console.log(this.state.hasPassword)
         if (ID) {
-            const id = parseInt(ID,16);
+            const id = ID;
             var trainings;
     
-            if (id.toString(16) === ID.toLowerCase()) { // if id is an id (opposed to an email)
+            if (id.charAt(0)=='0' || id.charAt(0) == '1') { // if id is an id (opposed to an email)
                 axios(getUser(id)).then((response, error) => {
                     if (error) {
                         console.log('Error finding User');
@@ -166,6 +167,7 @@ export default class EditUser2 extends React.Component {
                             console.log('Error finding User');
                         } else {
                             console.log(response.data);
+                            console.log("has password: " + response.data.password);
                             this.setState({
                                 user: response.data,
                                 idINT: response.data.id,
@@ -203,8 +205,8 @@ export default class EditUser2 extends React.Component {
     handleChange(training) {
         var trainings = this.state.userTrainings;
         trainings[trainings.indexOf(training)][1] = !training[1];
-        let authID = parseInt(this.state.authID);
-        if (!authID) {//convert email to id if its not an id
+        let authID = this.state.authID;
+        if (authID.charAt(0)!=='0' || authID.charAt(0)!=='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
                 .then((response, error) => {
                     if (error) {
@@ -252,9 +254,9 @@ export default class EditUser2 extends React.Component {
 
     handleCreatePassword() {
         if (!this.state.hasPassword) {
-            let authID = parseInt(this.state.authID);
+            let authID = this.state.authID;
             if (this.state.createdPassword) {
-                if (!authID) {
+                if (authID.charAt(0)!=='0' || authID.charAt(0)!=='1') {
                     axios(getUserEmail(this.state.authID))
                         .then((response, error) => {
                             if (error) {
@@ -306,8 +308,8 @@ export default class EditUser2 extends React.Component {
 
     toggleFabTech() {
         console.log(this.state.authID);
-        let authID = parseInt(this.state.authID);
-        if (!authID) {//convert email to id if its not an id
+        let authID =this.state.authID
+        if (authID.charAt(0)==='0' || authID.charAt(0)==='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
                 .then((response, error) => {
                     if (error) {
@@ -330,7 +332,7 @@ export default class EditUser2 extends React.Component {
                     }
                 })
         } else {
-            axios(editUser(parseInt(this.state.id), { "fabTech": !this.state.userIsFabTech }, authID, this.state.authPassword)).then((response, error) => {
+            axios(editUser(this.state.id, { "fabTech": !this.state.userIsFabTech }, authID, this.state.authPassword)).then((response, error) => {
                 if (error) {
                     console.log('Error making user FabTech!');
                 } else {

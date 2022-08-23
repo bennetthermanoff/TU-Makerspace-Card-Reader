@@ -4,6 +4,9 @@ import React from 'react';
 import { getUser, disableMachine, toggleMachine, getAllMachines, editMachine } from '../APIRoutes';
 import { TagOutButton, TagOutInformation } from './TagOut.js';
 import getImage from './GetImage.js';
+import { useState } from 'react';
+import { ConnectButton } from './ConnectButton';
+import { RFIDMachineViewConnectButton } from './RFIDMachineViewConnectButton';
 
 
 export default class MachineView extends React.Component {
@@ -26,8 +29,9 @@ export default class MachineView extends React.Component {
         "requiredTraining": "nullTraining",
       }], //temporary "loading" machine that gets overirdden in componentdidmount()
     };
-
-    this.toggleFabTechView = this.toggleFabTechView.bind(this);
+  }
+  _editMachines = (machines)=>{
+    this.setState({machines:machines})
   }
   componentDidMount() { //gets called when component starts, gets machines for specific machinegroup from api
     axios(getAllMachines(this.state.machineGroup)).then((response, err) => {
@@ -117,67 +121,69 @@ handlenewSearch = (event) => { //called when search box is changed. updates user
       fabTechView: false,
     })
   }
+<<<<<<< HEAD
 
 }
 
-handleLogOut() {
-  this.setState({
-    isFabTech: false,
-    fabTechView: false,
-    value: '',
-    error: false,
-    currentUser: {
-      "name": "Enter ID",
-      "nullTraining": false,
-    },
-  })
-}
-toggleFabTechView() {
-  this.setState((currentState) => {
-    return {
-      fabTechView: !currentState.fabTechView,
-    }
-  })
-
-}
-
+  handleLogOut() {
+    this.setState({
+      isFabTech: false,
+      fabTechView: false,
+      value: '',
+      error: false,
+      currentUser: {
+        "name": "Enter ID",
+        "nullTraining": false,
+      },
+    })
+  }
+  toggleFabTechView() {
+    this.setState((currentState) => {
+      return {
+        fabTechView: !currentState.fabTechView,
+      }
+    })
+    
+  }
+  
 
 render() {
   let err = this.state.error;
   return (
 
-    <div>
-      <div id="adminToggle">
-        <TagOutButton
-          isFabTech={this.state.isFabTech}
-          fabTechView={this.state.fabTechView}
-          toggleFabTechView={this.toggleFabTechView}
-        />
-      </div>
-      <div className='login-container' align="left">
-        {/* Create textfield for user input, highlights red if error! Blue if valid name! */}
-        <h3 id="otherh3">Name: {this.state.currentUser.name !== "Enter ID" ? this.state.currentUser.name : ' '}</h3>
+      <div>
+        <div id="adminToggle">
+          <TagOutButton 
+            isFabTech={this.state.isFabTech}
+            fabTechView = {this.state.fabTechView}
+            toggleFabTechView={this.toggleFabTechView}
+            />
+            <ConnectButton machines={this.state.machines} machineGroup={this.state.machineGroup} editMachines={this._editMachines} />
+        </div>
+        <div className='login-container' align="left">
+          {/* Create textfield for user input, highlights red if error! Blue if valid name! */}
+          <h3 id="otherh3">Name: {this.state.currentUser.name !== "Enter ID" ? this.state.currentUser.name : ' '}</h3>
 
-        <input
-          id={err === true ? "input2true" : "input2false"}
-          className='BetterTextField'
-          placeholder={this.state.currentUser.name}
-          error={this.state.error.toString()}
-          value={this.state.value}
-          onChange={this.handlenewSearch}
-          autoComplete="off"
-        />
-        <button
-          className="BetterBox"
-          onClick={() => this.handleLogOut()}
-        > Log Out </button>
-      </div>
-
-      {/* Creates multiple machines from the machine[] state! Machine state is filled on component load and is called via api GET machines/group/groupname */}
-      {/* Change the machinegroup prop when you render the search component to set which tablet this is run on  */}
-      <div className='container2'>
-        {this.state.machines.map((machine) => (
-          <Machine
+          <input
+            id={err === true ? "input2true" : "input2false"}
+            className='BetterTextField'
+            placeholder={this.state.currentUser.name}
+            error={this.state.error.toString()}
+            value={this.state.value}
+            onChange={this.handlenewSearch}
+            autoComplete="off"
+          />
+          <RFIDMachineViewConnectButton handleCallBack={this.handlenewSearch}></RFIDMachineViewConnectButton>
+          <button
+            className="BetterBox"
+            onClick={() => this.handleLogOut()}
+          > Log Out </button>
+        </div>
+        {/* Creates multiple machines from the machine[] state! Machine state is filled on component load and is called via api GET machines/group/groupname */}
+        {/* Change the machinegroup prop when you render the search component to set which tablet this is run on  */}
+        <div className='container2'>
+          {this.state.machines.map((machine) => (
+            <Machine
 
             machineID={machine.id}
             machineName={machine.name}
@@ -190,6 +196,10 @@ render() {
             description={machine.description}
           />
         ))}
+
+      </div>
+
+>>>>>>> main
 
       </div>
 
