@@ -2,7 +2,7 @@
   --button-background: linear-gradient(90deg, #60d1a3 0%, rgb(119, 204, 167) 50%, #6fd5a0 100%);
   --button-background-hover: linear-gradient(90deg, #4ac594 0%, rgb(80, 190, 143) 50%, #4cc184 100%);
   --button-background-active: linear-gradient(90deg, #4ac594 0%, rgb(80, 190, 143) 50%, #4cc184 100%);
-  --button-text-color: black;
+  --button-text-color: #193D2F;
   --button-text-color-hover: black;
   --border-color: #193D2F;
   --background-color: #006747;

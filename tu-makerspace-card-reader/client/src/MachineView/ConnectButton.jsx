@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
@@ -30,13 +30,21 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
                 const writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
                 await setUsbWriter(textEncoder.writable.getWriter());
                 editIsConnected(true);
+                _getMachineStatusFromArduino();
 
             });
         
             
     }
     const _getMachineStatusFromArduino = async()=>{
+        await new Promise(resolve =>
+            setTimeout(resolve, 500)
+        );
+        await usbReader.read();
         await usbWriter.write("R");
+        await new Promise(resolve =>
+            setTimeout(resolve, 500)
+        );
         const {value, done} = await usbReader.read();
         console.log(value)
         const stringValue = String(value);
@@ -59,15 +67,24 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
             const {value, done}= await usbReader.read();
             if(done) return value;
     }
-    const _toggleMachineOne = async()=>{
-        if(machineOne)
-        await usbWriter.write("I1.");
-        else
-        await usbWriter.write("O1.")
+    const _toggleMachine = async(machineId,machineStatus)=>{
+        if(isConnected){
+            if(machineStatus)
+                await usbWriter.write("I"+String(machineId)+".");
+            else
+                await usbWriter.write("O"+String(machineId)+".");
+            // const {value, done} =await usbReader.read()
+            // console.log(value,'readValue');
+
+        }
+        
     }
-    if(isConnected){
-        console.log(_readValue());
-    }
+    useEffect(()=>{
+        console.log('SIDE EFFECT',machines);
+        machines.forEach((machine)=>{
+            _toggleMachine(machine?.id,machine?.status)
+        },[machines])
+    })
 
     return (!isConnected ? <button className="connect-button" id="second-connect-button" onClick={_connectDevices}>connect</button> : <button onClick={_getMachineStatusFromArduino}> readMachines </button>)
 }

@@ -28,6 +28,11 @@ import router_table from './router_table.jpeg';
 import sliding_miter_saw from './sliding_miter_saw.jpeg';
 import compound_miter_saw from './compound_miter_saw.jpeg';
 
+import big_laser_engraver from './laser-engraver-big.jpg';
+import small_laser_engraver from './laser-engraver.jpg';
+import ultimaker3 from './ultimaker-3.jpeg';
+import ultimaker2p from './ultimaker-ii.jpeg';
+
 export {
 
   // basics
@@ -64,5 +69,11 @@ export {
     router_table,
     sliding_miter_saw,
     compound_miter_saw,
+
+  // digital
+    big_laser_engraver,
+    small_laser_engraver,
+    ultimaker3,
+    ultimaker2p,
 
 }

@@ -70,7 +70,7 @@ function App() {
     <img src={logo} id="logo"/>
     
     
-      Tulane Makerspace{GetMachineGroup(location)}</h1>
+      Tulane MakerSpace{GetMachineGroup(location)}</h1>
     <Routes>
       <Route path="/" element = {<Home />} />
       <Route path="metal-shop-1" element = {<MachineView machineGroup="metalShop1" />} />
@@ -79,7 +79,7 @@ function App() {
     {/* Maddie add a path for add user when u wanna start working on that and you now have a new page for that function! */}
       <Route path="add-user" element = {<AddUser />} />
       <Route path="edit-user" element = {<EditUser />}/>
-      <Route path="printers-and-lasers" element={<MachineView machineGroup="PL"/>}/>
+      <Route path="printers-and-lasers" element={<MachineView machineGroup="digital"/>}/>
     </Routes>
     </div>
   );

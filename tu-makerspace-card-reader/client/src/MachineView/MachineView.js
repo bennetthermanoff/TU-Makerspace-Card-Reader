@@ -4,7 +4,6 @@ import React from 'react';
 import { getUser, disableMachine, toggleMachine, getAllMachines, editMachine } from '../APIRoutes';
 import { TagOutButton, TagOutInformation } from './TagOut.js';
 import getImage from './GetImage.js';
-import { useState } from 'react';
 import { ConnectButton } from './ConnectButton';
 import { RFIDMachineViewConnectButton } from './RFIDMachineViewConnectButton';
 
@@ -29,9 +28,21 @@ export default class MachineView extends React.Component {
         "requiredTraining": "nullTraining",
       }], //temporary "loading" machine that gets overirdden in componentdidmount()
     };
+
+    this.toggleFabTechView = this.toggleFabTechView.bind(this);
   }
   _editMachines = (machines)=>{
+    console.log('editma',machines);
     this.setState({machines:machines})
+  }
+  _editMachine = (machine)=>{
+    this.state.machines.forEach((m,i,a)=>{
+      if (m.id==machine.id){
+        a[i]=machine;
+        this._editMachines(a)
+      }
+    })
+    console.log('loga',this.state.machines);
   }
   componentDidMount() { //gets called when component starts, gets machines for specific machinegroup from api
     axios(getAllMachines(this.state.machineGroup)).then((response, err) => {
@@ -122,6 +133,7 @@ export default class MachineView extends React.Component {
     })
   }
   toggleFabTechView() {
+    console.log('fabtech')
     this.setState((currentState) => {
       return {
         fabTechView: !currentState.fabTechView,
@@ -156,6 +168,7 @@ export default class MachineView extends React.Component {
             value={this.state.value}
             onChange={this.handlenewSearch}
             autoComplete="off"
+            type="password"
           />
           <RFIDMachineViewConnectButton handleCallBack={this.handlenewSearch}></RFIDMachineViewConnectButton>
           <button
@@ -168,7 +181,8 @@ export default class MachineView extends React.Component {
         <div className='container2'>
           {this.state.machines.map((machine) => (
             <Machine
-
+              machine={machine}
+              editMachine={this._editMachine}
               machineID={machine.id}
               machineName={machine.name}
               currentUser={this.state.currentUser}
@@ -197,6 +211,8 @@ class Machine extends React.Component {
     super(props);
     console.log(props);
     this.state = {
+      machine:props.machine,
+      editMachine:props.editMachine,
       machineID: props.machineID,
       machineName: props.machineName,
       activated: props.activated,
@@ -230,6 +246,7 @@ class Machine extends React.Component {
   onButtonChange() {
     if (this.state.activated) {
       this.setState({ activated: false });
+      this.state.editMachine({...this.state.machine, status:false});
       axios(disableMachine(this.state.machineID));
     }
     else {
@@ -242,6 +259,7 @@ class Machine extends React.Component {
             this.setState({
               activated: !this.state.activated
             });
+            this.state.editMachine({...this.state.machine, status:true});
           }
           else {
             console.log("Insufficent Permission!");

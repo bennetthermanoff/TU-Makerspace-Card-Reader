@@ -2,6 +2,7 @@ import Inputs from '../UsedComponents/Inputs.js';
 import Root from './switchtheme.js';
 import SwitchUnstyled from '@mui/base/SwitchUnstyled';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 export function TagOutButton(props) {
     if (props.isFabTech) {
@@ -15,6 +16,7 @@ export function TagOutButton(props) {
 
 
 export function TagOutInformation(props) {
+    let location = useLocation().pathname;
     // console.log("tag out reason: " + props.tagOutMessageValue);
     if (props.fabTechView && props.taggedOut) {
         return (
@@ -40,6 +42,8 @@ export function TagOutInformation(props) {
                 <div className="tagOutText">{props.tagOutMessage || 'Unlisted reason'}</div>
             </span>
         )
+    } else if (location === "/printers-and-lasers") {
+        return null;
     } else {
         return (
             <span>
