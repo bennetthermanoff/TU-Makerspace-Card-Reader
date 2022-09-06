@@ -1,11 +1,12 @@
 import './App.css';
-import { MachineView } from './MachineView';
-import { AddUser } from './AddUser';
+import { MachineView } from '../MachineView';
+import { AddUser } from '../AddUser';
 import { Routes, Route, Link } from 'react-router-dom';
-import { EditUser } from './EditUser';
-import { logo } from './images';
-import { Hamburger } from  './UsedComponents';
+import { EditUser } from '../EditUser';
+import { logo } from '../images';
+import { Hamburger } from  '../UsedComponents';
 import { useLocation } from 'react-router-dom';
+import { NotableMachines } from './EnabledMachines';
 import React from 'react';
 
 function Home(){
@@ -35,6 +36,7 @@ function Home(){
           <button className="Box">Edit User</button>
         </form>
       </nav>
+      <NotableMachines/>
     </>
   )
 }
