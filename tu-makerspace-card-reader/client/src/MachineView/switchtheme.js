@@ -114,7 +114,7 @@ if (userPrefersDark) {
     opacity: 1;
   
     &.${switchUnstyledClasses.disabled} {
-      opacity: 0.4;
+      opacity: 0.7;
       cursor: not-allowed;
     }
   
@@ -132,7 +132,7 @@ if (userPrefersDark) {
       width: 24px;
       height: 24px;
       top: 3px;
-      left: 3px;
+      left: -15px;
       border-radius: 16px;
       background-color: #fff;
       position: relative;
@@ -147,7 +147,7 @@ if (userPrefersDark) {
   
     &.${switchUnstyledClasses.checked} {
       .${switchUnstyledClasses.thumb /* circle moves when toggled */} {
-        left: 33px;
+        left: 15px;
         top: 3px;
         background-color: #DEEFE5;
       }

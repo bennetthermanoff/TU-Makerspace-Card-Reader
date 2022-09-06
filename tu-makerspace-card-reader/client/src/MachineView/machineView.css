@@ -46,12 +46,23 @@
   color: var(--mv-text-color);
   background-color: var(--mv-button-background);
 }
+.connect-button:hover {
+  cursor:pointer;
+}
+.connect-button:active {
+  border: 1px solid var(--mv-border-color);
+}
+.connect-button:focus {
+  transform: translateY(2px);
+}
 #first-connect-button {
-  transform: translateY(75px) translateX(-220px);
+  top:105px;
+  left:10px;
 }
 #second-connect-button {
-  transform: translateX(-50px);
+  left:-70px;
 }
+
 .BetterTextField {
   width: 200px;
   height: 50px;
