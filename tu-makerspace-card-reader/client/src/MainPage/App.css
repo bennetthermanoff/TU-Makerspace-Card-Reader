@@ -51,6 +51,7 @@
   font-size: 15px;
   font-weight: bold;
   color: var(--button-text-color);
+  margin-top:4vh;
 }
 .Box:hover {
   background: var(--button-background-hover);
@@ -105,22 +106,22 @@
   line-height: 75px;
 }
 .List {
-  position: relative;
-  width: 540px;
-  height: 270px;
+  position: absolute;
+  width: 250px;
+  height: 1000px;
   background-color: var(--list-background);
   opacity: var(--list-opacity);
   border: none;
   box-shadow: 0 0 5px 0 var(--box-shadow-color);
   /*border: 1.5px solid var(--list-border-color);*/
-  border-radius: 7px;
-  display: grid;
+  display: block;
   align-items: center;
   justify-content: center;
   margin: auto;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  justify-items: center;
+  left: 0px;
+  top: 75px;
+
+
 }
 /* DARK MODE */
 

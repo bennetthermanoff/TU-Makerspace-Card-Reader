@@ -37,7 +37,9 @@
     align-items: center;
     justify-content: center;
 }
-
+#pass-input {
+    margin-top:15px;
+}
 .BoxInput { /* Box used for the user ID input and the authID/authPassword */
     position: relative;
     width: 200px;

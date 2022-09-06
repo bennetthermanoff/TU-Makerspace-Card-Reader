@@ -15,8 +15,9 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
         //     console.log(ports,'ports');
         // })
         navigator.serial.requestPort({ filters: [
-            { usbVendorId: 0x2341, usbProductId: 0x0043 },
-            { usbVendorId: 0x2341, usbProductId: 0x0001 }
+            { usbVendorId: 0x2341, usbProductId: 0x0043 }, // vid:     // pid: 
+            { usbVendorId: 0x2341, usbProductId: 0x0001 }, // vid:     // pid: 
+            { usbVendorId: 0x10c4, usbProductId: 0xea60 }  // vid:     // pid:
           ] })
             .then( async (port) => {
                 
@@ -24,13 +25,26 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
                 // eslint-disable-next-line no-undef
                 const textDecoder = new TextDecoderStream();
                 const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-                await setUsbReader(textDecoder.readable.getReader());
                 // eslint-disable-next-line no-undef
                 const textEncoder = new TextEncoderStream();
                 const writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
-                await setUsbWriter(textEncoder.writable.getWriter());
+                await new Promise(resolve =>
+                    setTimeout(resolve, 1500)
+                );
+
+                machines.forEach(async (machine)=>{
+                    if(machine.status)
+                        await usbWriter.write("I"+String(machine.id)+".");
+                    else
+                        await usbWriter.write("O"+String(machine.id)+".");
+                },[machines])
+                
+
+                setUsbReader(textDecoder.readable.getReader());
+                setUsbWriter(textEncoder.writable.getWriter());
                 editIsConnected(true);
-                _getMachineStatusFromArduino();
+                
+                // _getMachineStatusFromArduino();
 
             });
         
@@ -79,14 +93,17 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
         }
         
     }
-    useEffect(()=>{
-        console.log('SIDE EFFECT',machines);
-        machines.forEach((machine)=>{
-            _toggleMachine(machine?.id,machine?.status)
-        },[machines])
+    useEffect(async()=>{
+        if(isConnected){
+            console.log('SIDE EFFECT',machines);
+
+            machines.forEach(async (machine)=>{
+                await _toggleMachine(machine?.id,machine?.status)
+            })
+        }
     })
 
-    return (!isConnected ? <button className="connect-button" id="second-connect-button" onClick={_connectDevices}>connect</button> : <button onClick={_getMachineStatusFromArduino}> readMachines </button>)
+    return (!isConnected ? <button className="connect-button" id="second-connect-button" onClick={_connectDevices}>connect</button> : null)
 }
 
 

@@ -80,7 +80,8 @@ export default class EditUser2 extends React.Component {
     }
     // only allows a valid FabTech ID to access the editing page
     // may later remove the input of a fabtech ID on the editing page and only require password (Note from bennett: instead of removing it we should just autofill)
-    handleFabTechCheck(ID) {
+    handleFabTechCheck(ID, pass) {
+        // will have api call going here eventually to validate user/pass to access edit page
         const id = ID;
         console.log(ID);
         var users = [];
@@ -353,7 +354,10 @@ export default class EditUser2 extends React.Component {
             [variable]: value,
         })
         if (variable === "fabTechID") {
-            this.handleFabTechCheck(value);
+            this.handleFabTechCheck(value, this.state.authPassword);
+        }
+        if (variable === "authPassword") {
+            this.handleFabTechCheck(this.state.authID, value);
         }
         if (variable === "id") {
             this.handleFindUser(value);
@@ -422,6 +426,7 @@ export default class EditUser2 extends React.Component {
         } else {
             return (
                 <div>
+                    <div>
                     <Inputs
                         className="BoxInput"
                         placeholder="FabTech ID"
@@ -429,6 +434,17 @@ export default class EditUser2 extends React.Component {
                         variable="fabTechID"
                         parentCallBack={this.handleCallBack}
                     />
+                    </div>
+                    <div>
+                    <Inputs
+                        className="BoxInput"
+                        id="pass-input"
+                        placeholder="Password"
+                        value={this.state.authPassword}
+                        variable="fabTechID"
+                        parentCallBack={this.handleCallBack}
+                    />
+                    </div>
                 </div>
             )
         }
