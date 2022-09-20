@@ -121,6 +121,20 @@ exports.findEmail = (req,res)=>{
             });
         })
 }
+exports.verify = (req,res)=>{
+    const email = req.params.email;
+    const passwordAttempt = req.body.password;
+    Users.findOne({where:{email : email}})
+        .then(data=>{
+            bcrypt.compare(passwordAttmpt,data.password)
+        })
+}, function (err,result){
+    if (result == true){
+        res.status(400).send({message:true})
+    }else{
+        res.status(400).send({message:false})
+    }
+}
 // Update a user by the id in the request
 exports.update = (req, res) => {
     if (!req.body.updatedUser|| !req.body.user || !req.body.authPassword) {
