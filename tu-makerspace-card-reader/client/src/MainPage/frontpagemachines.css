@@ -1,44 +1,54 @@
-.container-out { /* container for the machines to be in a grid layout */
-    position:relative;
-    width: max-width;
+.container-out {
+    position: absolute;
+    width: fit-content;
     height: fit-content;
     margin: auto;
-    display:grid;
+    display: grid;
     justify-content: center;
-    grid-template-columns: 250px 250px;
+    grid-template-columns: 200px;
     grid-area: machines;
-  }
-.container-on {
-    position:relative;
-    width: max-width;
-    height: fit-content;
-    margin: auto;
-    display:grid;
-    justify-content: center;
-    grid-template-columns: 250px 250px;
-    grid-area: machines;
+    right: 50px;
+    top: 150px;
+
 }
-@media (min-width: 600px) {
-    .container-out {
-        position: absolute;
-        width: fit-content;
-        grid-template-columns: 220px 220px;
-        margin: auto;
+.container-on {
+    position:absolute;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    display:grid;
+    justify-content: center;
+    grid-template-columns: 200px;
+    grid-area: machines;
+    right: 260px;
+    top:150px;   
+}
+@media (min-width: 900px) {
+    .container-on {
+        grid-template-columns: 200px 200px;
+        right: 260px;
+    } 
+}
+
+@media (min-width: 1100px) {
+    .container-out { /* container for the machines to be in a grid layout */
+        grid-template-columns: 200px 200px;
         right: 40px;
-        top: 150px;
+      }
+    .container-on {
+        right: 440px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container-out {
+        grid-template-columns: 220px 220px;
+        right: 40px;
         
     }
     .container-on {
-        position: absolute;
-        width: max-width;
-        height: fit-content;
-        margin: auto;
-        display:grid;
-        justify-content: center;
         grid-template-columns: 220px 220px 220px;
-        grid-area: machines;
         right: 480px;
-        top: 150px;
 
     }
   }
