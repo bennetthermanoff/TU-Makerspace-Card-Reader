@@ -1,0 +1,75 @@
+.container-out { /* container for the machines to be in a grid layout */
+    position:relative;
+    width: max-width;
+    height: fit-content;
+    margin: auto;
+    display:grid;
+    justify-content: center;
+    grid-template-columns: 250px 250px;
+    grid-area: machines;
+  }
+.container-on {
+    position:relative;
+    width: max-width;
+    height: fit-content;
+    margin: auto;
+    display:grid;
+    justify-content: center;
+    grid-template-columns: 250px 250px;
+    grid-area: machines;
+}
+@media (min-width: 600px) {
+    .container-out {
+        position: absolute;
+        width: fit-content;
+        grid-template-columns: 220px 220px;
+        margin: auto;
+        right: 40px;
+        top: 150px;
+        
+    }
+    .container-on {
+        position: absolute;
+        width: max-width;
+        height: fit-content;
+        margin: auto;
+        display:grid;
+        justify-content: center;
+        grid-template-columns: 220px 220px 220px;
+        grid-area: machines;
+        right: 480px;
+        top: 150px;
+
+    }
+  }
+  /* @media (min-width: 1000px) { /* ipad pro portrait width is 730px */ /*
+    .container-out {
+      position: relative;
+      width: 700px;
+      margin-right: 50px;
+      grid-template-columns: 220px 220px 220px;
+      top: -120px;
+    }
+  }
+  @media (min-width: 1165px) {
+    .container-out {
+      position: relative;
+      width: 700px;
+      margin-right: 120px;
+      grid-template-columns: 220px 220px 220px 220px;
+      top: -120px;
+    }
+    #adminToggle {
+      position: absolute;
+      right: 17px;
+    }
+  }
+  @media (min-width: 1380px) { /* ipad pro landscape is 1194px */ /*
+    .container-out {
+      position: relative;
+      width: 1000px;
+      grid-template-columns: 250px 250px 250px 250px;
+      margin-right: 80px;
+    }
+    
+  } */

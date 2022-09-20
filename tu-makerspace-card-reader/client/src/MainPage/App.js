@@ -6,7 +6,7 @@ import { EditUser } from '../EditUser';
 import { logo } from '../images';
 import { Hamburger } from  '../UsedComponents';
 import { useLocation } from 'react-router-dom';
-import { NotableMachines } from './EnabledMachines';
+import { FrontPageMachines } from './FrontPageMachines.js';
 import React from 'react';
 
 function Home(){
@@ -36,7 +36,7 @@ function Home(){
           <button className="Box">Edit User</button>
         </form>
       </nav>
-      <NotableMachines/>
+      <FrontPageMachines/>
     </>
   )
 }

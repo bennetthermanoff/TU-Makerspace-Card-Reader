@@ -42,7 +42,7 @@ export function TagOutInformation(props) {
                 <div className="tagOutText">{props.tagOutMessage || 'Unlisted reason'}</div>
             </span>
         )
-    } else if (location === "/printers-and-lasers") {
+    } else if (location === "/printers-and-lasers" || location === "/") {
         return null;
     } else {
         return (
