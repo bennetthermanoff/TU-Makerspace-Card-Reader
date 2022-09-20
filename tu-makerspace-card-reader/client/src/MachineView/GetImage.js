@@ -8,7 +8,7 @@ const machine_images = {
     "Bandsaw (s)":bandsaw_small,
     "Drill Press M1":drill_press_soft,
     "Drill Press M2":drill_press_steel,
-    "Drill Press":drill_press,
+    "Drill Press W1":drill_press,
     "CNC Lathe":lathe,
     "Bench Grinders":grinder1,
     "Grinder 2":grinder2,

@@ -1,42 +1,42 @@
 .container-out {
     position: absolute;
     width: fit-content;
-    height: fit-content;
+    height: 140px;
     margin: auto;
     display: grid;
     justify-content: center;
-    grid-template-columns: 200px;
+    grid-template-columns: 220px;
     grid-area: machines;
-    right: 50px;
-    top: 150px;
+    right: 60px;
+    top: 140px;
 
 }
 .container-on {
     position:absolute;
     width: fit-content;
-    height: fit-content;
+    height: 140px;
     margin: auto;
     display:grid;
     justify-content: center;
-    grid-template-columns: 200px;
+    grid-template-columns: 220px;
     grid-area: machines;
-    right: 260px;
-    top:150px;   
+    right: 280px;
+    top:140px;   
 }
 @media (min-width: 900px) {
     .container-on {
-        grid-template-columns: 200px 200px;
+        grid-template-columns: 220px 220px;
         right: 260px;
     } 
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1140px) {
     .container-out { /* container for the machines to be in a grid layout */
-        grid-template-columns: 200px 200px;
+        grid-template-columns: 220px 220px;
         right: 40px;
       }
     .container-on {
-        right: 440px;
+        right: 460px;
     }
 }
 

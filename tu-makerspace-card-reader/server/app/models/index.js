@@ -6,7 +6,7 @@ const sequelize = new Sequelize("testdb", "root", process.env.DATABASEROOTUSERPA
   dialect: "mysql",
   operatorsAliases: false,
   dialectOptions: {
-    socketPath: "/tmp/mysql.sock"
+    socketPath: process.env.socketPath
   },
   pool: {
     max: 5,
