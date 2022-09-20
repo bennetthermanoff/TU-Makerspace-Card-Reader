@@ -73,7 +73,7 @@ handlenewSearch = (event) => { //called when search box is changed. updates user
     value: value,
   })
   if (value !== '') { // added this to unset error
-    axios(getUser(parseInt(event.target.value, 16))).then((response, err) => {
+    axios(getUser(value)).then((response, err) => {
       // console.log(response.data);
       if (response.data.name) {
         console.log("name set: " + response.data.name);

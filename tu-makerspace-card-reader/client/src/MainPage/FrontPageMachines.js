@@ -20,7 +20,7 @@ export class FrontPageMachines extends React.Component {
         
         }
     }
-    componentDidMount() { //gets called when component starts, gets machines for specific machinegroup from api
+    componentDidMount = async ()=> { //gets called when component starts, gets machines for specific machinegroup from api
         console.log('attempt to mount');
         axios(getMachines()).then((response, err) => {
           if (err) {
@@ -36,6 +36,22 @@ export class FrontPageMachines extends React.Component {
             });
           }
         });
+        while(true){
+          await new Promise(resolve =>
+            setTimeout(resolve, 5000)
+        );
+          axios(getMachines()).then((response, err) => {
+            if (err) {
+              console.log("error getting enabled machines");
+            }
+            else {
+              this.setState({
+                machines: response.data.filter((mach) => mach.status === true || mach.taggedOut === true),
+              });
+            }
+          });
+        }
+        
     
       }
 
