@@ -20,7 +20,7 @@ module.exports = app => {
   
   router.get("/email/:email", users.findEmail);
   //Verify a user via email
-  router.get("/:email/verify",users.verify);
+  router.get("/email/:email/verify",users.verify);
   // Update a User with id
   //REQUIRES user, authPassword of higher permission (fabtech cannot update admin acct etc.)
   router.put("/:id", users.update);
