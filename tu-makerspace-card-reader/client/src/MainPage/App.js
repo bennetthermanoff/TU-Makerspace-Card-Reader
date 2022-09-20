@@ -36,7 +36,7 @@ function Home(){
           <button className="Box">Edit User</button>
         </form>
       </nav>
-      <NotableMachines/>
+      
     </>
   )
 }

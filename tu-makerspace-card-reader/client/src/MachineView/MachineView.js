@@ -302,7 +302,7 @@ class Machine extends React.Component {
 
   submitMessage() {
     if (this.state.tagOutMessageValue) {
-      axios(editMachine(this.state.machineID, {"description":this.state.tagOutMessageValue}, this.state.userID))
+      axios(editMachine(this.state.machineID, {"description":this.state.tagOutMessageValue + "\n- " + this.state.currentUser.name}, this.state.userID))
         .then((response, error) => {
           if (error) {
             console.log('Error editing machine description');
@@ -310,7 +310,7 @@ class Machine extends React.Component {
             console.log('Successfully edited machine description');
             this.setState((currentState) => {
               return {
-                tagOutMessage: currentState.tagOutMessageValue,
+                tagOutMessage: currentState.tagOutMessageValue + "\n- " + this.state.currentUser.name,
                 tagOutMessageValue: '',
               }
             })
