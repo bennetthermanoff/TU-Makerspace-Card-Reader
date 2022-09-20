@@ -61,26 +61,11 @@ export default class MachineView extends React.Component {
             "nullTraining": false
           },
         });
-        this.disableMachines();
+
       }
     });
 
   }
-  disableMachines() {
-    this.state.machines.forEach((machine) => {
-      if (!machine.activated) {
-        axios(disableMachine(machine.id))
-          .then((response, error) => {
-            if (error) {
-              console.log("ERROR");
-            } else {
-              console.log('Machine Disabled');
-            }
-          }).catch((err) => {
-            console.log(err);
-          });
-        }})
-}
 handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
 
   const value = event.target.value;
@@ -231,7 +216,7 @@ class Machine extends React.Component {
       editMachine:props.editMachine,
       machineID: props.machineID,
       machineName: props.machineName,
-      activated: false,
+      activated: props.activated,
       currentUser: props.currentUser,
       image: getImage(props.machineName, props.machineID),
       trained: props.trained,
