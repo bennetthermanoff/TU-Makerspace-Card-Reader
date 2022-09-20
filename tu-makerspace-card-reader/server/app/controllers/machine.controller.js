@@ -235,7 +235,7 @@ exports.disableMachine = (req, res) => {
                     });
             }
             else {
-                res.status(400).send({
+                res.status(200).send({
                     message: "Machine already disabled!"
                 });
                 return;

@@ -1,0 +1,85 @@
+.container-out {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 200px;
+    grid-area: machines;
+    right: 50px;
+    top: 150px;
+
+}
+.container-on {
+    position:absolute;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    display:grid;
+    justify-content: center;
+    grid-template-columns: 200px;
+    grid-area: machines;
+    right: 260px;
+    top:150px;   
+}
+@media (min-width: 900px) {
+    .container-on {
+        grid-template-columns: 200px 200px;
+        right: 260px;
+    } 
+}
+
+@media (min-width: 1100px) {
+    .container-out { /* container for the machines to be in a grid layout */
+        grid-template-columns: 200px 200px;
+        right: 40px;
+      }
+    .container-on {
+        right: 440px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container-out {
+        grid-template-columns: 220px 220px;
+        right: 40px;
+        
+    }
+    .container-on {
+        grid-template-columns: 220px 220px 220px;
+        right: 480px;
+
+    }
+  }
+  /* @media (min-width: 1000px) { /* ipad pro portrait width is 730px */ /*
+    .container-out {
+      position: relative;
+      width: 700px;
+      margin-right: 50px;
+      grid-template-columns: 220px 220px 220px;
+      top: -120px;
+    }
+  }
+  @media (min-width: 1165px) {
+    .container-out {
+      position: relative;
+      width: 700px;
+      margin-right: 120px;
+      grid-template-columns: 220px 220px 220px 220px;
+      top: -120px;
+    }
+    #adminToggle {
+      position: absolute;
+      right: 17px;
+    }
+  }
+  @media (min-width: 1380px) { /* ipad pro landscape is 1194px */ /*
+    .container-out {
+      position: relative;
+      width: 1000px;
+      grid-template-columns: 250px 250px 250px 250px;
+      margin-right: 80px;
+    }
+    
+  } */

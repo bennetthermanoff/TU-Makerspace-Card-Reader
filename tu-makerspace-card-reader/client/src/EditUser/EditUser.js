@@ -128,7 +128,7 @@ export default class EditUser2 extends React.Component {
     }
     // finds the user to display
     handleFindUser(ID) {
-        console.log(this.state.id);
+        console.log(this.state.hasPassword)
         if (ID) {
             const id = ID;
             var trainings;

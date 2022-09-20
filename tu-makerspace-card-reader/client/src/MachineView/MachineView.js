@@ -61,64 +61,65 @@ export default class MachineView extends React.Component {
             "nullTraining": false
           },
         });
+
       }
     });
 
   }
-  
-  handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
-    console.log('newsearch',event);
-    const value = event.target.value;
-    this.setState({
-      value: value,
-    })
-    if (value !== '') { // added this to unset error
-      axios(getUser(event.target.value)).then((response, err) => {
-        // console.log(response.data);
-        if (response.data.name) {
-          console.log("name set: " + response.data.name);
-          this.setState({
-            currentUser: response.data,
-            error: false,
-            isFabTech: response.data.fabTech,
-            fabTechView: false,
-          });
-          //currentUser is set in state of search, need to build function to check user perms and apply to machines as they are mapped
-        }
-        else {
-          console.log("error fetching name: " + err);
-          this.setState({
-            error: true,
-            currentUser: { 
-              "name": "Enter ID", 
-            "nullTraining": false, 
-          },
-          });
+handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
 
-        }
-      }).catch((err) => {
+  const value = event.target.value;
+  this.setState({
+    value: value,
+  })
+  if (value !== '') { // added this to unset error
+    axios(getUser(parseInt(event.target.value, 16))).then((response, err) => {
+      // console.log(response.data);
+      if (response.data.name) {
+        console.log("name set: " + response.data.name);
+        this.setState({
+          currentUser: response.data,
+          error: false,
+          isFabTech: response.data.fabTech,
+          fabTechView: false,
+        });
+        //currentUser is set in state of search, need to build function to check user perms and apply to machines as they are mapped
+      }
+      else {
         console.log("error fetching name: " + err);
         this.setState({
           error: true,
           currentUser: {
-            "name": "Enter ID", 
-            "nullTraining": false 
+            "name": "Enter ID",
+            "nullTraining": false,
           },
         });
-      });
-    } else { // unsets error when empty
+
+      }
+    }).catch((err) => {
+      console.log("error fetching name: " + err);
       this.setState({
-        error: false,
+        error: true,
         currentUser: {
           "name": "Enter ID",
-          "nullTraining": false,
+          "nullTraining": false
         },
-        isFabTech: false,
-        fabTechView: false,
-      })
-    }
-
+      });
+    });
+  } else { // unsets error when empty
+    this.setState({
+      error: false,
+      currentUser: {
+        "name": "Enter ID",
+        "nullTraining": false,
+      },
+      isFabTech: false,
+      fabTechView: false,
+    })
   }
+
+
+}
 
   handleLogOut() {
     this.setState({
@@ -143,9 +144,9 @@ export default class MachineView extends React.Component {
   }
   
 
-  render() {
-    let err = this.state.error;
-    return (
+render() {
+  let err = this.state.error;
+  return (
 
       <div>
         <div id="adminToggle">
@@ -198,11 +199,11 @@ export default class MachineView extends React.Component {
         
         </div>
 
-
       </div>
 
-    )
-  }
+ 
+  )
+}
 
 }
 
@@ -272,31 +273,31 @@ class Machine extends React.Component {
   }
   handleToggleTagOut() {
     if (this.state.fabTechView) {
-    axios(editMachine(this.state.machineID, {"taggedOut":!this.state.taggedOut, "description":''}, this.state.userID))
-      .then((response, error) => {
-        if (error) {
-          console.log('Error tagging in/out');
-        } else {
-          console.log('Success tagging in/out');
-          this.setState((currentState) => {
-            return {
-              taggedOut: !currentState.taggedOut,
-              activated: false,
-              tagOutMessage: '',
-            }
-          })
+      axios(editMachine(this.state.machineID, { "taggedOut": !this.state.taggedOut, "description": '' }, this.state.userID))
+        .then((response, error) => {
+          if (error) {
+            console.log('Error tagging in/out');
+          } else {
+            console.log('Success tagging in/out');
+            this.setState((currentState) => {
+              return {
+                taggedOut: !currentState.taggedOut,
+                activated: false,
+                tagOutMessage: '',
+              }
+            })
 
-        }
-      }).catch((err) => {
-        console.log(err);
-      })
+          }
+        }).catch((err) => {
+          console.log(err);
+        })
     }
   }
 
   // Receives input from the <Inputs />
   handleCallBack(variable, value) {
     this.setState({
-        [variable]: value,
+      [variable]: value,
     })
   }
 
@@ -316,8 +317,8 @@ class Machine extends React.Component {
             })
             console.log(this.state.tagOutMessageValue);
           }
-          })
-      }
+        })
+    }
   }
 
   render() {
@@ -325,8 +326,8 @@ class Machine extends React.Component {
       <div className="MachineBoxContainer" align="center">
         <span id="otherh3-2">{this.state.machineName}</span>
         <div className={this.state.activated ? "MachineBoxBorder" : 'MachineBoxBorder-false'}>
-            <img src={this.state.image} className={this.state.activated ? "MachineBoxTrue" : "MachineBox"} />
-            <button className={this.state.fabTechView ? "AdminToggle": "AdminToggleFalse"} id={this.state.taggedOut ? "tagged-out-true" : "tagged-out-false"} onClick={() => this.handleToggleTagOut()} ></button>
+          <img src={this.state.image} className={this.state.activated ? "MachineBoxTrue" : "MachineBox"} />
+          <button className={this.state.fabTechView ? "AdminToggle" : "AdminToggleFalse"} id={this.state.taggedOut ? "tagged-out-true" : "tagged-out-false"} onClick={() => this.handleToggleTagOut()} ></button>
         </div>
         <TagOutInformation
           fabTechView={this.state.fabTechView}
@@ -339,8 +340,7 @@ class Machine extends React.Component {
           submitMessage={this.submitMessage}
           handleCallBack={this.handleCallBack}
           onButtonChange={this.onButtonChange}
-          /> 
-          
+        />
 
       </div>
 

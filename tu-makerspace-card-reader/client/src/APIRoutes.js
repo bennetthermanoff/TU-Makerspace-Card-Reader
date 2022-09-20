@@ -34,22 +34,16 @@ export function getAllMachines(machineGroup) {
         url: "/api/machines/group/" + machineGroup
     }
 }
-export function getAllMachinesOn() {
+export function getMachines() {
     return {
         method:'get',
-        url: "api/machines/status/1"
-    }
-}
-export function getAllMachinesTaggedOut() {
-    return {
-        method:'get',
-        url: "api/machines/taggedOut/1"
+        url: "/api/machines/",
     }
 }
 export function getFabTechs() {
     return {
         method: 'get',
-        url: '/api/users/fabtech/'
+        url: '/api/users/fabTech/'
       
     }
 }

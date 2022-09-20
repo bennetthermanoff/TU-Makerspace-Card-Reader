@@ -16,9 +16,9 @@ module.exports = app => {
 
     router.get("/disable/:id",machines.disableMachine);
     
-    router.get("/status/1",machines.findAll);
+    router.get("/status/:id", machines.findAll);
     
-    router.get("/taggedOut/1", machines.findAll);
+    router.get("/taggedOut/:id", machines.findAll);
 
 
     app.use('/api/machines',router);
