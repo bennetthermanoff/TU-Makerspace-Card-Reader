@@ -310,7 +310,7 @@ export default class EditUser2 extends React.Component {
     toggleFabTech() {
         console.log(this.state.authID);
         let authID =this.state.authID
-        if (authID.charAt(0)==='0' || authID.charAt(0)==='1') {//convert email to id if its not an id
+        if (authID.charAt(0)!=='0' && authID.charAt(0)!=='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
                 .then((response, error) => {
                     if (error) {

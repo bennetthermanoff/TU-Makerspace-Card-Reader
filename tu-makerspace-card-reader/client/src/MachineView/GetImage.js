@@ -33,9 +33,9 @@ const machine_images = {
     "Ultimaker 3 (2)":ultimaker3,
     "Ultimaker 3 (3)":ultimaker3,
     "Ultimaker 3 (4)":ultimaker3,
-    "Laser 0":small_laser_engraver,
+    "Laser 0":big_laser_engraver,
     "Laser 1":small_laser_engraver,
-    "Laser 2":big_laser_engraver,
+    "Laser 2":small_laser_engraver,
     }
 export default function getImage(machineName) {
     const image = machine_images[machineName];
