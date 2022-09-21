@@ -143,7 +143,7 @@ exports.verify = (req,res)=>{
     }
     Users.findOne({where:{email : userb.email}})
         .then(usera => (
-            bcrypt.compare(userb.password, usera?.password, function (err, result) {
+            bcrypt.compare(userb.password, usera.password, function (err, result) {
                 if (err) {
                     res.status(504).send({
                         message: "Error",
