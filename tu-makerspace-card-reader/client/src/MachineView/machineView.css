@@ -330,7 +330,7 @@
   text-decoration:underline;
   font-size: 13px;
 }
-@media (min-width: 600px) {
+@media (min-width: 650px) {
   .container2 {
     position: relative;
     width: fit-content;
@@ -339,7 +339,7 @@
     top: -20px;
   }
 }
-@media (min-width: 1000px) { /* ipad pro portrait width is 730px */
+@media (min-width: 1030px) { /* ipad pro portrait width is 730px */
   .container2 {
     position: relative;
     width: 700px;
@@ -348,7 +348,7 @@
     top: -120px;
   }
 }
-@media (min-width: 1165px) {
+@media (min-width: 1220px) {
   .container2 {
     position: relative;
     width: 700px;

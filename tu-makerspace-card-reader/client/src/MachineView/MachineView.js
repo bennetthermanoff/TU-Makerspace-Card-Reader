@@ -279,12 +279,14 @@ class Machine extends React.Component {
             console.log('Error tagging in/out');
           } else {
             console.log('Success tagging in/out');
+            axios(disableMachine(this.state.machineID));
             this.setState((currentState) => {
               return {
                 taggedOut: !currentState.taggedOut,
                 activated: false,
                 tagOutMessage: '',
               }
+              
             })
 
           }

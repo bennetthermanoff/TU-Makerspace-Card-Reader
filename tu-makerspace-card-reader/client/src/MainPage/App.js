@@ -14,7 +14,7 @@ function Home(){
     <>
       <main>
         <h2 className = "text">Welcome to the homepage!</h2>
-        <p className="text">You can do this, I believe in you.</p>
+        <p className="text">Today's date is {Date().substring(Date().indexOf(" "),Date().indexOf("202"))}</p>
       </main>
       <nav className="List">
         <form action="/metal-shop-1">
