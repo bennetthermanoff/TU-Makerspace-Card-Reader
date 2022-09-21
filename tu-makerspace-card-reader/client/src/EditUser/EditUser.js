@@ -81,8 +81,6 @@ export default class EditUser2 extends React.Component {
     // only allows a valid FabTech ID to access the editing page
     // may later remove the input of a fabtech ID on the editing page and only require password (Note from bennett: instead of removing it we should just autofill)
     handleFabTechCheck(ID, pass) {
-        console.log(ID);
-        console.log(pass);
         axios(verifyUser(ID, pass))
             .then((response, error) => {
                 if (error) {
@@ -90,7 +88,6 @@ export default class EditUser2 extends React.Component {
                 }
                 else {
                     //console.log(response.data);
-                    console.log(response.data);
                     if (response.data.message === true) {
                         console.log('FABTECH');
                         
