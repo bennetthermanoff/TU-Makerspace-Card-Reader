@@ -51,7 +51,12 @@
     opacity: 0.6;
   }
 }
-
+#add-user-connect {
+  position:relative;
+  width:66px;
+  background-color:var(--au-submit-background);
+  color: var(--au-submit-text);
+}
 #input2, .submitButton2, .doneButton, #text, #error {
   position: relative;
   font-family: 'sans-serif', consolas, monaco;

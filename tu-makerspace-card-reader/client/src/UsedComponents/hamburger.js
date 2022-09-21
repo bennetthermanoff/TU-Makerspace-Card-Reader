@@ -12,6 +12,10 @@ export default function Hamburger() {
         <div className="line"></div>
       </div>
       <nav id="sidebar-menu">
+        <div className="xout">
+          <div className="line2"></div>
+          <div className="line3"></div>
+        </div>
         <h3>Menu</h3>
         <ul>
           <form action="/">

@@ -1,11 +1,10 @@
 import './App.css';
 import { MachineView } from '../MachineView';
 import { AddUser } from '../AddUser';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import { EditUser } from '../EditUser';
 import { logo } from '../images';
 import { Hamburger } from  '../UsedComponents';
-import { useLocation } from 'react-router-dom';
 import { FrontPageMachines } from './FrontPageMachines.js';
 import React from 'react';
 
@@ -14,27 +13,27 @@ function Home(){
     <>
       <main>
         <h2 className = "text">Welcome to the homepage!</h2>
-        <p className="text">You can do this, I believe in you.</p>
+        <p className="text">Today's date is {Date().substring(Date().indexOf(" "),Date().indexOf("202"))}</p>
       </main>
       <nav className="List">
-        <form action="/metal-shop-1">
+        <NavLink to="/metal-shop-1">
         <button className = "Box">Metal Shop 1</button>
-        </form>
-        <form action="/metal-shop-2">
+        </NavLink>
+        <NavLink to="/metal-shop-2">
           <button className="Box">Metal Shop 2</button>
-        </form>
-        <form action="/wood-shop">
+        </NavLink>
+        <NavLink to="/wood-shop">
           <button className="Box">Wood Shop</button>
-        </form>
-        <form action="/printers-and-lasers">
+        </NavLink>
+        <NavLink to="/printers-and-lasers">
           <button className="Box">Printers and Lasers</button>
-        </form>
-        <form action="/add-user">
+        </NavLink>
+        <NavLink to="/add-user">
           <button className = "Box">Add a User</button>
-        </form>
-        <form action="/edit-user">
+        </NavLink>
+        <NavLink to="/edit-user">
           <button className="Box">Edit User</button>
-        </form>
+        </NavLink>
       </nav>
       <FrontPageMachines/>
     </>
@@ -66,9 +65,9 @@ function App() {
     
     <h1 className="header">
     <Hamburger />
-    <form action="/" className = "form2">
+    <NavLink to="/" >
       <button className="logo-button"></button>
-      </form>
+      </NavLink>
     <img src={logo} id="logo"/>
     
     
