@@ -72,7 +72,7 @@ export const PersistentRFIDConnectButton = ({ lastRFID, setLastRFID }) => {
 
 
 
-    return (!isConnected ? <button onClick={_connectDevices}>connect</button> : isReading ? null : <button onClick={() => { setIsReading(true); _readValue() }} >{`Start Card Read (SCAN NEW CARD FIRST)`}</button>)
+    return (!isConnected ? <button className="global-connect-button" onClick={_connectDevices}>connect</button> : isReading ? null : <button onClick={() => { setIsReading(true); _readValue() }} >{`Start Card Read (SCAN NEW CARD FIRST)`}</button>)
 }
 
 
