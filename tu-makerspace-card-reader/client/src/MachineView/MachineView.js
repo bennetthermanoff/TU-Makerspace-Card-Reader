@@ -273,7 +273,7 @@ class Machine extends React.Component {
   }
   handleToggleTagOut() {
     if (this.state.fabTechView) {
-      axios(editMachine(this.state.machineID, { "taggedOut": !this.state.taggedOut, "description": '' }, this.state.userID))
+      axios(editMachine(this.state.machineID, { "taggedOut": !this.state.taggedOut, "description": 'Unlisted reason \n- ' + this.state.currentUser.name }, this.state.userID))
         .then((response, error) => {
           if (error) {
             console.log('Error tagging in/out');
@@ -284,7 +284,7 @@ class Machine extends React.Component {
               return {
                 taggedOut: !currentState.taggedOut,
                 activated: false,
-                tagOutMessage: '',
+                tagOutMessage: 'Unlisted reason \n- ' + this.state.currentUser.name,
               }
               
             })
