@@ -191,3 +191,27 @@
     display: inline;
   }
 }
+
+.xout {
+  position:absolute;
+  top:20px;
+  right: 20px;
+
+}
+.line2 {
+  width: 30px;
+  height: 5px;
+  border-radius: 6px;
+  margin-top: 7px;
+  background-color: white;
+  transform: rotate(45deg);
+}
+.line3 {
+  width: 30px;
+  height: 5px;
+  border-radius: 6px;
+  margin-top: 7px;
+  background-color: white;
+  transform: rotate(-45deg) translateY(-9px) translateX(8px); 
+}
+.xout:hover { cursor: pointer;}

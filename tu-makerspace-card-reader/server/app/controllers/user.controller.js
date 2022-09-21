@@ -116,25 +116,57 @@ exports.findEmail = (req,res)=>{
             }
         })
         .catch(err =>{
-            res.status(500).send({
+            res.status(501).send({
                 message: "Error retrieving User with email=" + email
             });
         })
 }
+// exports.verify = (req, res)=> {
+//     const email = req.params.email;
+//     const password = req.body.password;
+//     Users.findOne({ where: { email: email } })
+//         .then(data => (
+//             res.send({message: "hi"})
+//         ))
+// }
 exports.verify = (req,res)=>{
-    const email = req.params.email;
-    const passwordAttempt = req.body.password;
-    Users.findOne({where:{email : email}})
-        .then(data=>{
-            bcrypt.compare(passwordAttmpt,data.password)
+    if (!req.body.password || req.body.password === '') {
+        res.status(401).send({
+            message: "Content can not be empty!"
+            
         })
-}, function (err,result){
-    if (result == true){
-        res.status(400).send({message:true})
-    }else{
-        res.status(400).send({message:false})
+        return;
     }
+    const userb= {
+        email: req.params.email,
+        password: req.body.password,
+    }
+    Users.findOne({where:{email : userb.email}})
+        .then(usera => (
+            bcrypt.compare(userb.password, usera?.password, function (err, result) {
+                if (err) {
+                    res.status(504).send({
+                        message: "Error",
+                    })
+                } else {
+                    if (result === true && (usera.fabTech || usera.admin)) {
+                        res.send({
+                            isFabTech: usera.fabTech,
+                            isAdmin: usera.admin,
+                            message: true
+                        });
+                    } else {
+                        res.send({
+                            message: false
+                        });
+                        return;
+                    }
+                }
+            }
+        )))
+        return;
 }
+
 // Update a user by the id in the request
 exports.update = (req, res) => {
     if (!req.body.updatedUser|| !req.body.user || !req.body.authPassword) {

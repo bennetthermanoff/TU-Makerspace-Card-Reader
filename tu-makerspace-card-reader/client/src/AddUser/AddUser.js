@@ -4,6 +4,7 @@ import { addUser } from '../APIRoutes.js';
 import './addUser.css';
 import Inputs from '../UsedComponents/Inputs.js';
 import { RFIDConnectButton } from "../UsedComponents/RFIDConnectButton.js";
+import { NavLink } from 'react-router-dom';
 //import './DarkMode.css';
 
 
@@ -90,9 +91,9 @@ export default class AddUser extends React.Component {
             return (
                 <div>
                   <h1 id="text">Successfully Added User!</h1>
-                  <form action="/">
+                  <NavLink to="/">
                     <button className="doneButton">Go Back</button>
-                  </form>
+                  </NavLink>
                 </div>
               )
           }

@@ -43,11 +43,17 @@ export function getMachines() {
 export function getFabTechs() {
     return {
         method: 'get',
-        url: '/api/users/fabTech/'
+        url: '/api/users/fabTech/',
       
     }
 }
-
+export function verifyUser(email, password) {
+    return {
+        method: 'put',
+        data: { password: password },
+        url: '/api/users/verifyuser/' + email,
+    }
+}
 export function addUser(newUser) {
     return {
         method: 'post',
