@@ -7,6 +7,7 @@ import { logo } from '../images';
 import { Hamburger } from  '../UsedComponents';
 import { FrontPageMachines } from './FrontPageMachines.js';
 import React from 'react';
+import { PersistentRFIDConnectButton } from './PeristentRFIDConnectButton';
 
 function Home(){
   return(
@@ -58,7 +59,8 @@ function GetMachineGroup(loc) {
   }
 };
 
-function App() {
+const App = () => {
+  const [lastRFID, setLastRFID] = React.useState("");
   let location = useLocation().pathname;
   return (
     <div className="App">
@@ -72,15 +74,16 @@ function App() {
     
     
       Tulane MakerSpace{GetMachineGroup(location)}</h1>
+      <PersistentRFIDConnectButton lastRFID={lastRFID} setLastRFID={setLastRFID} />
     <Routes>
       <Route path="/" element = {<Home />} />
-      <Route path="metal-shop-1" element = {<MachineView machineGroup="metalShop1" />} />
-      <Route path="metal-shop-2" element = {<MachineView machineGroup="metalShop2" />} />
-      <Route path="wood-shop" element = {<MachineView machineGroup="woodShop"/>} />
+      <Route path="metal-shop-1" element = {<MachineView machineGroup="metalShop1" lastRFID={lastRFID} setLastRFID={setLastRFID}/>} />
+      <Route path="metal-shop-2" element = {<MachineView machineGroup="metalShop2" lastRFID={lastRFID} setLastRFID={setLastRFID}/>} />
+      <Route path="wood-shop" element = {<MachineView machineGroup="woodShop" lastRFID={lastRFID}setLastRFID={setLastRFID}/>} />
     {/* Maddie add a path for add user when u wanna start working on that and you now have a new page for that function! */}
-      <Route path="add-user" element = {<AddUser />} />
-      <Route path="edit-user" element = {<EditUser />}/>
-      <Route path="printers-and-lasers" element={<MachineView machineGroup="digital"/>}/>
+      <Route path="add-user" element = {<AddUser lastRFID={lastRFID} setLastRFID={setLastRFID}/>} />
+      <Route path="edit-user" element = {<EditUser lastRFID={lastRFID} setLastRFID={setLastRFID}/>}/>
+      <Route path="printers-and-lasers" element={<MachineView lastRFID={lastRFID} setLastRFID={setLastRFID} machineGroup="digital"/>}/>
     </Routes>
     </div>
   );

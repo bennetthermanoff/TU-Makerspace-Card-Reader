@@ -5,7 +5,6 @@ import { getUser, disableMachine, toggleMachine, getAllMachines, editMachine } f
 import { TagOutButton, TagOutInformation } from './TagOut.js';
 import getImage from './GetImage.js';
 import { ConnectButton } from './ConnectButton';
-import { RFIDMachineViewConnectButton } from './RFIDMachineViewConnectButton';
 
 
 export default class MachineView extends React.Component {
@@ -27,6 +26,7 @@ export default class MachineView extends React.Component {
         "status": false,
         "requiredTraining": "nullTraining",
       }], //temporary "loading" machine that gets overirdden in componentdidmount()
+      lastRFID:props.lastRFID
     };
 
     this.toggleFabTechView = this.toggleFabTechView.bind(this);
@@ -43,6 +43,29 @@ export default class MachineView extends React.Component {
       }
     })
     console.log('loga',this.state.machines);
+  }
+  static getDerivedStateFromProps(props, state) {
+    state = {...state, lastRFID: props?.lastRFID}
+    return state;
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState?.lastRFID !== this.state?.lastRFID) {
+      this.handlenewSearch({target:{value:this.state.lastRFID}});
+    }
+  }
+  componentWillUnmount() {
+    this.setState({
+      isFabTech: false,
+      fabTechView: false,
+      value: '',
+      error: false,
+      currentUser: {
+        "name": "Enter ID",
+        "nullTraining": false,
+      },
+      lastRFID: ''
+    })
+    this.props.setLastRFID('');
   }
   componentDidMount() { //gets called when component starts, gets machines for specific machinegroup from api
     axios(getAllMachines(this.state.machineGroup)).then((response, err) => {
@@ -64,6 +87,7 @@ export default class MachineView extends React.Component {
 
       }
     });
+    this.handlenewSearch({target:{value:this.state.lastRFID}});
 
   }
 handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
@@ -171,7 +195,6 @@ render() {
             autoComplete="off"
             type="password"
           />
-          <RFIDMachineViewConnectButton handleCallBack={this.handlenewSearch}></RFIDMachineViewConnectButton>
           <button
             className="BetterBox"
             onClick={() => this.handleLogOut()}

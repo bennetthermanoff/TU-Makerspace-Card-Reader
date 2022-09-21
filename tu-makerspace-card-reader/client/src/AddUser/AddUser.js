@@ -3,7 +3,6 @@ import React from "react";
 import { addUser } from '../APIRoutes.js';
 import './addUser.css';
 import Inputs from '../UsedComponents/Inputs.js';
-import { RFIDConnectButton } from "../UsedComponents/RFIDConnectButton.js";
 import { NavLink } from 'react-router-dom';
 //import './DarkMode.css';
 
@@ -26,6 +25,8 @@ export default class AddUser extends React.Component {
                 ["id", ' '],
                 ["authID", ' '],
             ],
+            lastRFID:props.lastRFID,
+            firstScan: true
         }     
 
         this.handleCallBack = this.handleCallBack.bind(this);
@@ -36,6 +37,28 @@ export default class AddUser extends React.Component {
             [variable]: value,
         })
     }
+    static getDerivedStateFromProps(props, state) {
+        state = {...state, lastRFID: props?.lastRFID}
+        return state;
+      }
+      componentDidUpdate(prevProps, prevState) {
+        if (prevState?.lastRFID !== this.state?.lastRFID) {
+            if(this.state.firstScan) {
+                this.handleCallBack('id', this.state.lastRFID);
+                this.setState({firstScan: false, lastRFID: ''});
+            }
+            else{
+                this.handleCallBack('authID', this.state.lastRFID);
+                this.setState({firstScan: true, lastRFID: ''});
+            }
+        }
+      }
+      componentWillUnmount() {
+        this.setState({
+          lastRFID: ''
+        })
+        this.props.setLastRFID('');
+      }
     // First checks if all values have been filled, then submits if so
     handleSubmit() {
         if (!this.state.name || !this.state.email || !this.state.splashID || !this.state.id || !this.state.authID) { 
@@ -107,7 +130,7 @@ export default class AddUser extends React.Component {
                     
                 </div>
                 <div id="container">
-                    <RFIDConnectButton handleCallBack={this.handleCallBack}></RFIDConnectButton>
+                    
                     <div>
                         <Inputs
                             className="nameInputBox"
