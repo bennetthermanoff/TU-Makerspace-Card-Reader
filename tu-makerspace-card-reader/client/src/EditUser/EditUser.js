@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import './EditUser.css';
+import { NavLink } from "react-router-dom";
 import { getUser, editUser, getUserEmail, verifyUser } from '../APIRoutes.js';
 import Inputs from '../UsedComponents/Inputs.js';
 import DisplayChecks from './DisplayChecks.js';
@@ -12,9 +13,9 @@ import DisplayChecks from './DisplayChecks.js';
 function ConditionalButton(props) {
     if (props.trainings.length !== 0) {
         return (
-            <form action="/">
+            <NavLink to="/">
                 <button className="BetterButton" id="submit">Done</button>
-            </form>
+            </NavLink>
         )
     } else {
         return null;
