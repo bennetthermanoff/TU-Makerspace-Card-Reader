@@ -403,7 +403,7 @@ export default class EditUser2 extends React.Component {
                     <div>
                     <Inputs
                         className="BoxInput"
-                        placeholder="FabTech ID"
+                        placeholder="Email ID"
                         value={this.state.fabTechID}
                         variable="fabTechID"
                         parentCallBack={this.handleCallBack}
