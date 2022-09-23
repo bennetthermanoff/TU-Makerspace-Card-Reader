@@ -13,9 +13,11 @@ import DisplayChecks from './DisplayChecks.js';
 function ConditionalButton(props) {
     if (props.trainings.length !== 0) {
         return (
-            <NavLink to="/">
-                <button className="BetterButton" id="submit">Done</button>
-            </NavLink>
+            <div>
+                <NavLink to="/">
+                    <button className="BetterButton" id="submit">Done</button>
+                </NavLink>
+            </div>
         )
     } else {
         return null;
@@ -72,7 +74,6 @@ export default class EditUser2 extends React.Component {
             hasPassword: false,
             createdPassword: '',
         })
-
         this.handleChange = this.handleChange.bind(this);
         this.handleCallBack = this.handleCallBack.bind(this);
         this.toggleFabTech = this.toggleFabTech.bind(this);
@@ -175,7 +176,6 @@ export default class EditUser2 extends React.Component {
                 user: {},
                 userTrainings: [],
                 userIsFabTech: false,
-                isAdmin: false,
                 hasPassword: false,
                 createdPassword: '',
             })

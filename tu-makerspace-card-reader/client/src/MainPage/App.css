@@ -13,14 +13,14 @@
   --list-border-color: #288F65;
   --list-opacity: 1;
   --page-text: black;
-  --box-shadow-color: #01674f;
+  --box-shadow-color-2: #40a68e;
   --global-connect-button-background: rgb(0, 77, 66);
   --global-connect-button-shadow: rgb(0, 41, 29);
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --button-background: linear-gradient(90deg, #19624b 0%, #136c51 50%, #0a6d4e 100%);
-    --button-background-hover: linear-gradient(90deg, #1b8966 0%, #199872 50%, #0a8d63 100%);
+    --button-background-hover: linear-gradient(90deg, #217b5e 0%, #1a8162 50%, #158a65 100%);
     --button-background-active: linear-gradient(90deg, #146048 0%, #10654b 50%, #04563c 100%);
     --button-text-color: rgb(199, 239, 219);
     --button-text-color-hover: rgb(248, 255, 251);
@@ -33,9 +33,10 @@
     --list-border-color: rgb(9, 20, 11);
     --list-opacity: 1;
     --page-text: var(--text-color);
-    --box-shadow-color: #00110d;
+    --box-shadow-color-2: #093428;
     --global-connect-button-background: rgb(0, 78, 55);
     --global-connect-button-shadow: rgb(24, 159, 118);
+    --global-connect-button-background-hover: rgb(9, 97, 70);
   }
 }
 .App {
@@ -49,7 +50,7 @@
   border: none;
   /*border: 1.5px solid var(--border-color);*/
   border-radius: 8px;
-  box-shadow: 0 0 5px 0 var(--border-color);
+  box-shadow: 0 1px 5px 0 var(--box-shadow-color-2);
   opacity: 1;
   font-family: "sans-serif", consolas, monaco;
   font-size: 15px;
@@ -143,6 +144,7 @@
 }
 .global-connect-button:hover {
   cursor: pointer;
+  background-color: var(--global-connect-button-background-hover);
 }
 .global-connect-button:active {
   transform: translateY(1px);
