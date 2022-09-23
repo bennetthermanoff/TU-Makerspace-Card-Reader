@@ -8,6 +8,8 @@
     --eu-placeholder: #006747;
 
     --eu-input-background-hover: rgb(198, 230, 211);
+    --eu-input-box-shadow: rgb(124, 173, 150);
+    --eu-button-background-shadow: rgb(98, 144, 123);
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -20,6 +22,9 @@
 
         --eu-input-background-hover: #34896a;
         --eu-placeholder: white;
+
+        --eu-input-box-shadow: #07281e;
+        --eu-button-background-shadow: #062b1f;
     }
 }
 .editUserContainer { /* container that holds the checkboxes, user ID input, and t*/
@@ -48,7 +53,7 @@
     border: none;
     /*border: 2px solid #006747;*/
     border-radius:8px;
-    box-shadow: 0 0 4px 0 rgb(124, 173, 150);
+    box-shadow: 0 0 4px 0 var(--eu-input-box-shadow);
     color: var(--eu-input-text);
     font-family: "sans-serif", consolas, monaco; 
     font-size: 18px;
@@ -110,6 +115,18 @@
     margin-left: 10px;
     text-align: center;
 }
+#submit-login {
+    position: relative;
+    background-color:var(--eu-input-background);
+    color: var(--eu-input-text);
+    top: 20px;
+    left: -3px;
+    border: none;
+    box-shadow: 0 0 4px 0 var(--eu-button-background-shadow);
+}
+#submit-login:hover {
+    background-color: var(--eu-input-background-hover);
+}
 #submit {
     margin-left: 0px;
     margin-top: 10px;
@@ -123,7 +140,7 @@
     margin-bottom: 6px;
 }
 .BetterButton:hover {
-    background-color: #047652;
+    background-color: #024933;
     color: rgb(255, 255, 255);
     cursor: pointer;
 }

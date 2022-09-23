@@ -30,6 +30,7 @@ export default class AddUser extends React.Component {
         }     
 
         this.handleCallBack = this.handleCallBack.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     // takes the input from the <Inputs />
     handleCallBack(variable, value) {
@@ -139,6 +140,7 @@ export default class AddUser extends React.Component {
                             value={this.state.name}
                             variable="name"
                             parentCallBack={this.handleCallBack}
+                            onKeyPress={this.handleSubmit}
                             />
                     </div>
                     <div>
@@ -149,17 +151,19 @@ export default class AddUser extends React.Component {
                             value={this.state.email}
                             variable="email"
                             parentCallBack={this.handleCallBack}
+                            onKeyPress={this.handleSubmit}
                             />
                     </div>
                     <div>
-                    <Inputs
-                        className="nameInputBox"
-                        id="input2"
-                        placeholder="Splash ID"
-                        value={this.state.splashID}
-                        variable="splashID"
-                        parentCallBack={this.handleCallBack}
-                        />
+                        <Inputs
+                            className="nameInputBox"
+                            id="input2"
+                            placeholder="Splash ID"
+                            value={this.state.splashID}
+                            variable="splashID"
+                            parentCallBack={this.handleCallBack}
+                            onKeyPress={this.handleSubmit}
+                            />
                     </div>
                     <div>
                         <Inputs
@@ -169,6 +173,7 @@ export default class AddUser extends React.Component {
                             value={this.state.id}
                             variable="id"
                             parentCallBack={this.handleCallBack}
+                            onKeyPress={this.handleSubmit}
                             />
                     </div>
                     <div>
@@ -179,6 +184,7 @@ export default class AddUser extends React.Component {
                             value={this.state.authID}
                             variable="authID"
                             parentCallBack={this.handleCallBack}
+                            onKeyPress={this.handleSubmit}
                             />
                     </div>
                     <div>
