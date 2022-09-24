@@ -13,9 +13,11 @@ import DisplayChecks from './DisplayChecks.js';
 function ConditionalButton(props) {
     if (props.trainings.length !== 0) {
         return (
-            <NavLink to="/">
-                <button className="BetterButton" id="submit">Done</button>
-            </NavLink>
+            <div>
+                <NavLink to="/">
+                    <button className="BetterButton" id="submit">Done</button>
+                </NavLink>
+            </div>
         )
     } else {
         return null;
@@ -23,6 +25,7 @@ function ConditionalButton(props) {
 }
 
 function RenderEditPassword(props) {
+    
     if (props.isAdmin && !props.hasPassword && props.userIsFabTech) {
         return (
             <div>
@@ -72,15 +75,20 @@ export default class EditUser2 extends React.Component {
             hasPassword: false,
             createdPassword: '',
         })
-
         this.handleChange = this.handleChange.bind(this);
         this.handleCallBack = this.handleCallBack.bind(this);
         this.toggleFabTech = this.toggleFabTech.bind(this);
         this.handleCreatePassword = this.handleCreatePassword.bind(this);
+        this.handleFabTechCheck = this.handleFabTechCheck.bind(this);
     }
+    
+
     // only allows a valid FabTech ID to access the editing page
     // may later remove the input of a fabtech ID on the editing page and only require password (Note from bennett: instead of removing it we should just autofill)
-    handleFabTechCheck(ID, pass) {
+    handleFabTechCheck() {
+        const ID = this.state.fabTechID;
+        const pass = this.state.authPassword;
+        console.log("HELLO");
         axios(verifyUser(ID, pass))
             .then((response, error) => {
                 if (error) {
@@ -102,64 +110,6 @@ export default class EditUser2 extends React.Component {
             })
     }
     
-    /*
-    handleFabTechCheck(ID, pass) {
-        // will have api call going here eventually to validate user/pass to access edit page
-        const id = ID;
-        console.log(ID);
-        var users = [];
-        if (id.charAt(0)!='0') { //if id is a tulane login instead:
-            axios(getUserEmail(ID))
-                .then((response, error) => {
-                    if (error) {
-                        console.log('Problem retrieving users...');
-                    }
-                    else {
-                        console.log(ID);
-                        console.log(response.data)
-                        if (response.data.fabTech || response.data.admin) {
-                            axios(verifyUser(ID, pass)).then((res,err) => {
-                                if (err) {
-                                    console.log('Error verifying user');
-                                }
-                                else {
-                                    if (res.data) {
-                                        console.log(res.data)
-                                        this.setState({
-                                            isFabTech: true,
-                                            isAdmin: response.data.admin,
-                                            fabTechID: ID,
-                                        })
-                                    }
-                                }
-                            })
-                        }
-                        else {
-                            console.log("not a fabtech/admin!");
-                        }
-                    }
-                })
-        } else { //if id is an id.
-            axios(getUser(id))
-                .then((response, error) => {
-                    if (error) {
-                        console.log('Problem retrieving users...');
-                    }
-                    else {
-                        if (response.data.fabTech || response.data.admin) {
-                            this.setState({
-                                isFabTech: response.data.fabTech,
-                                isAdmin: response.data.admin,
-                                authID: this.state.fabTechID,
-                            })
-                        }
-                        else {
-                            console.log("not a fabtech/admin!");
-                        }
-                    }
-                })
-        }
-    } */
     // finds the user to display
     handleFindUser(ID) {
         console.log(this.state.hasPassword)
@@ -229,7 +179,6 @@ export default class EditUser2 extends React.Component {
                 user: {},
                 userTrainings: [],
                 userIsFabTech: false,
-                isAdmin: false,
                 hasPassword: false,
                 createdPassword: '',
             })
@@ -308,6 +257,7 @@ export default class EditUser2 extends React.Component {
                                             console.log('Set password.');
                                             this.setState({
                                                 createdPassword: '',
+                                                hasPassword: true,
                                             })
                                         }
                                     })
@@ -325,7 +275,8 @@ export default class EditUser2 extends React.Component {
                             } else {
                                 console.log('Set password.');
                                 this.setState({
-                                    createdPassword: '',
+                                    createdPassword: '',   
+                                    hasPassword: true,
                                 })
                             }
                         })
@@ -387,12 +338,6 @@ export default class EditUser2 extends React.Component {
         this.setState({
             [variable]: value,
         })
-        if (variable === "fabTechID") {
-            this.handleFabTechCheck(value, this.state.authPassword);
-        }
-        if (variable === "authPassword") {
-            this.handleFabTechCheck(this.state.fabTechID, value);
-        }
         if (variable === "id") {
             this.handleFindUser(value);
         }
@@ -463,10 +408,11 @@ export default class EditUser2 extends React.Component {
                     <div>
                     <Inputs
                         className="BoxInput"
-                        placeholder="FabTech ID"
+                        placeholder="Email ID"
                         value={this.state.fabTechID}
                         variable="fabTechID"
                         parentCallBack={this.handleCallBack}
+                        onKeyPress={this.handleFabTechCheck}
                     />
                     </div>
                     <div>
@@ -478,8 +424,10 @@ export default class EditUser2 extends React.Component {
                         variable="authPassword"
                         parentCallBack={this.handleCallBack}
                         type="password"
+                        onKeyPress={this.handleFabTechCheck}
                     />
                     </div>
+                    <button className="BetterButton" id="submit-login" onClick={() => this.handleFabTechCheck()}>Submit</button>
                 </div>
             )
         }

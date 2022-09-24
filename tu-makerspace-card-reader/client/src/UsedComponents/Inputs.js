@@ -14,7 +14,9 @@ export default class Inputs extends React.Component {
             type: props.type || '',
             variable: props.variable,
             autoComplete: props.autoComplete || "off",
+            onKeyPress: props.onKeyPress || function() {},
         })
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     handleUpdate(e) {
@@ -23,6 +25,11 @@ export default class Inputs extends React.Component {
             value: value,
         })
         this.props.parentCallBack(this.state.variable, value);
+    }
+    handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            this.state.onKeyPress();
+        }
     }
     // lets it update the value from parent function
     static getDerivedStateFromProps(props, state) {
@@ -42,6 +49,7 @@ export default class Inputs extends React.Component {
                 type={this.state.type}
                 onChange={(e) => this.handleUpdate(e)}
                 autoComplete={this.state.autoComplete}
+                onKeyPress = {(e) => this.handleKeyPress(e)} 
             />
         )
     }
