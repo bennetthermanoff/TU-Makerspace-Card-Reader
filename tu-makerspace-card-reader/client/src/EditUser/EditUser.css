@@ -10,6 +10,7 @@
     --eu-input-background-hover: rgb(198, 230, 211);
     --eu-input-box-shadow: rgb(124, 173, 150);
     --eu-button-background-shadow: rgb(98, 144, 123);
+    --eu-container-shadow: rgb(84, 128, 106);
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -25,6 +26,7 @@
 
         --eu-input-box-shadow: #07281e;
         --eu-button-background-shadow: #062b1f;
+        --eu-container-shadow: #022218;
     }
 }
 .editUserContainer { /* container that holds the checkboxes, user ID input, and t*/
@@ -35,7 +37,7 @@
     border: 1.5px solid transparent;
     /*border: 1.5px solid var(--eu-container-border);*/
     border-radius: 10px;
-    box-shadow: 0px 0px 6px 0px rgb(84, 128, 106);
+    box-shadow: 0px 0px 6px 0px var(--eu-container-shadow);
     opacity: 0.92;
     margin: auto;
     display: block;

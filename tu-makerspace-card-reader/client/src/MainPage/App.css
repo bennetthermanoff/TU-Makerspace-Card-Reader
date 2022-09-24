@@ -15,7 +15,7 @@
   --page-text: black;
   --box-shadow-color-2: #40a68e;
   --global-connect-button-background: rgb(0, 77, 66);
-  --global-connect-button-shadow: rgb(0, 41, 29);
+  --global-connect-button-shadow: rgb(10, 60, 45);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -35,7 +35,7 @@
     --page-text: var(--text-color);
     --box-shadow-color-2: #093428;
     --global-connect-button-background: rgb(0, 78, 55);
-    --global-connect-button-shadow: rgb(24, 159, 118);
+    --global-connect-button-shadow: rgb(10, 72, 55);
     --global-connect-button-background-hover: rgb(9, 97, 70);
   }
 }
