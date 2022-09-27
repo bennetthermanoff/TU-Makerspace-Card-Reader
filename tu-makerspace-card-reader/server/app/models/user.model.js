@@ -53,7 +53,7 @@ module.exports = (sequelize, Sequelize) => {
           user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, 10) : "";
         }
       }
-      
+
     }
   })
   return User;

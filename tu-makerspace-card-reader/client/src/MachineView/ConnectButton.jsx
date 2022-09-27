@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 
 export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
     const [isConnected, editIsConnected] = useState(false);
-    const [usbReader, setUsbReader]= useState();
-    const [usbWriter, setUsbWriter]=useState();
-    const [machineOne,toggleMachineOne]=useState(false);
+    const [usbReader, setUsbReader] = useState();
+    const [usbWriter, setUsbWriter] = useState();
+    const [machineOne, toggleMachineOne] = useState(false);
     console.log(isConnected)
 
     const _connectDevices = async () => {
@@ -14,13 +14,15 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
         // await navigator.serial.getPorts(async(ports)=>{
         //     console.log(ports,'ports');
         // })
-        navigator.serial.requestPort({ filters: [
-            { usbVendorId: 0x2341, usbProductId: 0x0043 }, // vid:     // pid: 
-            { usbVendorId: 0x2341, usbProductId: 0x0001 }, // vid:     // pid: 
-            { usbVendorId: 0x10c4, usbProductId: 0xea60 }  // vid:     // pid:
-          ] })
-            .then( async (port) => {
-                
+        navigator.serial.requestPort({
+            filters: [
+                { usbVendorId: 0x2341, usbProductId: 0x0043 }, // vid:     // pid: 
+                { usbVendorId: 0x2341, usbProductId: 0x0001 }, // vid:     // pid: 
+                { usbVendorId: 0x10c4, usbProductId: 0xea60 }  // vid:     // pid:
+            ]
+        })
+            .then(async (port) => {
+
                 await port.open({ baudRate: 9600 });
                 // eslint-disable-next-line no-undef
                 const textDecoder = new TextDecoderStream();
@@ -32,25 +34,25 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
                     setTimeout(resolve, 1500)
                 );
 
-                machines.forEach(async (machine)=>{
-                    if(machine.status)
-                        await usbWriter.write("I"+String(machine.id)+".");
+                machines.forEach(async (machine) => {
+                    if (machine.status)
+                        await usbWriter.write("I" + String(machine.id) + ".");
                     else
-                        await usbWriter.write("O"+String(machine.id)+".");
-                },[machines])
-                
+                        await usbWriter.write("O" + String(machine.id) + ".");
+                }, [machines])
+
 
                 setUsbReader(textDecoder.readable.getReader());
                 setUsbWriter(textEncoder.writable.getWriter());
                 editIsConnected(true);
-                
+
                 // _getMachineStatusFromArduino();
 
             });
-        
-            
+
+
     }
-    const _getMachineStatusFromArduino = async()=>{
+    const _getMachineStatusFromArduino = async () => {
         await new Promise(resolve =>
             setTimeout(resolve, 500)
         );
@@ -59,46 +61,46 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
         await new Promise(resolve =>
             setTimeout(resolve, 500)
         );
-        const {value, done} = await usbReader.read();
+        const { value, done } = await usbReader.read();
         console.log(value)
         const stringValue = String(value);
         const enabledMachineIds = stringValue.split("R").pop().split(',');
-        console.log('enabledMachineIds',enabledMachineIds);
-        let newMachines=[];
-        machines.forEach((machine)=>{
+        console.log('enabledMachineIds', enabledMachineIds);
+        let newMachines = [];
+        machines.forEach((machine) => {
             machine.status = false;
-            enabledMachineIds.forEach((enabledMachineId)=>{
-                if(machine?.id==enabledMachineId){
-                    machine.status=true;
+            enabledMachineIds.forEach((enabledMachineId) => {
+                if (machine?.id == enabledMachineId) {
+                    machine.status = true;
                 }
             })
             newMachines.push(machine)
         })
-        console.log('newMachines',newMachines);
+        console.log('newMachines', newMachines);
         editMachines(newMachines)
     }
-    const _readValue = async ()=>{
-            const {value, done}= await usbReader.read();
-            if(done) return value;
+    const _readValue = async () => {
+        const { value, done } = await usbReader.read();
+        if (done) return value;
     }
-    const _toggleMachine = async(machineId,machineStatus)=>{
-        if(isConnected){
-            if(machineStatus)
-                await usbWriter.write("I"+String(machineId)+".");
+    const _toggleMachine = async (machineId, machineStatus) => {
+        if (isConnected) {
+            if (machineStatus)
+                await usbWriter.write("I" + String(machineId) + ".");
             else
-                await usbWriter.write("O"+String(machineId)+".");
+                await usbWriter.write("O" + String(machineId) + ".");
             // const {value, done} =await usbReader.read()
             // console.log(value,'readValue');
 
         }
-        
-    }
-    useEffect(async()=>{
-        if(isConnected){
-            console.log('SIDE EFFECT',machines);
 
-            machines.forEach(async (machine)=>{
-                await _toggleMachine(machine?.id,machine?.status)
+    }
+    useEffect(async () => {
+        if (isConnected) {
+            console.log('SIDE EFFECT', machines);
+
+            machines.forEach(async (machine) => {
+                await _toggleMachine(machine?.id, machine?.status)
             })
         }
     })

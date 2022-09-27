@@ -1,5 +1,5 @@
-module.exports = (sequelize,Sequelize)=>{
-    const Machine = sequelize.define("machine",{
+module.exports = (sequelize, Sequelize) => {
+    const Machine = sequelize.define("machine", {
         name: {
             type: Sequelize.STRING
         },
@@ -15,7 +15,7 @@ module.exports = (sequelize,Sequelize)=>{
         taggedOut: {
             type: Sequelize.BOOLEAN
         },
-        group:{
+        group: {
             type: Sequelize.STRING
         }
 

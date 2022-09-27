@@ -17,6 +17,7 @@
   --global-connect-button-background: rgb(0, 77, 66);
   --global-connect-button-shadow: rgb(10, 60, 45);
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
     --button-background: linear-gradient(90deg, #19624b 0%, #136c51 50%, #0a6d4e 100%);
@@ -25,7 +26,7 @@
     --button-text-color: rgb(199, 239, 219);
     --button-text-color-hover: rgb(248, 255, 251);
     --text-color: rgb(243, 255, 242);
-    --background-color:#006747;
+    --background-color: #006747;
     --border-color: rgb(9, 20, 11);
     --header-shadow: rgb(2, 51, 40);
     --header-background: rgb(9, 20, 11);
@@ -39,9 +40,11 @@
     --global-connect-button-background-hover: rgb(9, 97, 70);
   }
 }
+
 .App {
   text-align: center;
 }
+
 .Box {
   position: relative;
   width: 150px;
@@ -56,21 +59,25 @@
   font-size: 15px;
   font-weight: bold;
   color: var(--button-text-color);
-  margin-top:4vh;
+  margin-top: 4vh;
 }
+
 .Box:hover {
   background: var(--button-background-hover);
-  cursor:pointer;
+  cursor: pointer;
   color: var(--button-text-color-hover);
 }
+
 .Box:active {
   transform: translateY(2px);
   background: var(--button-background-active);
   outline: none;
 }
+
 .Box:focus {
   outline: none;
 }
+
 #logo {
   position: absolute;
   width: 35px;
@@ -78,27 +85,32 @@
   left: 20px;
   top: 15px;
 }
+
 .logo-button {
   position: absolute;
-  width:35px;
+  width: 35px;
   height: 45px;
   background-color: transparent;
   left: 20px;
   top: 15px;
   border: none;
-  z-index:1;
+  z-index: 1;
   touch-action: none;
 }
+
 .logo-button:hover {
   cursor: pointer
 }
+
 .form2 {
   position: absolute;
 }
+
 .text {
   font-family: "sans-serif", consolas, monaco;
   color: var(--page-text)
 }
+
 .header {
   height: 75px;
   background-color: var(--header-background);
@@ -110,6 +122,7 @@
   margin-top: 0px;
   line-height: 75px;
 }
+
 .List {
   position: absolute;
   width: 250px;
@@ -131,7 +144,7 @@
 
 .global-connect-button {
   position: absolute;
-  top:24px;
+  top: 24px;
   left: 100px;
   width: 70px;
   height: 30px;
@@ -142,14 +155,15 @@
   border-radius: 7px;
   font-family: var(--font-family);
 }
+
 .global-connect-button:hover {
   cursor: pointer;
   background-color: var(--global-connect-button-background-hover);
 }
+
 .global-connect-button:active {
   transform: translateY(1px);
   outline: none;
 }
+
 /* DARK MODE */
-
-

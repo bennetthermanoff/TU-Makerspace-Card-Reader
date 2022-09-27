@@ -19,30 +19,30 @@ export const RFIDConnectButton = ({ handleCallBack }) => {
 
                 const { value, done } = await usbReader.read();
                 console.log(value, done);
-                
-                    for (const char of value) {
-                        console.log(char, 'char');
-                        if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'].includes(char)) {
-                            currentId += char
-                            console.log(currentId, 'currID');
 
-                        }
-                        else {
-                            if (currentId != '' ) {
-                                console.log('return', currentId);
-                                if (toggleIdBox) {
-                                    handleCallBack('id', currentId);
-                                } else {
-                                    handleCallBack('authID', currentId);
-                                }
-                                toggleIdBox = !toggleIdBox;
-                                currentId = '';
+                for (const char of value) {
+                    console.log(char, 'char');
+                    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'].includes(char)) {
+                        currentId += char
+                        console.log(currentId, 'currID');
 
+                    }
+                    else {
+                        if (currentId !== '') {
+                            console.log('return', currentId);
+                            if (toggleIdBox) {
+                                handleCallBack('id', currentId);
+                            } else {
+                                handleCallBack('authID', currentId);
                             }
-                            
+                            toggleIdBox = !toggleIdBox;
+                            currentId = '';
 
                         }
-                   
+
+
+                    }
+
                 }
             } catch (error) {
             }
@@ -59,7 +59,6 @@ export const RFIDConnectButton = ({ handleCallBack }) => {
                 await port.open({ baudRate: 9600 });
                 // eslint-disable-next-line no-undef
                 const textDecoder = new TextDecoderStream();
-                const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
                 const reader = textDecoder.readable.getReader()
                 await setUsbReader(reader);
                 await usbReader?.read();

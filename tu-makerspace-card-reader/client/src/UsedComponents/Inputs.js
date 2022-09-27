@@ -6,7 +6,7 @@ export default class Inputs extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state=({
+        this.state = ({
             value: props.value,
             placeholder: props.placeholder || '',
             className: props.className || '',
@@ -14,7 +14,7 @@ export default class Inputs extends React.Component {
             type: props.type || '',
             variable: props.variable,
             autoComplete: props.autoComplete || "off",
-            onKeyPress: props.onKeyPress || function() {},
+            onKeyPress: props.onKeyPress || function () { },
         })
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -49,7 +49,7 @@ export default class Inputs extends React.Component {
                 type={this.state.type}
                 onChange={(e) => this.handleUpdate(e)}
                 autoComplete={this.state.autoComplete}
-                onKeyPress = {(e) => this.handleKeyPress(e)} 
+                onKeyPress={(e) => this.handleKeyPress(e)}
             />
         )
     }
@@ -74,4 +74,4 @@ LAYOUT:
         [variable]: value,
     })
   }
-*/                          
+*/

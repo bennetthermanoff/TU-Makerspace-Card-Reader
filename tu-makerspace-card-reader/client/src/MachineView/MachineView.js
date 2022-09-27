@@ -26,31 +26,31 @@ export default class MachineView extends React.Component {
         "status": false,
         "requiredTraining": "nullTraining",
       }], //temporary "loading" machine that gets overirdden in componentdidmount()
-      lastRFID:props.lastRFID
+      lastRFID: props.lastRFID
     };
 
     this.toggleFabTechView = this.toggleFabTechView.bind(this);
   }
-  _editMachines = (machines)=>{
-    console.log('editma',machines);
-    this.setState({machines:machines})
+  _editMachines = (machines) => {
+    console.log('editma', machines);
+    this.setState({ machines: machines })
   }
-  _editMachine = (machine)=>{
-    this.state.machines.forEach((m,i,a)=>{
-      if (m.id==machine.id){
-        a[i]=machine;
+  _editMachine = (machine) => {
+    this.state.machines.forEach((m, i, a) => {
+      if (m.id == machine.id) {
+        a[i] = machine;
         this._editMachines(a)
       }
     })
-    console.log('loga',this.state.machines);
+    console.log('loga', this.state.machines);
   }
   static getDerivedStateFromProps(props, state) {
-    state = {...state, lastRFID: props?.lastRFID}
+    state = { ...state, lastRFID: props?.lastRFID }
     return state;
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState?.lastRFID !== this.state?.lastRFID) {
-      this.handlenewSearch({target:{value:this.state.lastRFID}});
+      this.handlenewSearch({ target: { value: this.state.lastRFID } });
     }
   }
   componentWillUnmount() {
@@ -87,63 +87,63 @@ export default class MachineView extends React.Component {
 
       }
     });
-    this.handlenewSearch({target:{value:this.state.lastRFID}});
+    this.handlenewSearch({ target: { value: this.state.lastRFID } });
 
   }
-handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
+  handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
 
-  const value = event.target.value;
-  this.setState({
-    value: value,
-  })
-  if (value !== '') { // added this to unset error
-    axios(getUser(value)).then((response, err) => {
-      // console.log(response.data);
-      if (response.data.name) {
-        console.log("name set: " + response.data.name);
-        this.setState({
-          currentUser: response.data,
-          error: false,
-          isFabTech: response.data.fabTech,
-          fabTechView: false,
-        });
-        //currentUser is set in state of search, need to build function to check user perms and apply to machines as they are mapped
-      }
-      else {
+    const value = event.target.value;
+    this.setState({
+      value: value,
+    })
+    if (value !== '') { // added this to unset error
+      axios(getUser(value)).then((response, err) => {
+        // console.log(response.data);
+        if (response.data.name) {
+          console.log("name set: " + response.data.name);
+          this.setState({
+            currentUser: response.data,
+            error: false,
+            isFabTech: response.data.fabTech,
+            fabTechView: false,
+          });
+          //currentUser is set in state of search, need to build function to check user perms and apply to machines as they are mapped
+        }
+        else {
+          console.log("error fetching name: " + err);
+          this.setState({
+            error: true,
+            currentUser: {
+              "name": "Enter ID",
+              "nullTraining": false,
+            },
+          });
+
+        }
+      }).catch((err) => {
         console.log("error fetching name: " + err);
         this.setState({
           error: true,
           currentUser: {
             "name": "Enter ID",
-            "nullTraining": false,
+            "nullTraining": false
           },
         });
-
-      }
-    }).catch((err) => {
-      console.log("error fetching name: " + err);
+      });
+    } else { // unsets error when empty
       this.setState({
-        error: true,
+        error: false,
         currentUser: {
           "name": "Enter ID",
-          "nullTraining": false
+          "nullTraining": false,
         },
-      });
-    });
-  } else { // unsets error when empty
-    this.setState({
-      error: false,
-      currentUser: {
-        "name": "Enter ID",
-        "nullTraining": false,
-      },
-      isFabTech: false,
-      fabTechView: false,
-    })
+        isFabTech: false,
+        fabTechView: false,
+      })
+    }
+
+
   }
-
-
-}
 
   handleLogOut() {
     this.setState({
@@ -164,22 +164,22 @@ handlenewSearch = (event) => { //called when search box is changed. updates user
         fabTechView: !currentState.fabTechView,
       }
     })
-    
-  }
-  
 
-render() {
-  let err = this.state.error;
-  return (
+  }
+
+
+  render() {
+    let err = this.state.error;
+    return (
 
       <div>
         <div id="adminToggle">
-          <TagOutButton 
+          <TagOutButton
             isFabTech={this.state.isFabTech}
-            fabTechView = {this.state.fabTechView}
+            fabTechView={this.state.fabTechView}
             toggleFabTechView={this.toggleFabTechView}
-            />
-            <ConnectButton machines={this.state.machines} machineGroup={this.state.machineGroup} editMachines={this._editMachines} />
+          />
+          <ConnectButton machines={this.state.machines} machineGroup={this.state.machineGroup} editMachines={this._editMachines} />
         </div>
         <div className='login-container' align="left">
           {/* Create textfield for user input, highlights red if error! Blue if valid name! */}
@@ -219,14 +219,14 @@ render() {
               description={machine.description}
             />
           ))}
-        
+
         </div>
 
       </div>
 
- 
-  )
-}
+
+    )
+  }
 
 }
 
@@ -235,8 +235,8 @@ class Machine extends React.Component {
     super(props);
     console.log(props);
     this.state = {
-      machine:props.machine,
-      editMachine:props.editMachine,
+      machine: props.machine,
+      editMachine: props.editMachine,
       machineID: props.machineID,
       machineName: props.machineName,
       activated: props.activated,
@@ -270,7 +270,7 @@ class Machine extends React.Component {
   onButtonChange() {
     if (this.state.activated) {
       this.setState({ activated: false });
-      this.state.editMachine({...this.state.machine, status:false});
+      this.state.editMachine({ ...this.state.machine, status: false });
       axios(disableMachine(this.state.machineID));
     }
     else {
@@ -283,7 +283,7 @@ class Machine extends React.Component {
             this.setState({
               activated: !this.state.activated
             });
-            this.state.editMachine({...this.state.machine, status:true});
+            this.state.editMachine({ ...this.state.machine, status: true });
           }
           else {
             console.log("Insufficent Permission!");
@@ -309,7 +309,7 @@ class Machine extends React.Component {
                 activated: false,
                 tagOutMessage: 'Unlisted reason \n- ' + this.state.currentUser.name,
               }
-              
+
             })
 
           }
@@ -328,7 +328,7 @@ class Machine extends React.Component {
 
   submitMessage() {
     if (this.state.tagOutMessageValue) {
-      axios(editMachine(this.state.machineID, {"description":this.state.tagOutMessageValue + "\n- " + this.state.currentUser.name}, this.state.userID))
+      axios(editMachine(this.state.machineID, { "description": this.state.tagOutMessageValue + "\n- " + this.state.currentUser.name }, this.state.userID))
         .then((response, error) => {
           if (error) {
             console.log('Error editing machine description');

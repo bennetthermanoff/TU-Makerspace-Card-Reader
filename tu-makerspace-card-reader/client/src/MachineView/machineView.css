@@ -31,10 +31,11 @@
     --mv-machine-box-border: rgb(22, 45, 36);
   }
 }
+
 .connect-button {
-  position:absolute;
+  position: absolute;
   margin-left: 10px;
-  width:60px;
+  width: 60px;
   height: 30px;
   padding-left: 0;
   padding-right: 0;
@@ -46,21 +47,26 @@
   color: var(--mv-text-color);
   background-color: var(--mv-button-background);
 }
+
 .connect-button:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
+
 .connect-button:active {
   border: 1px solid var(--mv-border-color);
 }
+
 .connect-button:focus {
   transform: translateY(2px);
 }
+
 #first-connect-button {
-  top:105px;
-  left:10px;
+  top: 105px;
+  left: 10px;
 }
+
 #second-connect-button {
-  left:-70px;
+  left: -70px;
 }
 
 .BetterTextField {
@@ -79,39 +85,46 @@
   margin-bottom: 10px;
   padding-left: 10px;
 }
+
 .BetterTextField::placeholder {
   color: #006747;
-  opacity:0.75;
+  opacity: 0.75;
 }
+
 #input2false {
-  background-color: var(--mv-input-false-background); 
+  background-color: var(--mv-input-false-background);
   border: none;
   /*border: 2px solid var(--mv-border-color);*/
   color: var(--mv-border-color);
-    
+
 }
+
 #input2false:hover {
   background-color: var(--mv-input-false-background-hover);
   /*border: 2px solid var(--mv-border-color);*/
 }
-  /* this is just testing */
-  
+
+/* this is just testing */
+
 #input2false:focus {
   background-color: var(--mv-input-false-background-hover);
   /*border: 2px solid var(--mv-input-false-border-focus);*/
   outline: none;
 }
+
 #input2true {
   background-color: var(--mv-input-true-background);
   /*border: 2px solid var(--mv-input-true-border);*/
   color: var(--mv-border-color);
-  border: none; 
+  border: none;
   outline: none;
 }
+
 #input2true:hover {
   /*border: 2px solid rgb(255, 132, 132);*/
   background-color: rgb(255, 230, 230);
-} 
+}
+
 .SmallerTextField {
   width: 120px;
   height: 30px;
@@ -125,9 +138,11 @@
   padding-left: 10px;
   margin-bottom: 8px;
 }
+
 .SmallerTextField:focus {
   outline: none;
 }
+
 .BetterBox {
   z-index: 1;
   position: relative;
@@ -142,22 +157,25 @@
   font-family: var(--mv-default-font);
   font-size: 18px;
   font-weight: bold;
-  text-align:center;
+  text-align: center;
   vertical-align: middle;
   outline: none;
   margin-bottom: 5px;
   margin-left: 10px;
 }
+
 .BetterBox:hover {
   background-color: var(--mv-button-background-hover);
   color: var(--mv-button-text-color-hover);
   cursor: pointer;
 }
+
 .BetterBox:active {
   transform: translateY(1px);
   background-color: var(--mv-button-background-active);
   border-color: var(--mv-button-border-color-active);
 }
+
 #smaller-box {
   width: 58px;
   height: 30px;
@@ -167,14 +185,17 @@
   margin-bottom: 0px;
   margin-left: 5px;
 }
+
 #adminToggle {
   position: absolute;
   right: 35px;
 }
+
 #fabViewOn {
   background-color: var(--mv-fab-tech-view-on);
   color: #193D2F;
 }
+
 #otherh3 {
   color: var(--mv-text-color);
   font-family: var(--mv-default-font);
@@ -183,25 +204,28 @@
   white-space: pre;
   margin-left: 20px;
   margin-bottom: 0px;
-  margin-top:5px;
+  margin-top: 5px;
 }
 
-.MachineBox { /* encases the machine image */
-  position:relative;
+.MachineBox {
+  /* encases the machine image */
+  position: relative;
   width: 100px;
   height: 100px;
   border: 7px solid var(--mv-machine-box-border);
   margin-top: 11px;
   margin-bottom: 7.25px;
 }
+
 .MachineBoxTrue {
-  position:relative;
+  position: relative;
   width: 100px;
   height: 100px;
   border: 18px solid transparent;
-  margin-top:0px;
+  margin-top: 0px;
   margin-bottom: 0px;
 }
+
 .MachineBoxBorder-false {
   position: relative;
   width: 136px;
@@ -210,34 +234,36 @@
   align-items: center;
   justify-items: center;
 }
+
 .MachineBoxBorder {
   position: relative;
   width: 136px;
   height: 136px;
-  background: repeating-linear-gradient(
-    45deg,
-  #fff41e,
-  #fff41e 6px,
-  #0d1910 12px,
-  #0d1910 24px,
-  #fff41e 30px,
-  #fff41e 36px
-);
+  background: repeating-linear-gradient(45deg,
+      #fff41e,
+      #fff41e 6px,
+      #0d1910 12px,
+      #0d1910 24px,
+      #fff41e 30px,
+      #fff41e 36px);
   background-size: 400% 400%;
   animation: enabledMachine 5s linear infinite;
   align-items: center;
   justify-items: center;
 }
+
 @keyframes enabledMachine {
   0% {
     background-position: 0% 0%;
   }
+
   100% {
     background-position: 0% 100%;
   }
 }
 
-#otherh3-2 { /* Machine Name Label next to switch*/
+#otherh3-2 {
+  /* Machine Name Label next to switch*/
   position: relative;
   color: var(--mv-text-color);
   font-family: var(--mv-default-font);
@@ -247,28 +273,32 @@
   overflow: visible;
   top: 0px;
 
-}       
-.container2 { /* container for the machines to be in a grid layout */
-  position:relative;
+}
+
+.container2 {
+  /* container for the machines to be in a grid layout */
+  position: relative;
   width: max-width;
   height: fit-content;
   margin: auto;
-  display:grid;
+  display: grid;
   justify-content: center;
   grid-template-columns: 250px 250px;
   grid-area: machines;
 }
+
 .MachineBoxContainer {
   position: relative;
   width: 220px;
   height: fit-content;
   min-height: 200px;
   margin: auto;
-  display:block;
+  display: block;
   align-items: center;
   justify-content: center;
   margin-top: 40px;
 }
+
 .login-container {
   position: relative;
   width: 350px;
@@ -276,8 +306,9 @@
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  
+
 }
+
 .AdminToggle {
   position: absolute;
   z-index: 2;
@@ -290,12 +321,14 @@
   border: 7px solid red;
   outline: none;
 }
+
 .AdminToggle:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
+
 .AdminToggleFalse {
   position: absolute;
-  z-index:-1;
+  z-index: -1;
   left: 11px;
   top: 11px;
   width: 114px;
@@ -303,15 +336,18 @@
   outline: none;
   border: none;
   background-color: transparent;
-  cursor:not-allowed;
+  cursor: not-allowed;
 }
+
 #tagged-out-false {
   background-color: transparent;
 }
+
 #tagged-out-true {
   z-index: 2;
   background-color: rgba(233, 95, 95, 0.7);
 }
+
 .tagOutText {
   width: 195px;
   height: fit-content;
@@ -321,15 +357,17 @@
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  word-break:break-word;
+  word-break: break-word;
   font-style: italic;
-  margin-top:0px;
+  margin-top: 0px;
   top: -5px;
 }
+
 #tagOutHeader {
-  text-decoration:underline;
+  text-decoration: underline;
   font-size: 13px;
 }
+
 @media (min-width: 650px) {
   .container2 {
     position: relative;
@@ -339,7 +377,10 @@
     top: -20px;
   }
 }
-@media (min-width: 1030px) { /* ipad pro portrait width is 730px */
+
+@media (min-width: 1030px) {
+
+  /* ipad pro portrait width is 730px */
   .container2 {
     position: relative;
     width: 700px;
@@ -348,6 +389,7 @@
     top: -120px;
   }
 }
+
 @media (min-width: 1220px) {
   .container2 {
     position: relative;
@@ -356,17 +398,21 @@
     grid-template-columns: 220px 220px 220px 220px;
     top: -120px;
   }
+
   #adminToggle {
     position: absolute;
     right: 17px;
   }
 }
-@media (min-width: 1380px) { /* ipad pro landscape is 1194px */
+
+@media (min-width: 1380px) {
+
+  /* ipad pro landscape is 1194px */
   .container2 {
     position: relative;
     width: 1000px;
     grid-template-columns: 250px 250px 250px 250px;
     margin-right: 80px;
   }
-  
+
 }

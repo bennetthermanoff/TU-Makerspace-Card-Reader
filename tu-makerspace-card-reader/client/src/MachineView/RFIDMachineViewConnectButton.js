@@ -19,22 +19,22 @@ export const RFIDMachineViewConnectButton = ({ handleCallBack }) => {
 
                 const { value, done } = await usbReader.read();
                 console.log(value, done);
-                
-                    for (const char of value) {
-                        console.log(char, 'char');
-                        if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'].includes(char)) {
-                            currentId += char
-                            console.log(currentId, 'currID');
 
+                for (const char of value) {
+                    console.log(char, 'char');
+                    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'].includes(char)) {
+                        currentId += char
+                        console.log(currentId, 'currID');
+
+                    }
+                    else {
+                        if (currentId != '') {
+                            console.log('return', currentId);
+                            const event = { target: { value: currentId } };
+                            currentId = '';
+                            handleCallBack(event);
                         }
-                        else {
-                            if (currentId != '' ) {
-                                console.log('return', currentId);
-                                const event ={target:{value:currentId}};
-                                currentId = '';
-                                handleCallBack(event);
-                            }
-                          }       
+                    }
                 }
             } catch (error) {
             }

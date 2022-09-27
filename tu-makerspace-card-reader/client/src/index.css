@@ -9,8 +9,9 @@ body {
   background-image: url('images/lightmodelogo.png');
   background-repeat: no-repeat;
   background-position: 50% 80px;
-  
+
 }
+
 code {
   font-family: Monaco, Consolas, 'sans-serif',
     monospace;
@@ -18,12 +19,13 @@ code {
 
 @media (prefers-color-scheme: dark) {
   body {
-    
+
     background: #03291f;
     background-image: url('images/darkmodelogo.png');
     background-repeat: no-repeat;
     background-position: 50% 80px;
   }
+
   ::placeholder {
     color: rgb(222, 255, 238);
 
