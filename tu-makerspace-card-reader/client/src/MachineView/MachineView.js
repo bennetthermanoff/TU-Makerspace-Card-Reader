@@ -156,6 +156,7 @@ export default class MachineView extends React.Component {
         "nullTraining": false,
       },
     })
+    this.props.setLastRFID('');
   }
   toggleFabTechView() {
     console.log('fabtech')

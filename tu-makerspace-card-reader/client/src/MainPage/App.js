@@ -64,16 +64,16 @@ const App = () => {
   let location = useLocation().pathname;
   return (
     <div className="App">
-
-      <h1 className="header">
-        <Hamburger />
-        <NavLink to="/" >
-          <button className="logo-button"></button>
-        </NavLink>
-        <img src={logo} id="logo" />
-
-
-        Tulane MakerSpace{GetMachineGroup(location)}</h1>
+    
+    <h1 className="header">
+    {/*<Hamburger />*/}
+    <NavLink to="/" >
+      <button className="logo-button"></button>
+      </NavLink>
+    <img src={logo} id="logo"/>
+    
+    
+      Tulane MakerSpace{GetMachineGroup(location)}</h1>
       <PersistentRFIDConnectButton lastRFID={lastRFID} setLastRFID={setLastRFID} />
       <Routes>
         <Route path="/" element={<Home />} />

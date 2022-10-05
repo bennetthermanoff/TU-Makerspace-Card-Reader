@@ -17,14 +17,13 @@ void setup()
   {
     machineStatus[i] = false;
   }
-  for (int i = 3; i<=8; i++){
-    pinMode(i-1,OUTPUT);
-    digitalWrite(i-1,LOW); //starts at pin 2
-    machinePinFromId[i] = i-1; //starts at pin 8
+  // pin 1 to 10
+  for (int i = 35; i<=44; i++){
+    pinMode(i-35+1,OUTPUT);
+    pinMode(i-35+1,OUTPUT);
+    digitalWrite(i-35+1,LOW); //starts at pin 2
+    machinePinFromId[i] = i-35+1; //starts at pin 8
   }
-  machinePinFromId[8] = 1;
-  pinMode(1, OUTPUT);
-  digitalWrite(1, LOW);
 }
 
 void loop()

@@ -126,7 +126,7 @@
 .List {
   position: absolute;
   width: 250px;
-  height: 1000px;
+  height:calc(100% - 75px);
   background-color: var(--list-background);
   opacity: var(--list-opacity);
   border: none;
@@ -138,16 +138,16 @@
   margin: auto;
   left: 0px;
   top: 75px;
-
+  overflow: hidden;
 
 }
 
 .global-connect-button {
   position: absolute;
-  top: 24px;
-  left: 100px;
+  top:18px;
+  left: 80px;
   width: 70px;
-  height: 30px;
+  height: 40px;
   background-color: var(--global-connect-button-background);
   color: var(--text-color);
   border: none;
@@ -165,5 +165,14 @@
   transform: translateY(1px);
   outline: none;
 }
+#tapper-connect {
+  width:140px;
+}
+#connect-tapper {
+  width:90px;
+  left:70px;
+}
+/* DARK MODE */
+
 
 /* DARK MODE */
