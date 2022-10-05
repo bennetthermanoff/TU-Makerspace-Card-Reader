@@ -25,7 +25,7 @@ function ConditionalButton(props) {
 }
 
 function RenderEditPassword(props) {
-
+    
     if (props.isAdmin && !props.hasPassword && props.userIsFabTech) {
         return (
             <div>
@@ -81,7 +81,7 @@ export default class EditUser2 extends React.Component {
         this.handleCreatePassword = this.handleCreatePassword.bind(this);
         this.handleFabTechCheck = this.handleFabTechCheck.bind(this);
     }
-
+    
 
     // only allows a valid FabTech ID to access the editing page
     // may later remove the input of a fabtech ID on the editing page and only require password (Note from bennett: instead of removing it we should just autofill)
@@ -98,7 +98,7 @@ export default class EditUser2 extends React.Component {
                     //console.log(response.data);
                     if (response.data.message === true) {
                         console.log('FABTECH');
-
+                        
                         this.setState({
                             isFabTech: response.data.isFabTech,
                             isAdmin: response.data.isAdmin,
@@ -109,15 +109,15 @@ export default class EditUser2 extends React.Component {
                 }
             })
     }
-
+    
     // finds the user to display
     handleFindUser(ID) {
         console.log(this.state.hasPassword)
         if (ID) {
             const id = ID;
             var trainings;
-
-            if (id.charAt(0) === '0' || id.charAt(0) === '1') { // if id is an id (opposed to an email)
+    
+            if (id.charAt(0)==='0' || id.charAt(0) === '1') { // if id is an id (opposed to an email)
                 axios(getUser(id)).then((response, error) => {
                     if (error) {
                         console.log('Error finding User');
@@ -190,7 +190,7 @@ export default class EditUser2 extends React.Component {
         var trainings = this.state.userTrainings;
         trainings[trainings.indexOf(training)][1] = !training[1];
         let authID = this.state.authID;
-        if (authID.charAt(0) !== '0' || authID.charAt(0) !== '1') {//convert email to id if its not an id
+        if (authID.charAt(0)!=='0' || authID.charAt(0)!=='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
                 .then((response, error) => {
                     if (error) {
@@ -240,7 +240,7 @@ export default class EditUser2 extends React.Component {
         if (!this.state.hasPassword) {
             let authID = this.state.authID;
             if (this.state.createdPassword) {
-                if (authID.charAt(0) !== '0' || authID.charAt(0) !== '1') {
+                if (authID.charAt(0)!=='0' || authID.charAt(0)!=='1') {
                     axios(getUserEmail(this.state.authID))
                         .then((response, error) => {
                             if (error) {
@@ -275,7 +275,7 @@ export default class EditUser2 extends React.Component {
                             } else {
                                 console.log('Set password.');
                                 this.setState({
-                                    createdPassword: '',
+                                    createdPassword: '',   
                                     hasPassword: true,
                                 })
                             }
@@ -294,8 +294,8 @@ export default class EditUser2 extends React.Component {
 
     toggleFabTech() {
         console.log(this.state.authID);
-        let authID = this.state.authID
-        if (authID.charAt(0) !== '0' && authID.charAt(0) !== '1') {//convert email to id if its not an id
+        let authID =this.state.authID
+        if (authID.charAt(0)!=='0' && authID.charAt(0)!=='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
                 .then((response, error) => {
                     if (error) {
@@ -399,33 +399,33 @@ export default class EditUser2 extends React.Component {
                             trainings={this.state.userTrainings}
                         />
                     </div>
-
+                    
                 </div>
             )
         } else {
             return (
                 <div>
                     <div>
-                        <Inputs
-                            className="BoxInput"
-                            placeholder="Email ID"
-                            value={this.state.fabTechID}
-                            variable="fabTechID"
-                            parentCallBack={this.handleCallBack}
-                            onKeyPress={this.handleFabTechCheck}
-                        />
+                    <Inputs
+                        className="BoxInput"
+                        placeholder="Email ID"
+                        value={this.state.fabTechID}
+                        variable="fabTechID"
+                        parentCallBack={this.handleCallBack}
+                        onKeyPress={this.handleFabTechCheck}
+                    />
                     </div>
                     <div>
-                        <Inputs
-                            className="BoxInput"
-                            id="pass-input"
-                            placeholder="Password"
-                            value={this.state.authPassword}
-                            variable="authPassword"
-                            parentCallBack={this.handleCallBack}
-                            type="password"
-                            onKeyPress={this.handleFabTechCheck}
-                        />
+                    <Inputs
+                        className="BoxInput"
+                        id="pass-input"
+                        placeholder="Password"
+                        value={this.state.authPassword}
+                        variable="authPassword"
+                        parentCallBack={this.handleCallBack}
+                        type="password"
+                        onKeyPress={this.handleFabTechCheck}
+                    />
                     </div>
                     <button className="BetterButton" id="submit-login" onClick={() => this.handleFabTechCheck()}>Submit</button>
                 </div>

@@ -1,42 +1,42 @@
 
 
 export function getUser(id) {
-    return {
+    return{
         method: 'get',
         url: '/api/users/' + id
-
+        
     }
 }
-export function getUserEmail(email) {
-    return {
+export function getUserEmail(email){
+    return{
         method: 'get',
         url: '/api/users/email/' + email
-
+        
     }
 }
 export function disableMachine(id) {
-    return {
+   return{
         method: 'get',
         url: "/api/machines/disable/" + id
     }
 }
 export function toggleMachine(machineid, userID) {
-    return {
-        method: 'put',
-        data: { "userID": userID },
-        url: "/api/machines/toggle/" + machineid
-
-    }
-}
+    return{
+         method: 'put',
+         data: { "userID": userID }, 
+         url: "/api/machines/toggle/" + machineid
+         
+     }
+ }
 export function getAllMachines(machineGroup) {
-    return {
-        method: 'get',
+    return{
+        method:'get',
         url: "/api/machines/group/" + machineGroup
     }
 }
 export function getMachines() {
     return {
-        method: 'get',
+        method:'get',
         url: "/api/machines/",
     }
 }
@@ -44,7 +44,7 @@ export function getFabTechs() {
     return {
         method: 'get',
         url: '/api/users/fabTech/',
-
+      
     }
 }
 export function verifyUser(email, password) {
@@ -57,23 +57,23 @@ export function verifyUser(email, password) {
 export function addUser(newUser) {
     return {
         method: 'post',
-        data: { id: newUser.id, name: newUser.name, email: newUser.email, splash: newUser.splash, user: newUser.authID },
+        data: {id: newUser.id, name: newUser.name, email: newUser.email, splash : newUser.splash, user: newUser.authID},
         url: '/api/users/'
     }
 }
 export function editUser(id, updatedUser, user, authPassword) {
     return {
         method: 'put',
-        data: { updatedUser: updatedUser, user: user, authPassword: authPassword },
+        data:{updatedUser: updatedUser, user: user, authPassword: authPassword},
         url: '/api/users/' + id
-
+       
     }
 }
 export function editMachine(machineId, updatedMachine, authUser) {
     return {
         method: 'put',
-        data: { updatedMachine: updatedMachine, user: authUser },
+        data:{updatedMachine: updatedMachine, user: authUser},
         url: '/api/machines/' + machineId
-
+      
     }
 }

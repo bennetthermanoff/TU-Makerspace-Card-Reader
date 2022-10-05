@@ -25,9 +25,9 @@ export default class AddUser extends React.Component {
                 ["id", ' '],
                 ["authID", ' '],
             ],
-            lastRFID: props.lastRFID,
+            lastRFID:props.lastRFID,
             firstScan: true
-        }
+        }     
 
         this.handleCallBack = this.handleCallBack.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,30 +39,30 @@ export default class AddUser extends React.Component {
         })
     }
     static getDerivedStateFromProps(props, state) {
-        state = { ...state, lastRFID: props?.lastRFID }
+        state = {...state, lastRFID: props?.lastRFID}
         return state;
-    }
-    componentDidUpdate(prevProps, prevState) {
+      }
+      componentDidUpdate(prevProps, prevState) {
         if (prevState?.lastRFID !== this.state?.lastRFID) {
-            if (this.state.firstScan) {
+            if(this.state.firstScan) {
                 this.handleCallBack('id', this.state.lastRFID);
-                this.setState({ firstScan: false, lastRFID: '' });
+                this.setState({firstScan: false, lastRFID: ''});
             }
-            else {
+            else{
                 this.handleCallBack('authID', this.state.lastRFID);
-                this.setState({ firstScan: true, lastRFID: '' });
+                this.setState({firstScan: true, lastRFID: ''});
             }
         }
-    }
-    componentWillUnmount() {
+      }
+      componentWillUnmount() {
         this.setState({
-            lastRFID: ''
+          lastRFID: ''
         })
         this.props.setLastRFID('');
-    }
+      }
     // First checks if all values have been filled, then submits if so
     handleSubmit() {
-        if (!this.state.name || !this.state.email || !this.state.splashID || !this.state.id || !this.state.authID) {
+        if (!this.state.name || !this.state.email || !this.state.splashID || !this.state.id || !this.state.authID) { 
             this.handleErrors();
         } else {
             axios(addUser({
@@ -72,16 +72,16 @@ export default class AddUser extends React.Component {
                 splash: parseInt(this.state.splashID),
                 authID: this.state.authID,
             }))
-                .then((response, error) => {
-                    if (error) {
-                        console.log("Error creating user");
-                    } else {
-                        console.log("User created successfully!");
-                        this.setState({
-                            successful: true,
-                        })
-                    }
-                })
+            .then((response, error) => {
+                if (error) {
+                    console.log("Error creating user");
+                } else {
+                    console.log("User created successfully!");
+                    this.setState({
+                        successful: true,
+                    })
+                }
+            })
             this.setState({
                 name: '',
                 email: '',
@@ -114,24 +114,24 @@ export default class AddUser extends React.Component {
         if (this.state.successful) {
             return (
                 <div>
-                    <h1 id="text">Successfully Added User!</h1>
-                    <NavLink to="/">
-                        <button className="doneButton">Go Back</button>
-                    </NavLink>
+                  <h1 id="text">Successfully Added User!</h1>
+                  <NavLink to="/">
+                    <button className="doneButton">Go Back</button>
+                  </NavLink>
                 </div>
-            )
-        }
+              )
+          }
         return (
             <div className="container-center">
-
+                
                 <div id="error-container">
                     {this.state.errors.map((error) => (
-                        <h3 id="error" key={error}>{error[1]}</h3>
+                        <h3 id="error" key = {error}>{error[1]}</h3>
                     ))}
-
+                    
                 </div>
                 <div id="container">
-
+                    
                     <div>
                         <Inputs
                             className="nameInputBox"
@@ -141,7 +141,7 @@ export default class AddUser extends React.Component {
                             variable="name"
                             parentCallBack={this.handleCallBack}
                             onKeyPress={this.handleSubmit}
-                        />
+                            />
                     </div>
                     <div>
                         <Inputs
@@ -152,7 +152,7 @@ export default class AddUser extends React.Component {
                             variable="email"
                             parentCallBack={this.handleCallBack}
                             onKeyPress={this.handleSubmit}
-                        />
+                            />
                     </div>
                     <div>
                         <Inputs
@@ -163,7 +163,7 @@ export default class AddUser extends React.Component {
                             variable="splashID"
                             parentCallBack={this.handleCallBack}
                             onKeyPress={this.handleSubmit}
-                        />
+                            />
                     </div>
                     <div>
                         <Inputs
@@ -174,7 +174,7 @@ export default class AddUser extends React.Component {
                             variable="id"
                             parentCallBack={this.handleCallBack}
                             onKeyPress={this.handleSubmit}
-                        />
+                            />
                     </div>
                     <div>
                         <Inputs
@@ -185,13 +185,13 @@ export default class AddUser extends React.Component {
                             variable="authID"
                             parentCallBack={this.handleCallBack}
                             onKeyPress={this.handleSubmit}
-                        />
+                            />
                     </div>
                     <div>
-                        <button className="submitButton2" onClick={() => this.handleSubmit()}>Submit</button>
-                    </div>
+                    <button className = "submitButton2" onClick={() => this.handleSubmit()}>Submit</button>
                 </div>
-
+                </div>
+                
             </div>
         );
     }

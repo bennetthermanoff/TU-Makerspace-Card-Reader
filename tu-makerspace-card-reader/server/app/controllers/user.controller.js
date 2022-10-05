@@ -10,8 +10,8 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     // Validate request
     console.log(req.body);
-    if (!req.body.name || !req.body.splash || !req.body.email || !req.body.id || !req.body.user) {
-
+    if (!req.body.name || !req.body.splash || !req.body.email || !req.body.id || !req.body.user ) {
+        
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -101,21 +101,21 @@ exports.findOne = (req, res) => {
             });
         });
 };
-exports.findEmail = (req, res) => {
+exports.findEmail = (req,res)=>{
     const email = req.params.email;
-    Users.findOne({ where: { email: email } })
-        .then(data => {
-            if (data) {
+    Users.findOne({where:{email : email}})
+        .then(data =>{
+            if(data){
                 data.password = data.password !== '';
                 res.send(data);
             }
-            else {
+            else{
                 res.status(404).send({
                     message: `Cannot find User with email=${email}.`
                 });
             }
         })
-        .catch(err => {
+        .catch(err =>{
             res.status(501).send({
                 message: "Error retrieving User with email=" + email
             });
@@ -129,19 +129,19 @@ exports.findEmail = (req, res) => {
 //             res.send({message: "hi"})
 //         ))
 // }
-exports.verify = (req, res) => {
+exports.verify = (req,res)=>{
     if (!req.body.password || req.body.password === '') {
         res.status(401).send({
             message: "Content can not be empty!"
-
+            
         })
         return;
     }
-    const userb = {
+    const userb= {
         email: req.params.email,
         password: req.body.password,
     }
-    Users.findOne({ where: { email: userb.email } })
+    Users.findOne({where:{email : userb.email}})
         .then(usera => (
             bcrypt.compare(userb.password, usera.password, function (err, result) {
                 if (err) {
@@ -163,13 +163,13 @@ exports.verify = (req, res) => {
                     }
                 }
             }
-            )))
-    return;
+        )))
+        return;
 }
 
 // Update a user by the id in the request
 exports.update = (req, res) => {
-    if (!req.body.updatedUser || !req.body.user || !req.body.authPassword) {
+    if (!req.body.updatedUser|| !req.body.user || !req.body.authPassword) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -194,7 +194,7 @@ exports.update = (req, res) => {
                     })
                         .then(num => {
                             if (num == 1) {
-                                res.send({
+                                res.send({ 
                                     message: "User was updated successfully."
                                 });
                             } else {

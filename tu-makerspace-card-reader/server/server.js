@@ -6,13 +6,13 @@ const db = require("./app/models");
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var privateKey = fs.readFileSync('../.cert/key.pem', 'utf8');
+var privateKey  = fs.readFileSync('../.cert/key.pem', 'utf8');
 var certificate = fs.readFileSync('../.cert/cert.pem', 'utf8');
 
-var credentials = { key: privateKey, cert: certificate };
+var credentials = {key: privateKey, cert: certificate};
 db.sequelize.sync();
 var corsOptions = {
-  origin: ["http://localhost:3000", "https://localhost:3000"]
+  origin: ["http://localhost:3000","https://localhost:3000"]
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
@@ -31,7 +31,7 @@ var httpsServer = https.createServer(credentials, app);
 // The backend server still listens for http reqests for dev reasons. 
 // shouldnt matter as no sensitive info could be scraped because this is only used for dev purposes.
 const HTTPPORT = process.env.PORT || 8080;
-const HTTPSPORT = process.env.PORT || 8443;
+const HTTPSPORT= process.env.PORT || 8443;
 require("./app/routes/user.routes")(app);
 require("./app/routes/machine.routes")(app);
 

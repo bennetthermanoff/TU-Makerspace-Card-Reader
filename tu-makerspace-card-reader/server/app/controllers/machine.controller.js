@@ -96,30 +96,30 @@ exports.update = (req, res) => {
     }
     Users.findOne({ where: { id: authUser.id } })
         .then(usera => {
-            if (usera.fabTech) {
-                machine = req.body.updatedMachine;
-                const id = req.params.id;
-                Machines.update(machine, {
-                    where: { id: id }
-                })
-                    .then(num => {
-                        if (num == 1) {
-                            res.send({
-                                message: "Machine was updated successfully."
-                            });
-                        } else {
-                            res.send({
-                                message: `Cannot update Machine with id=${id}. Maybe Machine was not found or req.body is empty!`
-                            });
-                        }
+                if (usera.fabTech) {
+                    machine = req.body.updatedMachine;
+                    const id = req.params.id;
+                    Machines.update(machine, {
+                        where: { id: id }
                     })
-                    .catch(err => {
-                        res.status(500).send({
-                            message: "Error updating Machine with id=" + id
+                        .then(num => {
+                            if (num == 1) {
+                                res.send({
+                                    message: "Machine was updated successfully."
+                                });
+                            } else {
+                                res.send({
+                                    message: `Cannot update Machine with id=${id}. Maybe Machine was not found or req.body is empty!`
+                                });
+                            }
+                        })
+                        .catch(err => {
+                            res.status(500).send({
+                                message: "Error updating Machine with id=" + id
+                            });
                         });
-                    });
-            }
-
+                }
+                
         });
 
 };
@@ -168,13 +168,12 @@ exports.toggleMachine = (req, res) => {
                 .then(user => {
                     if (user[machine.requiredTraining]) {
                         user = req.body;
-                        machine.status = !machine.status;
+                        machine.status= !machine.status;
                         const id = req.params.id;
                         Machines.update(
-                            { status: machine.status },
-                            {
-                                where: { id: machine.id }
-                            })
+                            {status: machine.status},
+                            {where: { id: machine.id }
+                        })
                             .then(num => {
                                 if (num == 1) {
                                     res.send({
@@ -215,10 +214,9 @@ exports.disableMachine = (req, res) => {
             if (machine.status) {
                 machine.status = !machine.status
                 Machines.update(
-                    { status: machine.status },
-                    {
-                        where: { id: machine.id }
-                    })
+                    {status: machine.status},
+                    {where: { id: machine.id }
+                })
                     .then(num => {
                         if (num == 1) {
                             res.send({

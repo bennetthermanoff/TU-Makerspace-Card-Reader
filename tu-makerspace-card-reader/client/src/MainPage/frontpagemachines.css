@@ -1,65 +1,58 @@
 .container-out {
-  position: absolute;
-  width: fit-content;
-  height: 140px;
-  margin: auto;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 220px;
-  grid-area: machines;
-  right: 60px;
-  top: 140px;
+    position: absolute;
+    width: fit-content;
+    height: 140px;
+    margin: auto;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 220px;
+    grid-area: machines;
+    right: 60px;
+    top: 140px;
 
 }
-
 .container-on {
-  position: absolute;
-  width: fit-content;
-  height: 140px;
-  margin: auto;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 220px;
-  grid-area: machines;
-  right: 280px;
-  top: 140px;
+    position:absolute;
+    width: fit-content;
+    height: 140px;
+    margin: auto;
+    display:grid;
+    justify-content: center;
+    grid-template-columns: 220px;
+    grid-area: machines;
+    right: 280px;
+    top:140px;   
 }
-
 @media (min-width: 900px) {
-  .container-on {
-    grid-template-columns: 220px 220px;
-    right: 260px;
-  }
+    .container-on {
+        grid-template-columns: 220px 220px;
+        right: 260px;
+    } 
 }
 
 @media (min-width: 1140px) {
-  .container-out {
-    /* container for the machines to be in a grid layout */
-    grid-template-columns: 220px 220px;
-    right: 40px;
-  }
-
-  .container-on {
-    right: 460px;
-  }
+    .container-out { /* container for the machines to be in a grid layout */
+        grid-template-columns: 220px 220px;
+        right: 40px;
+      }
+    .container-on {
+        right: 460px;
+    }
 }
 
 @media (min-width: 1400px) {
-  .container-out {
-    grid-template-columns: 220px 220px;
-    right: 40px;
+    .container-out {
+        grid-template-columns: 220px 220px;
+        right: 40px;
+        
+    }
+    .container-on {
+        grid-template-columns: 220px 220px 220px;
+        right: 480px;
 
+    }
   }
-
-  .container-on {
-    grid-template-columns: 220px 220px 220px;
-    right: 480px;
-
-  }
-}
-
-/* @media (min-width: 1000px) { /* ipad pro portrait width is 730px */
-/*
+  /* @media (min-width: 1000px) { /* ipad pro portrait width is 730px */ /*
     .container-out {
       position: relative;
       width: 700px;
@@ -81,8 +74,7 @@
       right: 17px;
     }
   }
-  @media (min-width: 1380px) { /* ipad pro landscape is 1194px */
-/*
+  @media (min-width: 1380px) { /* ipad pro landscape is 1194px */ /*
     .container-out {
       position: relative;
       width: 1000px;

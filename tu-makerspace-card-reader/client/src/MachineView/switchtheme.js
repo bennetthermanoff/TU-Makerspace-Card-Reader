@@ -5,18 +5,18 @@ import { switchUnstyledClasses } from '@mui/base/SwitchUnstyled';
 
 // green
 const enabled = {
-  500: '#008000',
-  600: '#228A4F',
-};
+    500: '#008000',
+    600: '#228A4F',
+  };
 // the faded blue
-const switchbackground = {
-  100: '#E7EEFC',
-};
-let Root;
-const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
-window.matchMedia('(prefers-color-sceheme: dark').addEventListener('change', event => {
-  const newColorScheme = event.matches;
-});
+  const switchbackground = {
+    100: '#E7EEFC',
+  };
+  let Root;
+  const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
+  window.matchMedia('(prefers-color-sceheme: dark').addEventListener('change', event => {
+    const newColorScheme = event.matches;
+  });
 const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const userPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -173,4 +173,4 @@ if (userPrefersDark) {
   );
 }
 
-export default Root;
+  export default Root;
