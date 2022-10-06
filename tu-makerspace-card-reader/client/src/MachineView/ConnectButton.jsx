@@ -32,12 +32,12 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
                     setTimeout(resolve, 1500)
                 );
 
-                machines.forEach(async (machine)=>{
-                    if(machine.status)
-                        await usbWriter.write("I"+String(machine.id)+".");
-                    else
-                        await usbWriter.write("O"+String(machine.id)+".");
-                },[machines])
+                // machines.forEach(async (machine)=>{
+                //     if(machine.status)
+                //          usbWriter?.write("I"+String(machine.id)+".");
+                //     else
+                //          usbWriter?.write("O"+String(machine.id)+".");
+                // },[machines])
                 
 
                 setUsbReader(textDecoder.readable.getReader());
@@ -84,9 +84,9 @@ export const ConnectButton = ({ machines, machineGroup, editMachines }) => {
     const _toggleMachine = async(machineId,machineStatus)=>{
         if(isConnected){
             if(machineStatus)
-                await usbWriter.write("I"+String(machineId)+".");
+                 usbWriter.write("I"+String(machineId)+".");
             else
-                await usbWriter.write("O"+String(machineId)+".");
+                 usbWriter.write("O"+String(machineId)+".");
             // const {value, done} =await usbReader.read()
             // console.log(value,'readValue');
 

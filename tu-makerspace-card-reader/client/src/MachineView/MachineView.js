@@ -156,6 +156,7 @@ handlenewSearch = (event) => { //called when search box is changed. updates user
         "nullTraining": false,
       },
     })
+    this.props.setLastRFID('')
   }
   toggleFabTechView() {
     console.log('fabtech')
