@@ -1,6 +1,7 @@
 const db = require("../models");
 const bcrypt = require('bcrypt');
 const Users = db.user;
+const UserEditLog = db.userEditLog;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -169,7 +170,7 @@ exports.verify = (req,res)=>{
 
 // Update a user by the id in the request
 exports.update = (req, res) => {
-    if (!req.body.updatedUser|| !req.body.user || !req.body.authPassword) {
+    if (!req.body.updatedUser || !req.body.user || !req.body.authPassword) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -188,26 +189,40 @@ exports.update = (req, res) => {
                         user.password = bcrypt.hashSync(req.body.updatedUser.password, 10);
                     }
 
+
                     const id = req.params.id;
-                    Users.update(user, {
-                        where: { id: id }
-                    })
-                        .then(num => {
-                            if (num == 1) {
-                                res.send({ 
-                                    message: "User was updated successfully."
-                                });
-                            } else {
-                                res.send({
-                                    message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
-                                });
-                            }
+                    Users.findOne({ where: { id: id } }).then(oldUser => {
+
+
+                        Users.update(user, {
+                            where: { id: id }
                         })
-                        .catch(err => {
-                            res.status(500).send({
-                                message: "Error updating User with id=" + id
+                            .then(num => {
+                                console.log(user.keys)
+                                    Object.keys(user)?.forEach(key => {
+                                        UserEditLog.create({
+                                            userId: oldUser.id,
+                                            userName: oldUser.name,
+                                            updatedById: usera.id,
+                                            updatedByName: usera.name,
+                                            time: Date.now(),
+                                            action: "update",
+                                            field: key,
+                                            oldValue: oldUser[key],
+                                            newValue: user[key]
+                                        });
+                                    });
+                                    res.send({
+                                        message: "User was updated successfully."
+                                    });
+                                
+                            })
+                            .catch(err => {
+                                res.status(500).send({
+                                    message: "Error updating User with id=" + id 
+                                });
                             });
-                        });
+                    });
                 }
                 else {
                     res.status(400).send({

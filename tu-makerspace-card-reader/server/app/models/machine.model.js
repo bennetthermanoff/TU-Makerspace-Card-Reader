@@ -17,7 +17,10 @@ module.exports = (sequelize,Sequelize)=>{
         },
         group:{
             type: Sequelize.STRING
-        }
+        },
+        lastUserName:{
+            type: Sequelize.STRING
+        },
 
     })
     return Machine;

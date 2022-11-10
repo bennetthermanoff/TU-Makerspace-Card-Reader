@@ -18,11 +18,12 @@ Feel free to contribute! Fork this repo and submit a pull request! Yes I (Bennet
 
 ## Scope
 ### Frontend (in progress):
-- Machine Tablet Views: Webpages for different control tablets mounted in the space, where users who are authorised can activate machines after tapping their RFID card. (in progress)
-- Register View: Register a new user, requires login from fabTech (in progress)
+- Machine Tablet Views: Webpages for different control tablets mounted in the space, where users who are authorised can activate machines after tapping their RFID card. (complete)
+- Edit View: Edit User Permisions and create new FabTechs
+- Register View: Register a new user, requires login from fabTech (complete)
 - Train View: Update a user's trainings to allow access to machines, requires login from fabTech (in progress)
 - Audit View: View user logs and machine logs, requires login from admin (in progress)
-- Tagout View: Tag out/in and comment on machine status, notifies machine expert, requires login from fabTech (in progress)
+- Tagout View: Tag out/in and comment on machine status, notifies machine expert, requires login from fabTech (complete)
 
 ### Backend (in progress):
 #### Api Calls (complete)
@@ -37,7 +38,18 @@ Feel free to contribute! Fork this repo and submit a pull request! Yes I (Bennet
 
 Similar api calls are availible for the machines sql table, go to machine.routes.js to see them.
 
-Basically the backend is in a working state, with new features to be added as neccesary. time to get working on that frontend.
+### Notes for other makerspaces looking to implement this code:
+This is software is slightly specialized for the purpose of the Tulane Makerspace, but being open source it should be able to be modified to be used by any makerspace. I will describe what that process would look like:
+
+First is just getting a local environment working. as this is a node/react app, this project will work on windows machines, but I am only going to go over running this code in a linux/mac environment as it simplifies setup. If you are on windows I reccomend using WSL. 
+
+First, you need to get the mySQL database running. Install mySQL server via Homebrew on mac or your chosen package manager on Linux (if on ubuntu, this is )
+
+Next, clone this repo and run the following in the tu-makerspace-card-reader directory
+```
+npm install 
+npm run dev
+```
 
 ### Self signing instructions for HTTPS key
 
