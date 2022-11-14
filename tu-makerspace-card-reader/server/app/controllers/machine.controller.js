@@ -1,6 +1,8 @@
 const db = require("../models");
 const bcrypt = require('bcrypt');
+
 const Machines = db.machine;
+const MachineLog = db.machineLog;
 const Users = db.user;
 const Op = db.Sequelize.Op;
 
@@ -97,7 +99,7 @@ exports.update = (req, res) => {
     Users.findOne({ where: { id: authUser.id } })
         .then(usera => {
                 if (usera.fabTech) {
-                    machine = req.body.updatedMachine;
+                    let machine = req.body.updatedMachine;
                     const id = req.params.id;
                     Machines.update(machine, {
                         where: { id: id }
@@ -107,6 +109,14 @@ exports.update = (req, res) => {
                                 res.send({
                                     message: "Machine was updated successfully."
                                 });
+                                MachineLog.create({
+                                    machineName: machine.name,
+                                    machineId: machine.id,
+                                    userId: usera.id,
+                                    userName: usera.name,
+                                    time: Date.now(),
+                                    action: machine.taggedOut? "Tagged Out" :  machine.description.indexOf("Unlisted reason")===-1 ? "Reason Updated: " + machine.description : "Tagged In"
+                                })
                             } else {
                                 res.send({
                                     message: `Cannot update Machine with id=${id}. Maybe Machine was not found or req.body is empty!`
@@ -167,11 +177,13 @@ exports.toggleMachine = (req, res) => {
             Users.findOne({ where: { id: authUser.id } })
                 .then(user => {
                     if (user[machine.requiredTraining]) {
+                        userName = user.name;
+                        const userId = user.id;
                         user = req.body;
                         machine.status= !machine.status;
                         const id = req.params.id;
                         Machines.update(
-                            {status: machine.status},
+                            {status: machine.status, lastUserName:userName},
                             {where: { id: machine.id }
                         })
                             .then(num => {
@@ -179,6 +191,15 @@ exports.toggleMachine = (req, res) => {
                                     res.send({
                                         message: "Machine was updated successfully."
                                     });
+                                    MachineLog.create({
+                                        machineName: machine.name,
+                                        machineId: machine.id,
+                                        userId: userId,
+                                        userName: userName,
+                                        time: Date.now(),
+                                        action: machine.status ? "Turned On" : "Turned Off"
+                                    })
+
                                 } else {
                                     res.send({
                                         message: `Cannot update Machine with id=${id}. Maybe Machine was not found or req.body is empty!`
@@ -222,6 +243,13 @@ exports.disableMachine = (req, res) => {
                             res.send({
                                 message: "Machine was updated successfully."
                             });
+                            MachineLog.create({
+                                machineName: machine.name,
+                                machineId: machine.id,
+                                userId: 0,
+                                time: Date.now(),
+                                action: "Turned Off"
+                            })
                         } else {
                             res.send({
                                 message: `Cannot update Machine with id=${id}. Maybe User was not found or req.body is empty!`
