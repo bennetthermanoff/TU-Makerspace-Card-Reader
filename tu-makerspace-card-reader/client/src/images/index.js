@@ -32,6 +32,8 @@ import big_laser_engraver from './laser-engraver-big.jpg';
 import small_laser_engraver from './laser-engraver.jpg';
 import ultimaker3 from './ultimaker-3.jpeg';
 import ultimaker2p from './ultimaker-ii.jpeg';
+import ender3 from './ender3.png';
+import ender5 from './ender5.jpeg';
 
 export {
 
@@ -75,5 +77,7 @@ export {
     small_laser_engraver,
     ultimaker3,
     ultimaker2p,
+    ender3,
+    ender5,
 
 }

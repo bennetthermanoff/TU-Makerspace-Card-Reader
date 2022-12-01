@@ -1,4 +1,4 @@
-import { tempimage, mill, lathe, bandsaw_soft, bandsaw_steel, drill_press_soft, drill_press_steel, vertical_mill, horizontal_bandsaw, cut_off_soft, cut_off_steel, belt_sander, spindle_sander, bandsaw_small, bandsaw_big, drill_press, table_saw, waterjet, blade_runner, grinder1, grinder2, grinder3, router_table, compound_miter_saw, sliding_miter_saw, ultimaker2p, ultimaker3, small_laser_engraver, big_laser_engraver } from '../images';
+import { tempimage, mill, lathe, bandsaw_soft, bandsaw_steel, drill_press_soft, drill_press_steel, vertical_mill, horizontal_bandsaw, cut_off_soft, cut_off_steel, belt_sander, spindle_sander, bandsaw_small, bandsaw_big, drill_press, table_saw, waterjet, blade_runner, grinder1, grinder2, grinder3, router_table, compound_miter_saw, sliding_miter_saw, ultimaker2p, ultimaker3, small_laser_engraver, big_laser_engraver, ender3, ender5 } from '../images';
 
 const machine_images = {
     "CNC Mill":mill,
@@ -36,6 +36,12 @@ const machine_images = {
     "Laser 0":big_laser_engraver,
     "Laser 1":small_laser_engraver,
     "Laser 2":small_laser_engraver,
+    "Ender 3 (1)":ender3,
+    "Ender 3 (2)":ender3,
+    "Ender 3 (3)":ender3,
+    "Ender 3 (4)":ender3,
+    "Ender 5":ender5,
+
     }
 export default function getImage(machineName) {
     const image = machine_images[machineName];

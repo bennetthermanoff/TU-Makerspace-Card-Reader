@@ -199,7 +199,7 @@ exports.update = (req, res) => {
                         })
                             .then(num => {
                                 console.log(user.keys)
-                                    Object.keys(user)?.forEach(key => {
+                                    Object.keys(user).forEach(key => {
                                         UserEditLog.create({
                                             userId: oldUser.id,
                                             userName: oldUser.name,
