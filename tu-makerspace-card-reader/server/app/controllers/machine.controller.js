@@ -106,17 +106,20 @@ exports.update = (req, res) => {
                     })
                         .then(num => {
                             if (num == 1) {
+                                Machines.findByPk(id).then(data=>{
+                                    MachineLog.create({
+                                        machineName: data.name,
+                                        machineId: id,
+                                        userId: usera.id,
+                                        userName: usera.name,
+                                        time: Date.now(),
+                                        action: machine.taggedOut? "Tagged Out" :  machine.description.indexOf("Unlisted reason")===-1 ? "Reason Updated: " + machine.description : "Tagged In"
+                                    })
+                                })
                                 res.send({
                                     message: "Machine was updated successfully."
                                 });
-                                MachineLog.create({
-                                    machineName: machine.name,
-                                    machineId: machine.id,
-                                    userId: usera.id,
-                                    userName: usera.name,
-                                    time: Date.now(),
-                                    action: machine.taggedOut? "Tagged Out" :  machine.description.indexOf("Unlisted reason")===-1 ? "Reason Updated: " + machine.description : "Tagged In"
-                                })
+                                
                             } else {
                                 res.send({
                                     message: `Cannot update Machine with id=${id}. Maybe Machine was not found or req.body is empty!`
