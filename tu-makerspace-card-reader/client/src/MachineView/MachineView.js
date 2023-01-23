@@ -260,7 +260,6 @@ class Machine extends React.Component {
   static getDerivedStateFromProps(props, state) {
     state = {
       currentUser: props.currentUser,
-      currentUser: props.currentUser,
       trained: props.trained,
       fabTechView: props.fabTechView,
       userID: props.userID,
