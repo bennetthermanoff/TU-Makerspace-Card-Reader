@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { serial } from 'web-serial-polyfill';
-import { SerialPort } from 'web-serial-polyfill';
+import WebUSBSerial from "../WebUSBSerial/dist/webusb-serial.esm.js"
 
 export const PersistentRFIDConnectButton = ({ lastRFID, setLastRFID }) => {
     const [isConnected, editIsConnected] = useState(false);
@@ -11,6 +10,7 @@ export const PersistentRFIDConnectButton = ({ lastRFID, setLastRFID }) => {
     console.log(isConnected)
 
     const _readValue = async () => {
+        
         console.log('startread');
         while (isConnected) {
             try {
@@ -50,14 +50,21 @@ export const PersistentRFIDConnectButton = ({ lastRFID, setLastRFID }) => {
         }
     }
     const _connectDevices = async () => {
-        navigator.usb.requestDevice({filters: [
-            { usbVendorId: 0x0403, usbProductId: 0x6001 }
-        ]}).then(
-            async (device) => {
-                mySerial = new SerialPort(device);
-                await mySerial.open({ baudRate: 9600 });
-                setUsbReader(mySerial.readable.getReader());
-                
+        console.log('new port opened')
+        WebUSBSerial.requestPort({
+            filters: [
+                { usbVendorId: 0x0403, usbProductId: 0x6001 }
+            ]
+        })
+            .then(async (driver) => {
+                await driver.open();
+                // await port.open({ baudRate: 9600 });
+                // eslint-disable-next-line no-undef
+                // const textDecoder = new TextDecoderStream();
+                // const readableStreamClosed = driver.readable.pipeTo(textDecoder.writable);
+                // const reader = textDecoder.readable.getReader()
+                await setUsbReader(driver.readable.getReader());
+                await usbReader?.read();
                 editIsConnected(true);
                 
             }
