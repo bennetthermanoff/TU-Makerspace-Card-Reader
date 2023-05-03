@@ -36,6 +36,9 @@ function Home(){
         <NavLink to="/edit-user">
           <button className="Box">Edit User</button>
         </NavLink>
+        <NavLink to="/laser-log">
+          <button className="Box">LaserLog</button>
+        </NavLink>
       </nav>
       <FrontPageMachines/>
     </>
