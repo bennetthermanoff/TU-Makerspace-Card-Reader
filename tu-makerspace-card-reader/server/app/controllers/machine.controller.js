@@ -232,6 +232,46 @@ exports.toggleMachine = (req, res) => {
         });
 
 };
+exports.logLaser = (req, res) => {
+    if (!req.body.userID) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
+    const authUser = {
+        id: req.body.userID
+    }
+    Machines.findByPk(75)
+        .then(machine => {
+            Users.findOne({ where: { id: authUser.id } })
+
+                .then(user => {
+                    MachineLog.create({
+                        machineName: machine.name,
+                        machineId: machine.id,
+                        userId: user.id,
+                        userName: user.name,
+                        time: Date.now(),
+                        action: "Laser Fired"
+                    })
+                    res.status(200).send({
+                        message: "Logged Laser Fired" + user.name
+                    });
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: "Error retrieving User with id=" + req.body.userID
+                    });
+                });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Machine with id=" + id
+            });
+        });
+    };
+
 exports.disableMachine = (req, res) => {
     Machines.findByPk(req.params.id)
         .then(machine => {

@@ -77,3 +77,10 @@ export function editMachine(machineId, updatedMachine, authUser) {
       
     }
 }
+export function laserLog(user){
+    return {
+        method: 'post',
+        data:{userID: user},
+        url: '/api/machines/laserLog'
+    }
+}

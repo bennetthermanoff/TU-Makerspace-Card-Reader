@@ -20,6 +20,8 @@ module.exports = app => {
     
     router.get("/taggedOut/:id", machines.findAll);
 
+    router.post("/laserLog",machines.logLaser);
+
 
     app.use('/api/machines',router);
 }
