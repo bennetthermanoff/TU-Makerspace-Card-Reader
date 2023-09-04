@@ -293,7 +293,6 @@ export default class EditUser2 extends React.Component {
     }
 
     toggleFabTech() {
-        console.log(this.state.authID);
         let authID =this.state.authID
         if (authID.charAt(0)!=='0' && authID.charAt(0)!=='1') {//convert email to id if its not an id
             axios(getUserEmail(this.state.authID))
@@ -303,7 +302,7 @@ export default class EditUser2 extends React.Component {
                     }
                     else {
                         authID = response.data.id;
-                        axios(editUser(parseInt(this.state.id), { "fabTech": !this.state.userIsFabTech }, authID, this.state.authPassword)).then((response, error) => {
+                        axios(editUser(this.state.idINT, { "fabTech": !this.state.userIsFabTech }, authID, this.state.authPassword)).then((response, error) => {
                             if (error) {
                                 console.log('Error making user FabTech!');
                             } else {
@@ -318,7 +317,7 @@ export default class EditUser2 extends React.Component {
                     }
                 })
         } else {
-            axios(editUser(this.state.id, { "fabTech": !this.state.userIsFabTech }, authID, this.state.authPassword)).then((response, error) => {
+            axios(editUser(this.state.idINT, { "fabTech": !this.state.userIsFabTech }, authID, this.state.authPassword)).then((response, error) => {
                 if (error) {
                     console.log('Error making user FabTech!');
                 } else {
