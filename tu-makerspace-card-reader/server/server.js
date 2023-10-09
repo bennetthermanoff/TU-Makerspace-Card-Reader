@@ -8,10 +8,7 @@ const path = require('path');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var privateKey  = fs.readFileSync('../.cert/key.pem', 'utf8');
-var certificate = fs.readFileSync('../.cert/cert.pem', 'utf8');
 
-var credentials = {key: privateKey, cert: certificate};
 db.sequelize.sync();
 var corsOptions = {
   origin: ["http://localhost:3000","https://localhost:3000"]
@@ -41,7 +38,10 @@ if(process.env.IS_SERVER){
 
 }
 else{
-
+  var privateKey  = fs.readFileSync('../.cert/key.pem', 'utf8');
+  var certificate = fs.readFileSync('../.cert/cert.pem', 'utf8');
+  
+  var credentials = {key: privateKey, cert: certificate};
 var httpServer = http.createServer(app);
 // var httpsServer = https.createServer(credentials, app);
 
