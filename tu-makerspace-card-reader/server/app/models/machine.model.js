@@ -21,6 +21,14 @@ module.exports = (sequelize,Sequelize)=>{
         lastUserName:{
             type: Sequelize.STRING
         },
+        createdAt: {
+            allowNull: true,
+            type: Sequelize.DATE
+        },
+        updatedAt: {
+            allowNull: true,
+            type: Sequelize.DATE
+        }
 
     })
     return Machine;
