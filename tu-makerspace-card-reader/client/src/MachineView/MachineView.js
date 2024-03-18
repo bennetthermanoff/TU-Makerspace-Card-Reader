@@ -91,6 +91,12 @@ export default class MachineView extends React.Component {
 
   }
 handlenewSearch = (event) => { //called when search box is changed. updates user which is referenced by Machine component for perms
+   //60 sec time out until handleLogOut is called
+   new Promise((resolve, reject) => {
+    setTimeout(() => { resolve() }, 60000);
+  }).then(() => {
+    this.handleLogOut();
+  });
 
   const value = event.target.value;
   this.setState({

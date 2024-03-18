@@ -99,7 +99,9 @@ exports.findOne = async (req, res) => {
 exports.findEmail = async (req, res) => {
     try {
         const email = req.params.email;
-        const data = await Users.findOne({ where: { email: email } });
+        const data = await Users.findOne({ where: { email: {
+            [Op.like]: '%' + email + '%'
+        } } });
 
         if (data) {
             data.password = data.password !== '';
